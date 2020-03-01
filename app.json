@@ -24,7 +24,7 @@
     "components/navigation/navigate-bar",
     "pages/zone/goods/edit/index",
     "components/scroll/index",
-    "pages/new-text/new"
+    "pages/new/new"
   ],
   "window": {
     "backgroundTextStyle": "light",

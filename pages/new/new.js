@@ -1,4 +1,4 @@
-// pages/new-text/new.js
+// pages/new/new.js
 Page({
 
   /**
