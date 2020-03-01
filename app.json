@@ -25,7 +25,7 @@
     "pages/zone/goods/edit/index",
     "components/scroll/index",
     "pages/store/store",
-    "pages/official _website /official_website "
+    "pages/official/official"
   ],
   "window": {
     "backgroundTextStyle": "light",
