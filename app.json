@@ -24,7 +24,8 @@
     "components/navigation/navigate-bar",
     "pages/zone/goods/edit/index",
     "components/scroll/index",
-    "pages/new/new"
+    "pages/store/store",
+    "pages/official _website /official_website "
   ],
   "window": {
     "backgroundTextStyle": "light",

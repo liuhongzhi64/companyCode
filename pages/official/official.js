@@ -1,4 +1,4 @@
-// pages/new/new.js
+// pages/official/official.js
 Page({
 
   /**
