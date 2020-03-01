@@ -2,15 +2,15 @@
   "pages": [
     "pages/index",
     "pages/zone/goods/index",
-  "pages/zone/messages/board/index",
+    "pages/zone/messages/board/index",
     "pages/zone/messages/index",
-  "pages/zone/goods/details/index",
+    "pages/zone/goods/details/index",
     "pages/products/index",
     "pages/zone/comments/index",
     "pages/zone/index",
     "pages/zone/edit/profile/tags",
     "pages/zone/cards/index",
-  "pages/zone/edit/profile/company",
+    "pages/zone/edit/profile/company",
     "pages/zone/edit/profile/video",
     "pages/zone/edit/profile/pic",
     "pages/zone/edit/profile/index",
@@ -21,9 +21,10 @@
     "pages/zone/radar/index",
     "pages/copper/copper",
     "pages/words/index",
-"components/navigation/navigate-bar",
+    "components/navigation/navigate-bar",
     "pages/zone/goods/edit/index",
-    "components/scroll/index"
+    "components/scroll/index",
+    "pages/new-text/new"
   ],
   "window": {
     "backgroundTextStyle": "light",
