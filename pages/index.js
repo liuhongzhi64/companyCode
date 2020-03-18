@@ -22,7 +22,8 @@ Page({
       { text: '名片海报', value: 3 },
       {text: '现场扫码', value: 4}
     ],
-    unreadcount: 0
+    unreadcount: 0,
+    tabList: [{ name: '名片', url:'index' }, { name: '商城', url: 'official' }, { name: '官网', url: 'store' }]
   },
   onLoad: function (options) {
     app.watch('unreadcount',this.feedback);

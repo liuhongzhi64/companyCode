@@ -210,3 +210,14 @@
     </view>
   </view>
 </scroll-view>
+<!-- tab导航条 -->
+<!-- <view id="tab">
+  <view>名片</view>
+  <view>商场</view>
+  <view>官网</view>
+</view> -->
+<view id="tab">
+  <navigator wx:for="{{ tabList }}" url="/pages/{{ item.url }}/{{ item.url }}?url={{ item.url }}&title={{ item.name }}" >
+  <text>{{item.name}}</text>
+  </navigator>
+</view>

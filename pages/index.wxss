@@ -297,3 +297,14 @@
 .erys-history__hover {
   background: #E6E6E6;
 }
+/* 导航条 */
+#tab{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  color: red;
+  position: fixed;
+  bottom: 0;
+  font-size: 30px;
+  background-color: #E6E6E6;
+}
