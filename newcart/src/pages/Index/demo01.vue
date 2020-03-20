@@ -24,7 +24,7 @@
             <div class="showElement">
                 <!-- 顶部标题和设置 -->
                 <div class="showElementTop">
-                    <div class="title">仙剑</div>
+                    <div class="title">{{titleName}}</div>
                     <div class="set" @click="setShowElementTop"></div>
                 </div>
                 <!-- 中间 -->
@@ -33,18 +33,20 @@
                     class="dragArea list-group"
                     :list="list2"
                     group="people"
-                    @change="log"
+                    @change="log1"
                     style="min-height:375px;"
                     >
-                    <div class="list-group-item item" v-for="i in list2" :key="i.id">
-                        <div class="items">
-                            {{ i.name }}
+                        <div class="list-group-item item" v-for="i in list2" :key="i.id"  :class="{'delStyle':i.name ==''}">
+                            <div class="items">
+                                <div class="name">
+                                    {{ i.name }}
+                                </div>
+                                <div class="delSoild" v-show="i.name === ''"></div>
+                            </div>
+                            <i class="del" @click="delElement(i)"></i> 
                         </div>
-                        <div class="del"></div>
-                    </div>
-                    </draggable>
+                    </draggable> 
                 </div>
-                
             </div>
             
         </div>
@@ -52,19 +54,60 @@
         <!-- 右边编辑 -->
         <div class="right">
             <div class="top">右边编辑区</div>
-            <!-- 字体大小 -->
-            <div class="font-size ">
-                <button @click="getFontSize(-1)">-</button>
-                <span class="fontSize" ref="fontSize">字体大小</span>
-                <button @click="getFontSize(1)">+</button>
+            <!-- 默认样式 -->
+            <div v-show="defultStyle" class="setStyle">
+                <div class="titleName">网页编辑</div>
+                <div class="redact">默认设置</div>
+                <!-- 标题 -->
+                <div class="title">
+                    <div>标题名称：</div>
+                    <el-input
+                    placeholder="请输入内容"
+                    v-model="titleName"
+                    clearable>
+                    </el-input>
+                </div>
+                <!-- 背景色 -->
+                <div class="background">
+                    <div>
+                        背景色:
+                    </div>
+                    <el-button type="primary" round>背景色</el-button>
+                </div>
+                <!-- 全屏展示 -->
+                <div class="full-screen">
+                    <div>
+                        全屏展示:
+                    </div>
+                    <div>
+                        <el-switch
+                        v-model="fullScreen"
+                        active-color="#13ce66"
+                        inactive-color="#eee"
+                        @change="change">
+                        </el-switch>
+                    </div>
+                    
+                </div>
+                <!-- 背景图片 -->
+                <div class="background-img">
+                    <div>
+                        背景图片:
+                    </div>
+                        <el-upload
+                        class="avatar-uploader"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        </el-upload>
+                   
+                </div>
             </div>
-            <!-- 内容编辑 -->
-            <div class="set-text">
-
-            </div>
-            <!-- 背景颜色 -->
-            <div class="background-color">
-            </div>
+            <!-- 优惠卷样式 -->
+            <discounts v-show="discountsStyle"/>
         </div>
     </div>
   
@@ -72,11 +115,13 @@
 
 <script>
 import draggable from "vuedraggable";
+import discounts from "../../components/discounts";
 // let idGlobal = 8;
 export default {
   order: 3,
   components: {
-    draggable
+    draggable,
+    discounts
   },
   data() {
     return {
@@ -98,22 +143,100 @@ export default {
         { name: "空白辅助", id: 15 },
         { name: "商品", id: 16 },
       ],
-      list2: []
+      list2: [],
+      titleName:'仙剑',
+      defultStyle:true,//默认右边编辑显示
+      discountsStyle:false,//选择优惠卷样式
+      fullScreen:true,//全屏显示
+      imageUrl: '',//上传图片
+      elementName:''//组件名称
     };
   },
   methods: {
     log: function(evt) {
-      window.console.log(evt);
+    //   window.console.log(evt);
+      window.console.log(222,evt);
     },
-    cloneShow({ name }){
-        // console.log(name)
-        return{
-            name: `${ name }`
+    log1(evt) {
+    //   window.console.log(evt)
+      this.elementName = evt.added.element.name
+      console.log(this.elementName)
+        // 辅助线
+        // if(elementName === '优惠卷' ){
+        //     this.discountsStyle = true;
+        //     this.defultStyle = false;
+        //     return{
+        //         name: `${ name }`
+        //     }
+        // }else if(elementName === '辅助线'){
+        //     this.defultStyle = false;
+        //     this.discountsStyle = false;
+        //     return{
+        //         // name: `${ name }`
+        //         name:'',
+        //     }
+        // }
+        // else{
+        //     this.defultStyle = false;
+        //     return{
+        //         name: `${ name }`
+        //     }
+        // }
+    },
+    cloneShow({ name }){  
+        console.log(name)
+        console.log(this.elementName)
+        // 辅助线
+        if(name === '辅助线' ){
+            this.defultStyle = false;
+            return{
+                // name: `${ name }`
+                name:'',
+            }
+        }else{
+            this.defultStyle = false;
+            return{
+                name: `${ name }`
+            }
         }
     },
     // 点击顶部设置
     setShowElementTop(){
-        console.log(111)
+        this.defultStyle = true
+    },
+    // 点击删除
+    delElement(item){
+        // console.log(item)
+        for(let i=0;i<this.list2.length;i++){
+            if(this.list2[i].name == item.name){
+                // console.log(this.list2[i],i)
+                this.list2.splice(i,1)
+                if(this.list2.length ==0){
+                    this.defultStyle = true
+                }
+                return true;
+            }
+        }
+    },
+    // 点击全屏显示的启动
+    change(){
+        console.log(this.fullScreen)
+    },
+    // 点击上传图片
+    handleAvatarSuccess(res, file) {
+        this.imageUrl = URL.createObjectURL(file.raw);
+      },
+    beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
     }
   }
 };
@@ -181,36 +304,101 @@ export default {
                     }
                 }
                 .showElementCenter{
+                    width: 100%;
                     .item{
                         cursor: pointer;
-                        width: 99%;
-                        display: flex;
                         height: 60px;
                         line-height: 60px;
                         // border: 1px dashed #eee;
-                        // border: 1px solid rgb(90, 136, 235);
                         background-color: #fff;
-                        // overflow: hidden;
+                        display: flex;
                         justify-content: flex-end;
                         .items{
-                            width: 90%;
+                            width: 98%;
                         }
                         .del{
-                            width: 10%;
-                            height: 55%;
+                            width: 18px;
+                            height: 18px;
+                            border-radius: 18px;
                             background: url('../../assets/imgs/del.png')  no-repeat;
                             background-size: 100%;
+                            background-color: #eee;
+                            display: none;
+                        }
+                        .delSoild{
+                            width: 90%;
+                            margin-top: 10px;
+                            margin-left: 5%;
+                            border-top: 1px solid #000;
+                            height: 2px;
                         }
                     }
                     .item:hover{
                         border: 1px dashed rgb(90, 136, 235);
+                        .del{
+                            display: inline;
+                        }
                     }
-                    
+                    .delStyle{
+                        height: 20px;
+                    }
                 }
             }
         }
         .right{
             width: 30%;
+            .titleName{
+                height: 40px;
+                line-height: 40px;       
+                font-size: 20px;   
+                color: #666;
+            }
+            .redact{
+                background-color: #eee; 
+            }
+            .title,.background,.full-screen,.background-img{
+                margin-top: 5px;
+                display: flex;
+                justify-content: flex-start;
+                div{
+                    width: 90px;
+                    line-height: 40px;
+                }
+                .el-input{
+                    width: 80%;
+                }
+            }
+            .background-img{
+                div{
+                    line-height: 196px;
+                    margin-right: 20px;
+                }
+            }
         }
     }
+</style>
+<style>
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
 </style>
