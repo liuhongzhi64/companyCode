@@ -72,7 +72,11 @@
                     <div>
                         背景色:
                     </div>
-                    <el-button type="primary" round>背景色</el-button>
+                    <div class="btn">
+                        <!-- <button class="backgroundBtn" @click="setBackgroundColor">背景色<colorPicker v-model="color" /></button> -->
+                        <colorPicker v-model="color" />
+                        <div class="reset">重置</div>
+                    </div>                   
                 </div>
                 <!-- 全屏展示 -->
                 <div class="full-screen">
@@ -91,9 +95,10 @@
                 </div>
                 <!-- 背景图片 -->
                 <div class="background-img">
-                    <div>
+                    <div class="backgroundImgsText">
                         背景图片:
                     </div>
+                    <div class="backgroundImgs">
                         <el-upload
                         class="avatar-uploader"
                         action="https://jsonplaceholder.typicode.com/posts/"
@@ -103,11 +108,13 @@
                         <img v-if="imageUrl" :src="imageUrl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
-                   
+                    </div>                   
                 </div>
             </div>
             <!-- 优惠卷样式 -->
-            <discounts v-show="discountsStyle"/>
+            <discounts v-show="discountsStyle" />
+            <!-- 样式 -->
+            <defultStyle v-show="elementDefultStyle"/>
         </div>
     </div>
   
@@ -116,12 +123,14 @@
 <script>
 import draggable from "vuedraggable";
 import discounts from "../../components/discounts";
+import defultStyle from '../../components/defultStyle'
 // let idGlobal = 8;
 export default {
   order: 3,
   components: {
     draggable,
-    discounts
+    discounts,
+    defultStyle
   },
   data() {
     return {
@@ -149,7 +158,9 @@ export default {
       discountsStyle:false,//选择优惠卷样式
       fullScreen:true,//全屏显示
       imageUrl: '',//上传图片
-      elementName:''//组件名称
+      elementName:'',//组件名称
+      elementDefultStyle:false,//默认样式
+      color: '#ff0000'//样色表的使用
     };
   },
   methods: {
@@ -158,43 +169,28 @@ export default {
       window.console.log(222,evt);
     },
     log1(evt) {
-    //   window.console.log(evt)
-      this.elementName = evt.added.element.name
-      console.log(this.elementName)
-        // 辅助线
-        // if(elementName === '优惠卷' ){
-        //     this.discountsStyle = true;
-        //     this.defultStyle = false;
-        //     return{
-        //         name: `${ name }`
-        //     }
-        // }else if(elementName === '辅助线'){
-        //     this.defultStyle = false;
-        //     this.discountsStyle = false;
-        //     return{
-        //         // name: `${ name }`
-        //         name:'',
-        //     }
-        // }
-        // else{
-        //     this.defultStyle = false;
-        //     return{
-        //         name: `${ name }`
-        //     }
-        // }
+      window.console.log(evt)
     },
     cloneShow({ name }){  
         console.log(name)
-        console.log(this.elementName)
-        // 辅助线
-        if(name === '辅助线' ){
+        if(name === '优惠券'){
             this.defultStyle = false;
+            this.discountsStyle = true
+            this.elementDefultStyle = false;
+            return{
+                name:`${ name }`
+            }
+        }else if(name === '辅助线' ){
+            this.defultStyle = false;
+            this.elementDefultStyle = false;
             return{
                 // name: `${ name }`
                 name:'',
             }
         }else{
             this.defultStyle = false;
+            this.discountsStyle  = false
+            this.elementDefultStyle = true
             return{
                 name: `${ name }`
             }
@@ -203,6 +199,8 @@ export default {
     // 点击顶部设置
     setShowElementTop(){
         this.defultStyle = true
+        this.discountsStyle  = false
+        this.elementDefultStyle = false;
     },
     // 点击删除
     delElement(item){
@@ -213,6 +211,8 @@ export default {
                 this.list2.splice(i,1)
                 if(this.list2.length ==0){
                     this.defultStyle = true
+                    this.discountsStyle  = false
+                    this.elementDefultStyle = false;
                 }
                 return true;
             }
@@ -368,10 +368,33 @@ export default {
                     width: 80%;
                 }
             }
-            .background-img{
-                div{
+            .background{
+                .btn{
+                    height: 40px;
+                    display: flex;
+                    justify-content: center;
+                    width: 100%;
+                    .m-colorPicker{
+                        height: 40px;
+                        padding: 12px 0;
+                        .colorBtn{
+                            width: 40px;
+                            height: 40px;
+                        }
+                    }
+                    .reset{
+                        width: 30%;
+                        cursor: pointer;
+                    }
+                }
+            }
+            .background-img{ 
+                margin-top: 50%;
+                .backgroundImgsText{
                     line-height: 196px;
-                    margin-right: 20px;
+                }
+                .backgroundImgs{
+                    margin: 0 atut;
                 }
             }
         }
