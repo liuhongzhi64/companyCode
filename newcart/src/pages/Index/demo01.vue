@@ -28,7 +28,7 @@
                     <div class="set" @click="setShowElementTop"></div>
                 </div>
                 <!-- 中间 -->
-                <div class="showElementCenter">
+                <div class="showElementCenter" :style="{'backgroundColor':defultBackgroundColor}">
                     <draggable
                     class="dragArea list-group"
                     :list="list2"
@@ -48,9 +48,7 @@
                     </draggable> 
                 </div>
             </div>
-            
         </div>
-
         <!-- 右边编辑 -->
         <div class="right">
             <div class="top">右边编辑区</div>
@@ -73,9 +71,8 @@
                         背景色:
                     </div>
                     <div class="btn">
-                        <!-- <button class="backgroundBtn" @click="setBackgroundColor">背景色<colorPicker v-model="color" /></button> -->
-                        <colorPicker v-model="color" />
-                        <div class="reset">重置</div>
+                        <colorPicker v-model="color"  ref="defultBackgroundColor"></colorPicker> 
+                        <div class="reset" @click="resetDefultBackgroundColor">重置</div>
                     </div>                   
                 </div>
                 <!-- 全屏展示 -->
@@ -83,31 +80,23 @@
                     <div>
                         全屏展示:
                     </div>
-                    <div>
+                    <div class="set-full-screen" @change="change">
                         <el-switch
                         v-model="fullScreen"
-                        active-color="#13ce66"
+                        active-color="#2692ff"
                         inactive-color="#eee"
-                        @change="change">
+                        >
                         </el-switch>
+                        <div v-bind:style="{'color': fullScreen ?'#2692ff':'#606266'}">全屏显示</div>
                     </div>
-                    
                 </div>
                 <!-- 背景图片 -->
                 <div class="background-img">
                     <div class="backgroundImgsText">
                         背景图片:
                     </div>
-                    <div class="backgroundImgs">
-                        <el-upload
-                        class="avatar-uploader"
-                        action="https://jsonplaceholder.typicode.com/posts/"
-                        :show-file-list="false"
-                        :on-success="handleAvatarSuccess"
-                        :before-upload="beforeAvatarUpload">
-                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                        </el-upload>
+                    <div class="backgroundImgs"  @click="centerDialogVisible = true">
+                        <i class="el-icon-plus"></i>
                     </div>                   
                 </div>
             </div>
@@ -116,8 +105,84 @@
             <!-- 样式 -->
             <defultStyle v-show="elementDefultStyle"/>
         </div>
+        <!-- 点击背景图片的表单 -->
+        <el-dialog
+        title="图库"
+        :visible.sync="centerDialogVisible"
+        width="860px"
+        center
+        >
+        <!-- 点击新增分组 -->
+        <el-dialog
+            width="30%"
+            title="新增分组"
+            :visible.sync="addGrouping"
+            append-to-body>
+            <el-input
+                placeholder="请输入内容"
+                v-model="addGroupingName"
+                clearable>
+            </el-input>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="addGrouping = false">取 消</el-button>
+                <el-button type="primary" @click="addGroupingFromList(1)">确 定</el-button>
+            </span>
+        </el-dialog>
+        <div class="imgsList">
+            <div class="imgsListTab">
+                <div class="groupingList">
+                    <span>图片分组</span>
+                    <!-- <el-button class="allGrouping">全部分组</el-button> -->
+                    <el-button v-for="i in groupingList" :key="i.id" :class="{'allGrouping':i.name === '全部分组'}">{{ i.name }}</el-button>
+                </div>
+                <el-button class="addGrouping" @click="addGrouping = true">+新建分组</el-button>
+            </div>
+            <!-- 列表 -->
+            <div class="imgsLists">
+                <!-- 头部搜索款 -->
+                <div class="imsListsSearch">
+                    <el-button type="primary">上传图片</el-button>
+                    <div>
+                        <el-input
+                        placeholder="请输入内容"
+                        v-model="searchInput"
+                        clearable>
+                        </el-input>
+                        <el-button type="primary">搜索</el-button>
+                    </div>
+                </div>
+                <!-- 中间展示区 -->
+                <div class="centerImgList">
+                    <div class="imgsListsShow">
+                        <!-- <img v-for="i in imagesList" :key="i.id" :src="i.url" alt=""> -->
+                        <img src="../../assets/imgs/login.png">
+                        <img src="../../assets/imgs/pagesImgs/30.jpg">
+                        <img src="../../assets/imgs/pagesImgs/31.jpg">
+                        <img src="../../assets/imgs/pagesImgs/32.jpg">
+                        <img src="../../assets/imgs/pagesImgs/33.jpg">
+                        <img src="../../assets/imgs/pagesImgs/34.jpg">
+                        <img src="../../assets/imgs/pagesImgs/35.jpg">
+                        <img src="../../assets/imgs/pagesImgs/36.jpg">
+                    </div>
+                </div>
+                <!-- 底部分页 -->
+                <div class="footerPaging">
+                    <div>共{{ pagers }}条</div>
+                    <el-pagination
+                    background
+                    layout="prev, pager, next"
+                    :total="100">
+                    </el-pagination>
+                </div>
+            </div> 
+        </div>           
+            <!-- 确定和取消按钮 -->
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="centerDialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
-  
 </template>
 
 <script>
@@ -160,7 +225,20 @@ export default {
       imageUrl: '',//上传图片
       elementName:'',//组件名称
       elementDefultStyle:false,//默认样式
-      color: '#ff0000'//样色表的使用
+      color: '#ff0000',//样色表的使用
+      defultBackgroundColor:"#eee",//默认背景色
+      centerDialogVisible: false,//默认设置的点击背景图片的开关
+      searchInput:'',//搜索图片框
+      pagers:10,//图片数量
+      imagesList:[
+          {url:'/img/login.d3c4bad8.png',id:1},
+      ],
+      groupingList:[
+          {id:1,name:'全部分组'},
+          {id:2,name:'未分组'},
+      ],//分组列表
+      addGrouping:false,
+      addGroupingName:''
     };
   },
   methods: {
@@ -204,10 +282,8 @@ export default {
     },
     // 点击删除
     delElement(item){
-        // console.log(item)
         for(let i=0;i<this.list2.length;i++){
             if(this.list2[i].name == item.name){
-                // console.log(this.list2[i],i)
                 this.list2.splice(i,1)
                 if(this.list2.length ==0){
                     this.defultStyle = true
@@ -218,26 +294,32 @@ export default {
             }
         }
     },
+    // 点击重置默认背景颜色
+    resetDefultBackgroundColor(){
+        // 重置默认背景颜色
+        this.defultBackgroundColor = "#eee"
+        // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor)
+        this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor = this.defultBackgroundColor
+        // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor)
+        this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.defultBackgroundColor
+    },
     // 点击全屏显示的启动
     change(){
         console.log(this.fullScreen)
     },
-    // 点击上传图片
-    handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-      },
-    beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
+    addGroupingFromList(e){
+        this.addGrouping = false
+        // console.log(this.groupingList.push({name:this.addGroupingName,id:this.groupingList.length+1+e}))
+        this.groupingList.push({name:this.addGroupingName,id:this.groupingList.length+1+e})
     }
+    // 点击上传图片
+  },
+  watch:{
+    //   监听默认背景颜色改变事件
+    color(){
+    //   console.log(12345)
+        this.defultBackgroundColor = this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor
+    },
   }
 };
 </script>
@@ -251,10 +333,10 @@ export default {
             color: rgb(90, 136, 235);
         }
         .left{
-            width: 30%;
+            width: 20%;
             height: 100%;
             overflow: auto;
-            background-color: #ccc;
+            background-color: #fff;
             .text-wrapper{
                 padding-top:20px;
                 .element{
@@ -277,7 +359,7 @@ export default {
         .center{
             flex: 1;
             height: 100%;
-            background-color: #eee;
+            background-color: #fff;
             .showElement{
                 width: 60%;
                 height: 70%;
@@ -367,6 +449,19 @@ export default {
                 .el-input{
                     width: 80%;
                 }
+                .set-full-screen{
+                    cursor: pointer;
+                    width: 30%;
+                    display: flex;
+                    .el-switch{
+                        margin-top: 10px;
+                        margin-left: 20px;
+                        width: 50px;
+                    }
+                    div{
+                        width: 100px;
+                    }
+                }
             }
             .background{
                 .btn{
@@ -374,6 +469,7 @@ export default {
                     display: flex;
                     justify-content: center;
                     width: 100%;
+                    color: #2692ff;
                     .m-colorPicker{
                         height: 40px;
                         padding: 12px 0;
@@ -389,12 +485,90 @@ export default {
                 }
             }
             .background-img{ 
-                margin-top: 50%;
+                // margin-top: 50%;
                 .backgroundImgsText{
                     line-height: 196px;
                 }
                 .backgroundImgs{
+                    cursor: pointer;
                     margin: 0 atut;
+                    margin-top: 50px;
+                    width: 100px;
+                    height: 100px;
+                    background-color: #eee;
+                    font-size: 40px;
+                    font-weight: 400;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    text-align: center;
+                    display: flex;
+                    -webkit-box-pack: center;
+                    justify-content: center;
+                    -webkit-box-align: center;
+                    align-items: center;
+                }
+            }
+        }
+        .imgsList{
+            display: flex;
+            flex-direction: row ;
+            .imgsListTab{
+                display: flex;
+                width: 140px;
+                height: 500px;
+                flex-direction:column;
+                text-align: center;
+                .groupingList{
+                    height: 100%;
+                    button{
+                        margin-top: 20px;
+                        width: 120px;
+                    }
+                    .allGrouping{
+                        margin-left: 10px;
+                    }
+                }
+               
+                .addGrouping{
+                    margin-left: 15px;
+                    margin-top: 10px;
+                }
+            }
+            .imgsLists{
+                flex: 1;
+                display: flex;
+                flex-direction:column;
+                .imsListsSearch{
+                    display: flex;
+                    justify-content: space-between;
+                    input{
+                        width: 120px;
+                    }
+                    div{
+                        display: flex;
+                        button{
+                            margin-left: 10px;
+                        }
+                    }
+                }
+                .centerImgList{
+                    flex: 1;
+                    width: 650px;
+                    .imgsListsShow{
+                        img{
+                            margin-top: 10px;
+                            margin-right: 30px;
+                            width: 100px;
+                            height: 100px;
+                        }
+                    }
+                }
+                .footerPaging{
+                    display: flex;
+                    justify-content: flex-end;
+                    div{
+                        line-height: 30px;
+                    }
                 }
             }
         }
