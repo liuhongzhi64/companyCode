@@ -1,6 +1,6 @@
 <template>
-    <div class="discounts">
-        优惠券编辑
+    <div class="phone">
+        电话编辑
     </div>
 </template>
 

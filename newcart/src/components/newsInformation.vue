@@ -1,6 +1,6 @@
 <template>
-    <div class="discounts">
-        优惠券编辑
+    <div class="newsInformation">
+        新闻编辑
     </div>
 </template>
 

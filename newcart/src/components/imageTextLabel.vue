@@ -1,6 +1,6 @@
 <template>
-    <div class="discounts">
-        优惠券编辑
+    <div class="imageTextLabel">
+        图文导航
     </div>
 </template>
 

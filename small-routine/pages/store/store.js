@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    tabList: [{ name: '名片', url: 'index' }, { name: '商城', url: 'official' }, { name: '官网', url: 'store' }]//导航条
   },
 
   /**

@@ -1,6 +1,6 @@
 <template>
-    <div class="discounts">
-        优惠券编辑
+    <div class="commodityStyle">
+        商品编辑
     </div>
 </template>
 
@@ -11,7 +11,7 @@
             
             };
         },
-    }
+    }  
 </script>
 
 <style lang="less" scoped>

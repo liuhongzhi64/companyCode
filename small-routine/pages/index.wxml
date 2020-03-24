@@ -217,7 +217,7 @@
   <view>官网</view>
 </view> -->
 <view id="tab">
-  <navigator wx:for="{{ tabList }}" url="/pages/{{ item.url }}/{{ item.url }}?url={{ item.url }}&title={{ item.name }}" >
+  <navigator wx:for="{{ tabList }}"  wx:key = "{{ item.url }}" url="/pages/{{ item.url }}/{{ item.url }}?url={{ item.url }}&title={{ item.name }}" >
   <text>{{item.name}}</text>
   </navigator>
 </view>

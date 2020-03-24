@@ -1,12 +1,12 @@
 <template>
-    <div class="discounts">
-        优惠券编辑
+    <div class="text">
+        文本编辑
     </div>
 </template>
 
 <script>
     export default {
-        data() {
+    data() {
             return {
             
             };

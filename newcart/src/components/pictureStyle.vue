@@ -1,6 +1,6 @@
 <template>
-    <div class="discounts">
-        优惠券编辑
+    <div class="picture">
+        图片编辑
     </div>
 </template>
 

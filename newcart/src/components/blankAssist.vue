@@ -1,6 +1,6 @@
 <template>
-    <div class="discounts">
-        优惠券编辑
+    <div class="blankAssist">
+        空白辅助
     </div>
 </template>
 
