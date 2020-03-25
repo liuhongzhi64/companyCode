@@ -18,6 +18,8 @@
         <div class="center">
             <el-button @click="goToDemo">拖拽</el-button>
             <el-button @click="goToDemo01">拖拽01</el-button>
+            <el-button @click="goToDemo02">父组件</el-button>
+            <el-button @click="goToDemo03">子组件</el-button>
         </div>
     </div>
 </template>
@@ -38,7 +40,13 @@
     },
     goToDemo01() {
       this.$router.history.push("/demo01");
-    }
+    },
+    goToDemo02() {
+      this.$router.history.push("/demo02");
+    },
+    goToDemo03() {
+      this.$router.history.push("/demo03");
+    },
   }
     }
 </script>

@@ -28,6 +28,16 @@ const routes = [
     name:'Demo01',
     component:() => import('../pages/Index/demo01')
   },
+  {
+    path:'/demo02',
+    name:'Demo02',
+    component:() => import('../pages/Index/demo02')
+  },
+  {
+    path:'/demo03',
+    name:'Demo03',
+    component:() => import('../pages/Index/demo03')
+  },
 ]
 
 const router = new VueRouter({

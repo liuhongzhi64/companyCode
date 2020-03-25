@@ -36,17 +36,28 @@
                     @change="log1"
                     style="min-height:375px;"
                     >
-                        <div class="list-group-item item" v-for="i in list2" :key="i.id"  :class="{'delStyle':i.name ==''}">
-                            <div class="items">
-                                <div class="name">
-                                    {{ i.name }}
-                                </div>
-                                <div class="delSoild" v-show="i.name === ''"></div>
-                            </div>
-                            <i class="del" @click="delElement(i)"></i> 
+                    <div class="list-group-item item"
+                    v-for="i in list2" :key="i.id"  
+                    :class="{'delStyle':i.name ==''}"                 
+                    >
+                    <div class="items">
+                        <!-- <div class="name" v-show="elementSendStyle =='#eee'">{{ i.name }}</div> -->
+                        <!-- 地址样式 -->
+                        <div class="name" v-show="i.name ==='地址'" :style="{'backgroundColor':elementSendStyle}">
+                            <span>{{ i.name }}:</span>
+                            <span>{{ i.site }}</span> 
                         </div>
+                        <!-- 辅助线样式 -->
+                        <div class="delSoild" v-show="i.name === ''"></div>
+                    </div>
+                    <i class="del" @click="delElement(i)" :style="{'backgroundColor':elementSendStyle}"></i> 
+                    </div>
                     </draggable> 
                 </div>
+            </div>
+            <div class="clear">
+                <!-- 清空组件 -->
+                <el-button type="primary" style="margin-top:100px;" @click="clearElement">清空组件</el-button>
             </div>
         </div>
         <!-- 右边编辑 -->
@@ -100,41 +111,43 @@
                     </div>                   
                 </div>
             </div>
-            <!-- 优惠卷样式 -->
-            <discounts v-show="discountsStyle" />
-            <!-- 样式 -->
-            <defultStyle v-show="elementDefultStyle"/>
-            <!-- 文字 -->
-            <textStyle v-show="textStyle" />
-            <!-- 地址 -->
-            <siteStyle v-show="siteStyle" />
-            <!-- 电话 -->
-            <phoneStyle v-show="phoneStyle" />
-            <!-- 辅助线 -->
-            <sublineStyle v-show="sublineStyle" />
-            <!-- t图片 -->
-            <pictureStyle v-show="pictureStyle" />
-            <!-- 新闻样式 -->
-            <newsInformation v-show="newsInformation" />
-            <!-- 富文本样式 -->
-            <richText v-show="richText" />
-            <!-- 视频样式 -->
-            <videoStyle v-show="videoStyle" />
-            <!-- 图文广告 -->
-            <imageTextAdvertising v-show="imageTextAdvertising" />
-            <!-- 营销活动 -->
-            <marketingCampaign v-show="marketingCampaign" />
-            <!-- 标题商品 -->
-            <labelCommodity v-show="labelCommodity" />
-            <!-- 标题编辑 -->
-            <titleStyle v-show="titleStyle" />
-            <!-- 图文导航 -->
-            <imageTextLabel v-show="imageTextLabel" />
-            <!-- 空白辅助 -->
-            <blankAssist v-show="blankAssist" />
-            <!-- 商品 -->
-            <commodityStyle v-show="commodityStyle" />
-            
+            <!-- 样式列表 -->
+            <div>
+                <!-- 优惠卷样式 -->
+                <discounts v-show="discountsStyle" />
+                <!-- 样式 -->
+                <defultStyle v-show="elementDefultStyle"/>
+                <!-- 文字 -->
+                <textStyle v-show="textStyle" />
+                <!-- 地址 -->
+                <siteStyle v-show="siteStyle" @getData="getData" />
+                <!-- 电话 -->
+                <phoneStyle v-show="phoneStyle" />
+                <!-- 辅助线 -->
+                <sublineStyle v-show="sublineStyle" />
+                <!-- t图片 -->
+                <pictureStyle v-show="pictureStyle" />
+                <!-- 新闻样式 -->
+                <newsInformation v-show="newsInformation" />
+                <!-- 富文本样式 -->
+                <richText v-show="richText" />
+                <!-- 视频样式 -->
+                <videoStyle v-show="videoStyle" />
+                <!-- 图文广告 -->
+                <imageTextAdvertising v-show="imageTextAdvertising" />
+                <!-- 营销活动 -->
+                <marketingCampaign v-show="marketingCampaign" />
+                <!-- 标题商品 -->
+                <labelCommodity v-show="labelCommodity" />
+                <!-- 标题编辑 -->
+                <titleStyle v-show="titleStyle" />
+                <!-- 图文导航 -->
+                <imageTextLabel v-show="imageTextLabel" />
+                <!-- 空白辅助 -->
+                <blankAssist v-show="blankAssist" />
+                <!-- 商品 -->
+                <commodityStyle v-show="commodityStyle" />
+            </div>           
         </div>
         <!-- 点击背景图片的表单 -->
         <el-dialog
@@ -175,11 +188,12 @@
                     <!-- 上传图片 -->
                     <!-- <el-button type="primary">上传图片</el-button> -->
                     <el-upload
-                    class="upload-demo"
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    :on-change="handleChange"
-                    :file-list="fileList">
-                    <el-button  type="primary">上传图片</el-button>
+                        class="upload-demo"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :on-change="handleChange"
+                        >
+                        <!-- :file-list="fileList" -->
+                        <el-button  type="primary">上传图片</el-button>
                     </el-upload>
                     <div>
                         <el-input
@@ -193,7 +207,7 @@
                 <!-- 中间展示区 -->
                 <div class="centerImgList">
                     <div class="imgsListsShow">
-                        <!-- <img v-for="i in imagesList" :key="i.id" :src="i.url" alt=""> -->
+                        <img v-for="i in imagesList" :key="i.id" :src="i.url" alt="">
                         <img src="../../assets/imgs/login.png">
                         <img src="../../assets/imgs/pagesImgs/30.jpg">
                         <img src="../../assets/imgs/pagesImgs/31.jpg">
@@ -244,7 +258,6 @@ import imageTextLabel from '../../components/imageTextLabel'
 import blankAssist from '../../components/blankAssist'
 import commodityStyle from '../../components/commodityStyle'
 
-// let idGlobal = 8;
 export default {
   order: 3,
   components: {
@@ -268,501 +281,576 @@ export default {
     commodityStyle,//商品样式
   },
   data() {
-    return {
-      list1: [
-        { name: "优惠券", id: 1 },
-        { name: "地址", id: 2 },
-        { name: "电话", id: 3 },
-        { name: "新闻资讯", id: 4 },
-        { name: "图片", id: 5 },
-        { name: "富文本", id: 6 },
-        { name: "视频", id: 7 },
-        { name: "文本", id: 8 },
-        { name: "辅助线", id: 9 },
-        { name: "图文广告", id: 10 },
-        { name: "营销活动", id: 11 },
-        { name: "标签商品", id: 12 },
-        { name: "标题", id: 13 },
-        { name: "图文导航", id: 14 },
-        { name: "空白辅助", id: 15 },
-        { name: "商品", id: 16 },
-      ],
-      list2: [],
-      titleName:'仙剑',
-      defultStyle:true,//默认右边编辑显示
-      discountsStyle:false,//选择优惠卷样式
-      fullScreen:true,//全屏显示
-      imageUrl: '',//上传图片
-      elementName:'',//组件名称
-      elementDefultStyle:false,//默认样式
-      color: '#ff0000',//样色表的使用
-      defultBackgroundColor:"#eee",//默认背景色
-      centerDialogVisible: false,//默认设置的点击背景图片的开关
-      searchInput:'',//搜索图片框
-      pagers:10,//图片数量
-      imagesList:[
-          {url:'/img/login.d3c4bad8.png',id:1},
-      ],
-      groupingList:[
-          {id:1,name:'全部分组'},
-          {id:2,name:'未分组'},
-      ],//分组列表
-      addGrouping:false,
-      addGroupingName:'',
-      fileList: [{
-        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-        }, {
-        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-      }],//上传图片的地址
-
-      textStyle:false,//文本样式
-      siteStyle:false,//地址样式
-      phoneStyl:false,//电话样式
-      sublineStyle:false,//辅助线样式
-      pictureStyle:false,//图片样式
-      newsInformation:false,//新闻样式
-      richText:false,//新闻样式
-      videoStyle:false,//视频样式
-      imageTextAdvertising:false,//图文广告样式
-      marketingCampaign:false,//营销活动样式
-      labelCommodity:false,//标题商品样式
-      titleStyle:false,//标题样式
-      imageTextLabel:false,//图文导航样式
-      blankAssist:false,//空白辅助样式
-      commodityStyle:false,//商品样式
-    };
+        return {
+        list1: [
+            { name: "优惠券", id: 1 },
+            { name: "地址", id: 2 },
+            { name: "电话", id: 3 },
+            { name: "新闻资讯", id: 4 },
+            { name: "图片", id: 5 },
+            { name: "富文本", id: 6 },
+            { name: "视频", id: 7 },
+            { name: "文本", id: 8 },
+            { name: "辅助线", id: 9 },
+            { name: "图文广告", id: 10 },
+            { name: "营销活动", id: 11 },
+            { name: "标签商品", id: 12 },
+            { name: "标题", id: 13 },
+            { name: "图文导航", id: 14 },
+            { name: "空白辅助", id: 15 },
+            { name: "商品", id: 16 },
+        ],
+        list2: [],
+        titleName:'仙剑',
+        defultStyle:true,//默认右边编辑显示
+        discountsStyle:false,//选择优惠卷样式
+        fullScreen:true,//全屏显示
+        imageUrl: '',//上传图片
+        elementName:'',//组件名称
+        elementDefultStyle:false,//默认样式
+        color: '#eee',//样色表的使用
+        defultBackgroundColor:"#eee",//默认背景色
+        centerDialogVisible: false,//默认设置的点击背景图片的开关
+        searchInput:'',//搜索图片框
+        pagers:10,//图片数量
+        imagesList:[
+            {url:'/img/login.d3c4bad8.png',id:1},
+            {url:'/img/30.f1e6f8d4.jpg',id:2},
+            {url:'/img/31.d983e4f3.jpg',id:3},
+            {url:'/img/32.0abd6721.jpg',id:4},
+            {url:'/img/33.d962cfe4.jpg',id:5},
+            {url:'/img/34.44c20bef.jpg',id:6},
+            {url:'/img/35.2afe101f.jpg',id:7},
+            {url:'/img/36.a94f52d8.jpg',id:8},
+            {url:'/img/34.44c20bef.jpg',id:9},
+            {url:'/img/31.d983e4f3.jpg',id:10},
+            {url:'/img/33.d962cfe4.jpg',id:11},
+        ],
+        groupingList:[
+            {id:1,name:'全部分组'},
+            {id:2,name:'未分组'},
+        ],//分组列表
+        addGrouping:false,
+        addGroupingName:'',
+        textStyle:false,//文本样式
+        siteStyle:false,//地址样式
+        phoneStyle:false,//电话样式
+        sublineStyle:false,//辅助线样式
+        pictureStyle:false,//图片样式
+        newsInformation:false,//新闻样式
+        richText:false,//新闻样式
+        videoStyle:false,//视频样式
+        imageTextAdvertising:false,//图文广告样式
+        marketingCampaign:false,//营销活动样式
+        labelCommodity:false,//标题商品样式
+        titleStyle:false,//标题样式
+        imageTextLabel:false,//图文导航样式
+        blankAssist:false,//空白辅助样式
+        commodityStyle:false,//商品样式
+        elementSendStyle:'#eee',//拖拽组件的默认背景颜色
+        };
   },
-  methods: {
-    log: function(evt) {
-    //   window.console.log(evt);
-      window.console.log(222,evt);
-    },
-    log1(evt) {
-      window.console.log(111,evt)
-    },
-    cloneShow({ name }){  
-        console.log(name)
-        if(name === '优惠券'){
-            this.defultStyle = false;
-            this.discountsStyle = true
-            this.elementDefultStyle = false;
-            this.siteStyle = false;
-            this.textStyle = false;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.richText=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.marketingCampaign=false;
-            this.labelCommodity=false;
-            this.titleStyle=false;
-            this.imageTextLabel=false;
-            this.blankAssist=false;
-            this.commodityStyle=false;
-            return{
-                name:`${ name }`
-            }
-        }  
-        else if(name === '地址' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.textStyle = false;
-            this.siteStyle = true;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.richText=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.marketingCampaign=false;
-            this.labelCommodity=false;
-            this.titleStyle=false;
-            this.imageTextLabel=false;
-            this.blankAssist=false;
-            this.commodityStyle=false;
-            return{
-                name: `${ name }`
-            }
-        }
-        else if(name === '电话' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.textStyle = false;
-            this.siteStyle = false;
-            this.phoneStyle = true;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.richText=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.marketingCampaign=false;
-            this.labelCommodity=false;
-            this.titleStyle=false;
-            this.imageTextLabel=false;
-            this.blankAssist=false;
-            this.commodityStyle=false;
-            return{
-                name: `${ name }`
-            }
-        }
-        else if(name === '新闻资讯' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.textStyle = false;
-            this.siteStyle = false;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=true;
-            this.richText=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.marketingCampaign=false;
-            this.labelCommodity=false;
-            this.titleStyle=false;
-            this.imageTextLabel=false;
-            this.blankAssist=false;
-            this.commodityStyle=false;
-            return{
-                name: `${ name }`
-            }
-        }
-        else if(name === '图片' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.textStyle = false;
-            this.siteStyle = false;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = true;
-            this.newsInformation=false;
-            this.richText=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.marketingCampaign=false;
-            this.labelCommodity=false;
-            this.titleStyle=false;
-            this.imageTextLabel=false;
-            this.blankAssist=false;
-            this.commodityStyle=false;
-            return{
-                name: `${ name }`
-            }
-        }
-        else if(name === '富文本' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.textStyle = false;
-            this.siteStyle = false;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.marketingCampaign=false;
-            this.richText=true;
-            this.labelCommodity=false;
-            this.titleStyle=false;
-            this.imageTextLabel=false;
-            this.blankAssist=false;
-            this.commodityStyle=false;
-            return{
-                name: `${ name }`
-            }
-        }
-        else if(name === '视频' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.siteStyle = false;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.richText=false;
-            this.textStyle = false;
-            this.imageTextAdvertising = false;
-            this.marketingCampaign = false;
-            this.videoStyle = true;
-            this.labelCommodity = false;
-            this.titleStyle = false;
-            this.imageTextLabel = false;
-            this.blankAssist = false;
-            this.commodityStyle = false;
-            return{
-                name: `${ name }`
-            }
-        }
-        else if(name === '文本' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.siteStyle = false;
-            this.textStyle = true;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.richText=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.marketingCampaign=false;
-            this.labelCommodity=false;
-            this.titleStyle=false;
-            this.imageTextLabel=false;
-            this.blankAssist=false;
-            this.commodityStyle=false;
-            return{
-                name: `${ name }`
-            }
-        }
-        else if(name === '辅助线' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.siteStyle = false;
-            this.phoneStyle = false;
-            this.textStyle = false;
-            this.sublineStyle = true;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.richText=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.marketingCampaign=false;
-            this.labelCommodity=false;
-            this.titleStyle=false;
-            this.imageTextLabel=false;
-            this.blankAssist=false;
-            this.commodityStyle=false;
-            return{
-                // name: `${ name }`
-                name:'',
-            }
-        }   
-        else if(name === '图文广告' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.siteStyle = false;
-            this.textStyle = false;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.richText=false;
-            this.videoStyle=false;
-            this.marketingCampaign=false;
-            this.labelCommodity=false;
-            this.imageTextAdvertising=true;
-            this.titleStyle=false;
-            this.imageTextLabel=false;
-            this.blankAssist=false;
-            this.commodityStyle=false;
-            return{
-                name: `${ name }`
-            }
-        }    
-        else if(name === '营销活动' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.siteStyle = false;
-            this.textStyle = false;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.richText=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.labelCommodity=false;
-            this.marketingCampaign=true;
-            this.titleStyle=false;
-            this.imageTextLabel=false;
-            this.blankAssist=false;
-            this.commodityStyle=false;
-            return{
-                name: `${ name }`
-            }
-        }    
-        else if(name === '标签商品' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.siteStyle = false;
-            this.textStyle = false;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.richText=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.marketingCampaign=false;
-            this.labelCommodity=true;
-            this.titleStyle=false;
-            this.imageTextLabel=false;
-            this.blankAssist=false;
-            this.commodityStyle=false;
-            return{
-                name: `${ name }`
-            }
-        }    
-        else if(name === '标题' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.siteStyle = false;
-            this.textStyle = false;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.richText=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.marketingCampaign=false;
-            this.titleStyle=true;
-            this.labelCommodity=false;
-            this.imageTextLabel=false;
-            this.blankAssist=false;
-            this.commodityStyle=false;
-            return{
-                name: `${ name }`
-            }
-        }    
-        else if(name === '图文导航' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.siteStyle = false;
-            this.textStyle = false;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.richText=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.marketingCampaign=false;
-            this.labelCommodity=false;
-            this.imageTextLabel=true;
-            this.titleStyle=false;
-            this.blankAssist=false;
-            this.commodityStyle=false;
-            return{
-                name: `${ name }`
-            }
-        }    
-        else if(name === '空白辅助' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.siteStyle = false;
-            this.textStyle = false;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.richText=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.marketingCampaign=false;
-            this.labelCommodity=false;
-            this.titleStyle=false;
-            this.blankAssist=true;
-            this.imageTextLabel=false;
-            this.commodityStyle=false;
-            return{
-                name: `${ name }`
-            }
-        }    
-        else if(name === '商品' ){
-            this.defultStyle = false;
-            this.discountsStyle = false;
-            this.elementDefultStyle = false;
-            this.siteStyle = false;
-            this.textStyle = false;
-            this.phoneStyle = false;
-            this.sublineStyle = false;
-            this.pictureStyle = false;
-            this.newsInformation=false;
-            this.richText=false;
-            this.videoStyle=false;
-            this.imageTextAdvertising=false;
-            this.marketingCampaign=false;
-            this.labelCommodity=false;
-            this.titleStyle=false;
-            this.imageTextLabel=false;
-            this.blankAssist=false;
-            this.commodityStyle=true;
-            return{
-                name: `${ name }`
-            }
-        } 
-    },
-    // 点击顶部设置
-    setShowElementTop(){
-        this.defultStyle = true
-        this.discountsStyle  = false
-        this.elementDefultStyle = false;
-    },
-    // 点击删除
-    delElement(item){
-        for(let i=0;i<this.list2.length;i++){
-            if(this.list2[i].name == item.name){
-                this.list2.splice(i,1)
-                if(this.list2.length ==0){
-                    this.defultStyle = true
-                    this.discountsStyle  = false
-                    this.elementDefultStyle = false;
+    methods: {
+        log: function(evt) {
+            //   window.console.log(evt);
+            window.console.log(222,evt);
+        },
+        log1(evt) {
+            window.console.log(111,evt)
+        },
+        // 判定拖拽的文件
+        cloneShow({ name }){  
+            // console.log(name)
+            if(name === '优惠券'){
+                this.defultStyle = false;
+                this.discountsStyle = true
+                this.elementDefultStyle = false;
+                this.siteStyle = false;
+                this.textStyle = false;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.richText=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.marketingCampaign=false;
+                this.labelCommodity=false;
+                this.titleStyle=false;
+                this.imageTextLabel=false;
+                this.blankAssist=false;
+                this.commodityStyle=false;
+                return{
+                    name:`${ name }`
                 }
-                return true;
+            }  
+            else if(name === '地址' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.textStyle = false;
+                this.siteStyle = true;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.richText=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.marketingCampaign=false;
+                this.labelCommodity=false;
+                this.titleStyle=false;
+                this.imageTextLabel=false;
+                this.blankAssist=false;
+                this.commodityStyle=false;
+                return{
+                    name: `${ name }`,
+                    site:'四川省成都市双流县海滨广场11座7楼'
+                }
             }
+            else if(name === '电话' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.textStyle = false;
+                this.siteStyle = false;
+                this.phoneStyle = true;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.richText=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.marketingCampaign=false;
+                this.labelCommodity=false;
+                this.titleStyle=false;
+                this.imageTextLabel=false;
+                this.blankAssist=false;
+                this.commodityStyle=false;
+                return{
+                    name: `${ name }`
+                }
+            }
+            else if(name === '新闻资讯' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.textStyle = false;
+                this.siteStyle = false;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=true;
+                this.richText=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.marketingCampaign=false;
+                this.labelCommodity=false;
+                this.titleStyle=false;
+                this.imageTextLabel=false;
+                this.blankAssist=false;
+                this.commodityStyle=false;
+                return{
+                    name: `${ name }`
+                }
+            }
+            else if(name === '图片' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.textStyle = false;
+                this.siteStyle = false;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = true;
+                this.newsInformation=false;
+                this.richText=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.marketingCampaign=false;
+                this.labelCommodity=false;
+                this.titleStyle=false;
+                this.imageTextLabel=false;
+                this.blankAssist=false;
+                this.commodityStyle=false;
+                return{
+                    name: `${ name }`
+                }
+            }
+            else if(name === '富文本' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.textStyle = false;
+                this.siteStyle = false;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.marketingCampaign=false;
+                this.richText=true;
+                this.labelCommodity=false;
+                this.titleStyle=false;
+                this.imageTextLabel=false;
+                this.blankAssist=false;
+                this.commodityStyle=false;
+                return{
+                    name: `${ name }`
+                }
+            }
+            else if(name === '视频' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.siteStyle = false;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.richText=false;
+                this.textStyle = false;
+                this.imageTextAdvertising = false;
+                this.marketingCampaign = false;
+                this.videoStyle = true;
+                this.labelCommodity = false;
+                this.titleStyle = false;
+                this.imageTextLabel = false;
+                this.blankAssist = false;
+                this.commodityStyle = false;
+                return{
+                    name: `${ name }`
+                }
+            }
+            else if(name === '文本' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.siteStyle = false;
+                this.textStyle = true;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.richText=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.marketingCampaign=false;
+                this.labelCommodity=false;
+                this.titleStyle=false;
+                this.imageTextLabel=false;
+                this.blankAssist=false;
+                this.commodityStyle=false;
+                return{
+                    name: `${ name }`
+                }
+            }
+            else if(name === '辅助线' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.siteStyle = false;
+                this.phoneStyle = false;
+                this.textStyle = false;
+                this.sublineStyle = true;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.richText=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.marketingCampaign=false;
+                this.labelCommodity=false;
+                this.titleStyle=false;
+                this.imageTextLabel=false;
+                this.blankAssist=false;
+                this.commodityStyle=false;
+                return{
+                    // name: `${ name }`
+                    name:'',
+                }
+            }   
+            else if(name === '图文广告' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.siteStyle = false;
+                this.textStyle = false;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.richText=false;
+                this.videoStyle=false;
+                this.marketingCampaign=false;
+                this.labelCommodity=false;
+                this.imageTextAdvertising=true;
+                this.titleStyle=false;
+                this.imageTextLabel=false;
+                this.blankAssist=false;
+                this.commodityStyle=false;
+                return{
+                    name: `${ name }`
+                }
+            }    
+            else if(name === '营销活动' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.siteStyle = false;
+                this.textStyle = false;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.richText=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.labelCommodity=false;
+                this.marketingCampaign=true;
+                this.titleStyle=false;
+                this.imageTextLabel=false;
+                this.blankAssist=false;
+                this.commodityStyle=false;
+                return{
+                    name: `${ name }`
+                }
+            }    
+            else if(name === '标签商品' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.siteStyle = false;
+                this.textStyle = false;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.richText=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.marketingCampaign=false;
+                this.labelCommodity=true;
+                this.titleStyle=false;
+                this.imageTextLabel=false;
+                this.blankAssist=false;
+                this.commodityStyle=false;
+                return{
+                    name: `${ name }`
+                }
+            }    
+            else if(name === '标题' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.siteStyle = false;
+                this.textStyle = false;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.richText=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.marketingCampaign=false;
+                this.titleStyle=true;
+                this.labelCommodity=false;
+                this.imageTextLabel=false;
+                this.blankAssist=false;
+                this.commodityStyle=false;
+                return{
+                    name: `${ name }`
+                }
+            }    
+            else if(name === '图文导航' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.siteStyle = false;
+                this.textStyle = false;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.richText=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.marketingCampaign=false;
+                this.labelCommodity=false;
+                this.imageTextLabel=true;
+                this.titleStyle=false;
+                this.blankAssist=false;
+                this.commodityStyle=false;
+                return{
+                    name: `${ name }`
+                }
+            }    
+            else if(name === '空白辅助' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.siteStyle = false;
+                this.textStyle = false;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.richText=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.marketingCampaign=false;
+                this.labelCommodity=false;
+                this.titleStyle=false;
+                this.blankAssist=true;
+                this.imageTextLabel=false;
+                this.commodityStyle=false;
+                return{
+                    name: `${ name }`
+                }
+            }    
+            else if(name === '商品' ){
+                this.defultStyle = false;
+                this.discountsStyle = false;
+                this.elementDefultStyle = false;
+                this.siteStyle = false;
+                this.textStyle = false;
+                this.phoneStyle = false;
+                this.sublineStyle = false;
+                this.pictureStyle = false;
+                this.newsInformation=false;
+                this.richText=false;
+                this.videoStyle=false;
+                this.imageTextAdvertising=false;
+                this.marketingCampaign=false;
+                this.labelCommodity=false;
+                this.titleStyle=false;
+                this.imageTextLabel=false;
+                this.blankAssist=false;
+                this.commodityStyle=true;
+                return{
+                    name: `${ name }`
+                }
+            } 
+        },
+        // 点击顶部设置
+        setShowElementTop(){
+            this.defultStyle = true
+            this.discountsStyle = false;
+            this.elementDefultStyle = false;
+            this.textStyle = false;
+            this.siteStyle = false;
+            this.phoneStyle = false;
+            this.sublineStyle = false;
+            this.pictureStyle = false;
+            this.newsInformation=false;
+            this.richText=false;
+            this.videoStyle=false;
+            this.imageTextAdvertising=false;
+            this.marketingCampaign=false;
+            this.labelCommodity=false;
+            this.titleStyle=false;
+            this.imageTextLabel=false;
+            this.blankAssist=false;
+            this.commodityStyle=false;
+        },
+        // 点击删除
+        delElement(item){
+            for(let i=0;i<this.list2.length;i++){
+                if(this.list2[i].name == item.name){
+                    this.list2.splice(i,1)
+                    if(this.list2.length ==0){
+                        this.defultStyle = true
+                        this.discountsStyle = false;
+                        this.elementDefultStyle = false;
+                        this.textStyle = false;
+                        this.siteStyle = false;
+                        this.phoneStyle = false;
+                        this.sublineStyle = false;
+                        this.pictureStyle = false;
+                        this.newsInformation=false;
+                        this.richText=false;
+                        this.videoStyle=false;
+                        this.imageTextAdvertising=false;
+                        this.marketingCampaign=false;
+                        this.labelCommodity=false;
+                        this.titleStyle=false;
+                        this.imageTextLabel=false;
+                        this.blankAssist=false;
+                        this.commodityStyle=false;
+                    }
+                    return true;
+                }
+            }
+        },
+        // 点击重置默认背景颜色
+        resetDefultBackgroundColor(){
+            // 重置默认背景颜色
+            this.defultBackgroundColor = "#eee"
+            // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor)
+            this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor = this.defultBackgroundColor
+            // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor)
+            this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.defultBackgroundColor
+        },
+        // 点击全屏显示的启动
+        change(){
+            console.log(this.fullScreen)
+        },
+        addGroupingFromList(e){
+            this.addGrouping = false
+            // console.log(this.groupingList.push({name:this.addGroupingName,id:this.groupingList.length+1+e}))
+            this.groupingList.push({name:this.addGroupingName,id:this.groupingList.length+1+e})
+        },
+        // 点击上传图片
+        handleChange(file, fileList) {
+            this.fileList = fileList.slice(-3);
+        },
+        // 点击清空组件按钮
+        clearElement(){
+            this.list2 = []
+            this.defultStyle = true;
+            this.discountsStyle = false
+            this.elementDefultStyle = false;
+            this.siteStyle = false;
+            this.textStyle = false;
+            this.phoneStyle = false;
+            this.sublineStyle = false;
+            this.pictureStyle = false;
+            this.newsInformation=false;
+            this.richText=false;
+            this.videoStyle=false;
+            this.imageTextAdvertising=false;
+            this.marketingCampaign=false;
+            this.labelCommodity=false;
+            this.titleStyle=false;
+            this.imageTextLabel=false;
+            this.blankAssist=false;
+            this.commodityStyle=false;
+        },
+        // 获取地址子组件的值
+        getData(data,item){
+            // console.log(data,item)
+            this.elementSendStyle = data
+            for(let i=0;i<this.list2.length;i++){
+                if(this.list2[i].name == item){
+                    console.log(this.list2[i])
+                    return true;
+                }
+            }
+        },
+        // 获取地址子组件传的标题颜色
+        getDataColor(){
+            // console.log(data,item)
+            console.log(1111)
         }
     },
-    // 点击重置默认背景颜色
-    resetDefultBackgroundColor(){
-        // 重置默认背景颜色
-        this.defultBackgroundColor = "#eee"
-        // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor)
-        this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor = this.defultBackgroundColor
-        // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor)
-        this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.defultBackgroundColor
-    },
-    // 点击全屏显示的启动
-    change(){
-        console.log(this.fullScreen)
-    },
-    addGroupingFromList(e){
-        this.addGrouping = false
-        // console.log(this.groupingList.push({name:this.addGroupingName,id:this.groupingList.length+1+e}))
-        this.groupingList.push({name:this.addGroupingName,id:this.groupingList.length+1+e})
-    },
-    // 点击上传图片
-     handleChange(file, fileList) {
-        this.fileList = fileList.slice(-3);
-      }
-  },
-  watch:{
-    //   监听默认背景颜色改变事件
-    color(){
-    //   console.log(12345)
-        this.defultBackgroundColor = this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor
+    watch:{
+        // 监听默认背景颜色改变事件
+        color(){
+            console.log(12345)
+            this.defultBackgroundColor = this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor
+        },
     },
   }
-};
 </script>
 <style scoped lang="less">
     .demo01{
@@ -800,7 +888,7 @@ export default {
         .center{
             flex: 1;
             height: 100%;
-            background-color: #ccc;
+            // background-color: #ccc;
             .showElement{
                 width: 60%;
                 height: 70%;
@@ -832,20 +920,17 @@ export default {
                         cursor: pointer;
                         height: 60px;
                         line-height: 60px;
-                        // border: 1px dashed #eee;
-                        background-color: #fff;
+                        border: 1px solid rgb(90, 136, 235);
                         display: flex;
                         justify-content: flex-end;
                         .items{
-                            width: 98%;
+                            width: 100%;
                         }
                         .del{
                             width: 18px;
-                            height: 18px;
-                            border-radius: 18px;
+                            // border-radius: 18px;
                             background: url('../../assets/imgs/del.png')  no-repeat;
                             background-size: 100%;
-                            background-color: #eee;
                             display: none;
                         }
                         .delSoild{
@@ -869,7 +954,7 @@ export default {
             }
         }
         .right{
-            width: 30%;
+            width: 40%;
             .titleName{
                 height: 40px;
                 line-height: 40px;       
