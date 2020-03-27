@@ -41,11 +41,11 @@
                     :class="{'delStyle':i.name ==''}"                 
                     >
                     <div class="items">
-                        <!-- <div class="name" v-show="elementSendStyle =='#eee'">{{ i.name }}</div> -->
+                        <div class="name" v-show="i.name !=='地址'">{{ i.name }}</div>
                         <!-- 地址样式 -->
-                        <div class="name" v-show="i.name ==='地址'" :style="{'backgroundColor':elementSendStyle}">
-                            <span>{{ i.name }}:</span>
-                            <span>{{ i.site }}</span> 
+                        <div class="name" v-show="i.name ==='地址'" :style="{'backgroundColor':elementSendStyle,'height':'80px','borderRadius':elementRadius+'px','marginLeft':elementMargin+'px','marginRight':elementMargin+'px','paddingLeft':elementPadding+'px','paddingRight':elementPadding+'px'}">
+                            <span :style="{'color':elementTitleColorStyle}">{{ i.name }}:</span>
+                            <span :style="{'color':elementColorStyle}" >{{ i.site }}</span> 
                         </div>
                         <!-- 辅助线样式 -->
                         <div class="delSoild" v-show="i.name === ''"></div>
@@ -120,7 +120,7 @@
                 <!-- 文字 -->
                 <textStyle v-show="textStyle" />
                 <!-- 地址 -->
-                <siteStyle v-show="siteStyle" @getData="getData" />
+                <siteStyle v-show="siteStyle" @getData="getData" @setTitleColor="setTitleColor" @setsitesColor="setsitesColor" @radius="radius" @margin='margin' @padding='padding' />
                 <!-- 电话 -->
                 <phoneStyle v-show="phoneStyle" />
                 <!-- 辅助线 -->
@@ -348,6 +348,11 @@ export default {
         blankAssist:false,//空白辅助样式
         commodityStyle:false,//商品样式
         elementSendStyle:'#eee',//拖拽组件的默认背景颜色
+        elementTitleColorStyle:'#2692ff',//拖拽组件的默认标题字体颜色
+        elementColorStyle:'#2692ff',//拖拽组件的默认字体颜色
+        elementRadius:0,//拖拽组件的默认圆角大小
+        elementMargin:0,//拖拽组件的默认外边距大小
+        elementPadding:0,//拖拽组件的默认内边距大小
         };
   },
     methods: {
@@ -838,15 +843,57 @@ export default {
             }
         },
         // 获取地址子组件传的标题颜色
-        getDataColor(){
+        setTitleColor(data,item){
             // console.log(data,item)
-            console.log(1111)
+            this.elementTitleColorStyle = data
+            for(let i=0;i<this.list2.length;i++){
+                if(this.list2[i].name == item){
+                    // console.log(this.list2[i])
+                    return true;
+                }
+            }          
+        },
+        // 获取地址子组件的位置颜色
+        setsitesColor(data,item){
+            this.elementColorStyle = data
+            for(let i=0;i<this.list2.length;i++){
+                if(this.list2[i].name == item){
+                    return true;
+                }
+            }
+        },
+        // 获取地址子组件的圆角变化
+        radius(data,item){
+            // console.log(data,item)
+            this.elementRadius = data
+            for(let i=0;i<this.list2.length;i++){
+                if(this.list2[i].name == item){
+                    return true;
+                }
+            }
+        },
+        // 内外边距监听
+        margin(data,item){
+            this.elementMargin= data
+            for(let i=0;i<this.list2.length;i++){
+                if(this.list2[i].name == item){
+                    return true;
+                }
+            }
+        },
+        padding(data,item){
+            this.elementPadding = data
+            for(let i=0;i<this.list2.length;i++){
+                if(this.list2[i].name == item){
+                    return true;
+                }
+            }
         }
     },
     watch:{
         // 监听默认背景颜色改变事件
         color(){
-            console.log(12345)
+            // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[2])
             this.defultBackgroundColor = this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor
         },
     },
@@ -918,8 +965,8 @@ export default {
                     width: 100%;
                     .item{
                         cursor: pointer;
-                        height: 60px;
-                        line-height: 60px;
+                        height: auto;
+                        // line-height: 60px;
                         border: 1px solid rgb(90, 136, 235);
                         display: flex;
                         justify-content: flex-end;

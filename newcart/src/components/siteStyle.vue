@@ -80,6 +80,7 @@
         <!-- 地图 -->
         <div class="map">
             地图
+            <div  id="allmap" ref="allmap"></div>
         </div>
     </div>
 </template>
@@ -96,6 +97,9 @@
                 radius:0,//圆角的初始值
                 margin:0,//外边距
                 padding:0,//内边距
+                type: 'tab',
+                address_detail: '北京市海淀区',
+                center: {lng: 111, lat:34},
             };
         },
         methods:{
@@ -112,14 +116,29 @@
             //标题颜色
             titleColor(){
                 this.titleColors = "#eee"
-                console.log(this.$refs.titleColor.$refs.colorPicker.children[0].style.backgroundColor,'111')
-                this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor = this.titleColors
-                this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.titleColors
+                // console.log(this.$refs.titleColor.$refs.colorPicker.children[0].style.backgroundColor,'111')
+                this.$refs.titleColor.$refs.colorPicker.children[0].style.backgroundColor = this.titleColors
+                this.$refs.titleColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.titleColors
             },
             //地址默认颜色
             siteColor(){
                 this.sitesColor = "#ddd"
-                console.log(this.$refs.sitesColor.$refs.colorPicker.children[0].style.backgroundColor,'222')
+                // console.log(this.$refs.sitesColor.$refs.colorPicker.children[0].style.backgroundColor,'222')
+                this.$refs.sitesColor.$refs.colorPicker.children[0].style.backgroundColor = this.sitesColor
+                this.$refs.sitesColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.sitesColor
+            },
+            // 地图
+            map () {
+                let map = new window.BMap.Map(this.$refs.allmap) // 创建Map实例
+                map.centerAndZoom(new window.BMap.Point(116.404, 39.915), 11) // 初始化地图,设置中心点坐标和地图级别
+                map.addControl(new window.BMap.MapTypeControl({ // 添加地图类型控件
+                    mapTypes: [
+                    window.BMAP_NORMAL_MAP,
+                    window.BMAP_HYBRID_MAP
+                    ]
+                }))
+                map.setCurrentCity('北京') // 设置地图显示的城市 此项是必须设置的
+                map.enableScrollWheelZoom(true)// 开启鼠标滚轮缩放
             },
         },
         watch:{
@@ -131,17 +150,32 @@
             },
             // 监听标题颜色默认颜色改变事件
             titleColors(){
-                console.log(678910,this.$emit('getDataColor'))
-                this.$emit('getDataColor','地址')
+                // console.log(678910,this.$emit('setTitleColor'))
+                this.$emit('setTitleColor',this.$refs.titleColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor,'地址')
                 // this.defultBackgroundColor = this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor
             },
             // 监听地址默认颜色改变事件
-            sitesColor(){
-                console.log(123456789)
+            sitesColor(){ 
+                this.$emit('setsitesColor',this.$refs.sitesColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor,'地址')
                 // this.defultBackgroundColor = this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor
             },
-
+            // 监听圆角改变
+            radius(){
+                // console.log(123456789)
+                this.$emit('radius',this.radius,'地址')
+            },
+            // 监听外边距
+            margin(){
+                this.$emit('margin',this.margin,'地址')
+            },
+            // 监听内边距
+            padding(){
+                this.$emit('padding',this.padding,'地址')
+            },
         },
+        mounted () {
+            this.map()
+        }
     }
 </script>
 
@@ -208,6 +242,16 @@
             padding: 10px 100px;
             z-index: 1;
         }
+    }
+    .map{
+        // width: 300px;
+        height: 350px;
+        overflow: hidden;
+    }
+    #allmap {
+        width: 100%;
+        height: 500px;
+        // overflow: hidden;
     }
 }
 </style>
