@@ -34,23 +34,31 @@
                     :list="list2"
                     group="people"
                     @change="log1"
-                    style="min-height:375px;"
+                    style="min-height:500px;"
                     >
                     <div class="list-group-item item"
                     v-for="i in list2" :key="i.id"  
                     :class="{'delStyle':i.name ==''}"                 
                     >
                     <div class="items">
-                        <div class="name" v-show="i.name !=='地址'">{{ i.name }}</div>
+                        <div class="name" v-show="i.name !=='地址'&&i.name!=='电话'">{{ i.name }}</div>
                         <!-- 地址样式 -->
-                        <div class="name" v-show="i.name ==='地址'" :style="{'backgroundColor':elementSendStyle,'height':'80px','borderRadius':elementRadius+'px','marginLeft':elementMargin+'px','marginRight':elementMargin+'px','paddingLeft':elementPadding+'px','paddingRight':elementPadding+'px'}">
+                        <div class="name" v-show="i.name ==='地址'&&i.name!=='电话'" :style="{'backgroundColor':elementSendStyle,'height':'80px','borderRadius':elementRadius+'px','marginLeft':elementMargin+'px','marginRight':elementMargin+'px','paddingLeft':elementPadding+'px','paddingRight':elementPadding+'px'}">
                             <span :style="{'color':elementTitleColorStyle}">{{ i.name }}:</span>
                             <span :style="{'color':elementColorStyle}" >{{ i.site }}</span> 
+                        </div>
+                        <!-- 电话 -->
+                        <div class="name" v-show="i.name !=='地址'&&i.name ==='电话'" :style="{'backgroundColor':elementSendPhoneStyle,'height':'100px','borderRadius':elementSendPhoneRadius+'px','marginLeft':elementSendPhoneMargin+'px','marginRight':elementSendPhoneMargin+'px','paddingLeft':elementSendPhonePadding+'px','paddingRight':elementSendPhonePadding+'px'}">
+                            <span :style="{'color':elementSendPhoneTitleColorStyle}">{{ i.name }}:</span>
+                            <span :style="{'color':elementSendPhoneColorStyle}" >{{ i.phone }}</span> 
                         </div>
                         <!-- 辅助线样式 -->
                         <div class="delSoild" v-show="i.name === ''"></div>
                     </div>
-                    <i class="del" @click="delElement(i)" :style="{'backgroundColor':elementSendStyle}"></i> 
+                    <!-- <i class="del" @click="delElement(i)" v-show="i.name ==='地址'&&i.name!=='电话'" :style="{'backgroundColor':elementSendStyle}"></i> 
+                    <i class="del" @click="delElement(i)" v-show="i.name !=='地址'&&i.name ==='电话'" :style="{'backgroundColor':elementSendPhoneStyle}"></i>  -->
+                    <!-- <i class="del" @click="delElement(i)" v-show="i.name !=='地址'&&i.name!=='电话'"></i>  -->
+                    <i class="del" @click="delElement(i)"></i> 
                     </div>
                     </draggable> 
                 </div>
@@ -82,6 +90,7 @@
                         背景色:
                     </div>
                     <div class="btn">
+                        <!-- <el-color-picker v-model="color" ref="defultBackgroundColor"></el-color-picker> -->
                         <colorPicker v-model="color"  ref="defultBackgroundColor"></colorPicker> 
                         <div class="reset" @click="resetDefultBackgroundColor">重置</div>
                     </div>                   
@@ -122,7 +131,7 @@
                 <!-- 地址 -->
                 <siteStyle v-show="siteStyle" @getData="getData" @setTitleColor="setTitleColor" @setsitesColor="setsitesColor" @radius="radius" @margin='margin' @padding='padding' />
                 <!-- 电话 -->
-                <phoneStyle v-show="phoneStyle" />
+                <phoneStyle v-show="phoneStyle" @getData="getData" @setTitleColor="setTitleColor" @phoneColor="phoneColor" @radius="radius" @margin='margin' @padding='padding' />
                 <!-- 辅助线 -->
                 <sublineStyle v-show="sublineStyle" />
                 <!-- t图片 -->
@@ -353,6 +362,12 @@ export default {
         elementRadius:0,//拖拽组件的默认圆角大小
         elementMargin:0,//拖拽组件的默认外边距大小
         elementPadding:0,//拖拽组件的默认内边距大小
+        elementSendPhoneStyle:'#eee',//拖拽组件的电话默认背景颜色
+        elementSendPhoneTitleColorStyle:'#2692ff',//拖拽组件电话的默认标题字体颜色
+        elementSendPhoneColorStyle:'#2692ff',//拖拽电话组件的默认字体颜色
+        elementSendPhoneRadius:0,//拖拽电话组件的默认圆角大小
+        elementSendPhoneMargin:0,//拖拽组件电话的默认外边距大小
+        elementSendPhonePadding:0,//拖拽组件电话的默认内边距大小
         };
   },
     methods: {
@@ -433,7 +448,8 @@ export default {
                 this.blankAssist=false;
                 this.commodityStyle=false;
                 return{
-                    name: `${ name }`
+                    name: `${ name }`,
+                    phone:'13194782515'
                 }
             }
             else if(name === '新闻资讯' ){
@@ -456,7 +472,8 @@ export default {
                 this.blankAssist=false;
                 this.commodityStyle=false;
                 return{
-                    name: `${ name }`
+                    // name: `${ name }`
+                    name:'请添加新闻资讯'
                 }
             }
             else if(name === '图片' ){
@@ -791,7 +808,7 @@ export default {
         resetDefultBackgroundColor(){
             // 重置默认背景颜色
             this.defultBackgroundColor = "#eee"
-            // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor)
+            // console.log(this.$refs.defultBackgroundColor)
             this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor = this.defultBackgroundColor
             // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor)
             this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.defultBackgroundColor
@@ -834,10 +851,16 @@ export default {
         // 获取地址子组件的值
         getData(data,item){
             // console.log(data,item)
-            this.elementSendStyle = data
+            // this.elementSendStyle = data
+            // this.elementSendPhoneStyle = data
+            if(item == '地址'){
+                this.elementSendStyle = data
+            }else if(item == '电话'){
+                this.elementSendPhoneStyle = data
+            }
             for(let i=0;i<this.list2.length;i++){
                 if(this.list2[i].name == item){
-                    console.log(this.list2[i])
+                    // console.log(this.list2[i])
                     return true;
                 }
             }
@@ -845,7 +868,13 @@ export default {
         // 获取地址子组件传的标题颜色
         setTitleColor(data,item){
             // console.log(data,item)
-            this.elementTitleColorStyle = data
+            if(item == '地址'){
+                this.elementTitleColorStyle = data
+            }else if(item == '电话'){
+                this.elementSendPhoneTitleColorStyle = data
+            }
+            // this.elementTitleColorStyle = data
+            // this.elementSendPhoneTitleColorStyle = data
             for(let i=0;i<this.list2.length;i++){
                 if(this.list2[i].name == item){
                     // console.log(this.list2[i])
@@ -855,7 +884,26 @@ export default {
         },
         // 获取地址子组件的位置颜色
         setsitesColor(data,item){
-            this.elementColorStyle = data
+            // this.elementColorStyle = data
+            if(item == '地址'){
+                this.elementColorStyle = data
+            }else if(item == '电话'){
+                this.elementSendPhoneColorStyle = data
+            }
+            for(let i=0;i<this.list2.length;i++){
+                if(this.list2[i].name == item){
+                    return true;
+                }
+            }
+        },
+        phoneColor(data,item){
+            if(item == '地址'){
+                this.elementColorStyle = data
+            }else if(item == '电话'){
+                this.elementSendPhoneColorStyle = data
+            }
+            // this.elementColorStyle = data
+            // this.elementSendPhoneColorStyle = data
             for(let i=0;i<this.list2.length;i++){
                 if(this.list2[i].name == item){
                     return true;
@@ -865,7 +913,13 @@ export default {
         // 获取地址子组件的圆角变化
         radius(data,item){
             // console.log(data,item)
-            this.elementRadius = data
+            if(item == '地址'){
+                this.elementRadius = data
+            }else if(item == '电话'){
+                this.elementSendPhoneRadius = data
+            }
+            // this.elementRadius = data
+            // this.elementSendPhoneRadius = data
             for(let i=0;i<this.list2.length;i++){
                 if(this.list2[i].name == item){
                     return true;
@@ -874,7 +928,13 @@ export default {
         },
         // 内外边距监听
         margin(data,item){
-            this.elementMargin= data
+            if(item == '地址'){
+                this.elementMargin = data
+            }else if(item == '电话'){
+                this.elementSendPhoneMargin = data
+            }
+            // this.elementMargin= data
+            // this.elementSendPhoneMargin= data
             for(let i=0;i<this.list2.length;i++){
                 if(this.list2[i].name == item){
                     return true;
@@ -882,7 +942,13 @@ export default {
             }
         },
         padding(data,item){
-            this.elementPadding = data
+            if(item == '地址'){
+                this.elementPadding = data
+            }else if(item == '电话'){
+                this.elementSendPhonePadding = data
+            }
+            // this.elementPadding = data
+            // this.elementSendPhonePadding = data
             for(let i=0;i<this.list2.length;i++){
                 if(this.list2[i].name == item){
                     return true;
@@ -893,7 +959,7 @@ export default {
     watch:{
         // 监听默认背景颜色改变事件
         color(){
-            // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[2])
+            // console.log(this.$refs.defultBackgroundColor)
             this.defultBackgroundColor = this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor
         },
     },
@@ -1082,7 +1148,7 @@ export default {
                 }
             }
         }
-        .imgsList{
+        .imgsList{ 
             display: flex;
             flex-direction: row ;
             .imgsListTab{
@@ -1103,7 +1169,8 @@ export default {
                 }
                
                 .addGrouping{
-                    margin-left: 15px;
+                    margin-right: 5px;
+                    margin-left: 20px;
                     margin-top: 10px;
                 }
             }
