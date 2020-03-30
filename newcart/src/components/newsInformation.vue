@@ -92,11 +92,9 @@
             resetBackgroundColor(){
                 // 重置默认背景颜色
                 this.backgroundColor = "#ccc"
-                // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor)
-                // console.log(this.backgroundColor)
-                this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor = this.backgroundColor
-                this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.backgroundColor
-                // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor)
+                this.$refs.defultBackgroundColor.color.value = this.backgroundColor
+                // console.log(this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor)
+                this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor = this.backgroundColor
             },
             // 点击全选
             toggleSelection(rows) {
@@ -111,7 +109,15 @@
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             }
-        }
+        },
+        watch:{
+        // 监听默认地址背景颜色改变事件
+            backgroundColor(){
+                console.log(this.backgroundColor)
+                console.log(this.$refs.defultBackgroundColor.color.value)
+                this.$emit('getData',this.backgroundColor,'新闻资讯')
+            },
+        },
     }
 </script>
 

@@ -41,19 +41,21 @@
                     :class="{'delStyle':i.name ==''}"                 
                     >
                     <div class="items">
-                        <div class="name" v-show="i.name !=='地址'&&i.name!=='电话'">{{ i.name }}</div>
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'">{{ i.name }}</div>
                         <!-- 地址样式 -->
-                        <div class="name" v-show="i.name ==='地址'&&i.name!=='电话'" :style="{'backgroundColor':elementSendStyle,'height':'80px','borderRadius':elementRadius+'px','marginLeft':elementMargin+'px','marginRight':elementMargin+'px','paddingLeft':elementPadding+'px','paddingRight':elementPadding+'px'}">
+                        <div class="name" v-if="i.name ==='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'" :style="{'backgroundColor':elementSendStyle,'height':'80px','borderRadius':elementRadius+'px','marginLeft':elementMargin+'px','marginRight':elementMargin+'px','paddingLeft':elementPadding+'px','paddingRight':elementPadding+'px'}">
                             <span :style="{'color':elementTitleColorStyle}">{{ i.name }}:</span>
                             <span :style="{'color':elementColorStyle}" >{{ i.site }}</span> 
                         </div>
                         <!-- 电话 -->
-                        <div class="name" v-show="i.name !=='地址'&&i.name ==='电话'" :style="{'backgroundColor':elementSendPhoneStyle,'height':'100px','borderRadius':elementSendPhoneRadius+'px','marginLeft':elementSendPhoneMargin+'px','marginRight':elementSendPhoneMargin+'px','paddingLeft':elementSendPhonePadding+'px','paddingRight':elementSendPhonePadding+'px'}">
+                        <div class="name" v-if="i.name !=='地址'&&i.name ==='电话'&&i.name !== '请添加新闻资讯'" :style="{'backgroundColor':elementSendPhoneStyle,'height':'100px','borderRadius':elementSendPhoneRadius+'px','marginLeft':elementSendPhoneMargin+'px','marginRight':elementSendPhoneMargin+'px','paddingLeft':elementSendPhonePadding+'px','paddingRight':elementSendPhonePadding+'px'}">
                             <span :style="{'color':elementSendPhoneTitleColorStyle}">{{ i.name }}:</span>
                             <span :style="{'color':elementSendPhoneColorStyle}" >{{ i.phone }}</span> 
                         </div>
+                        <!-- 新闻资讯 -->
+                        <div class="name" v-if="i.name === '请添加新闻资讯' && i.name !=='地址'&&i.name!=='电话'" :style="{'backgroundColor':elementNewStyle}">{{ i.name }}</div>
                         <!-- 辅助线样式 -->
-                        <div class="delSoild" v-show="i.name === ''"></div>
+                        <div class="delSoild" v-if="i.name === ''"></div>
                     </div>
                     <!-- <i class="del" @click="delElement(i)" v-show="i.name ==='地址'&&i.name!=='电话'" :style="{'backgroundColor':elementSendStyle}"></i> 
                     <i class="del" @click="delElement(i)" v-show="i.name !=='地址'&&i.name ==='电话'" :style="{'backgroundColor':elementSendPhoneStyle}"></i>  -->
@@ -90,8 +92,8 @@
                         背景色:
                     </div>
                     <div class="btn">
-                        <!-- <el-color-picker v-model="color" ref="defultBackgroundColor"></el-color-picker> -->
-                        <colorPicker v-model="color"  ref="defultBackgroundColor"></colorPicker> 
+                        <el-color-picker v-model="color" ref="defultBackgroundColor"></el-color-picker>
+                        <!-- <colorPicker v-model="color"  ref="defultBackgroundColor"></colorPicker>  -->
                         <div class="reset" @click="resetDefultBackgroundColor">重置</div>
                     </div>                   
                 </div>
@@ -137,7 +139,7 @@
                 <!-- t图片 -->
                 <pictureStyle v-show="pictureStyle" />
                 <!-- 新闻样式 -->
-                <newsInformation v-show="newsInformation" />
+                <newsInformation v-show="newsInformation" @getData="getData" />
                 <!-- 富文本样式 -->
                 <richText v-show="richText" />
                 <!-- 视频样式 -->
@@ -368,6 +370,7 @@ export default {
         elementSendPhoneRadius:0,//拖拽电话组件的默认圆角大小
         elementSendPhoneMargin:0,//拖拽组件电话的默认外边距大小
         elementSendPhonePadding:0,//拖拽组件电话的默认内边距大小
+        elementNewStyle:'#eee',//新闻背景默认颜色
         };
   },
     methods: {
@@ -807,11 +810,12 @@ export default {
         // 点击重置默认背景颜色
         resetDefultBackgroundColor(){
             // 重置默认背景颜色
+            this.$refs.defultBackgroundColor.color.value = this.defultBackgroundColor
             this.defultBackgroundColor = "#eee"
-            // console.log(this.$refs.defultBackgroundColor)
-            this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor = this.defultBackgroundColor
+            console.log(this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor)
+            this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor = this.defultBackgroundColor
             // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor)
-            this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.defultBackgroundColor
+            // this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.defultBackgroundColor
         },
         // 点击全屏显示的启动
         change(){
@@ -857,6 +861,9 @@ export default {
                 this.elementSendStyle = data
             }else if(item == '电话'){
                 this.elementSendPhoneStyle = data
+            }else if(item == '新闻资讯'){
+                console.log(data)
+                this.elementNewStyle = data
             }
             for(let i=0;i<this.list2.length;i++){
                 if(this.list2[i].name == item){
@@ -960,7 +967,7 @@ export default {
         // 监听默认背景颜色改变事件
         color(){
             // console.log(this.$refs.defultBackgroundColor)
-            this.defultBackgroundColor = this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor
+            this.defultBackgroundColor = this.$refs.defultBackgroundColor.color.value
         },
     },
   }
