@@ -80,13 +80,13 @@
         <!-- 地图 -->
         <div class="map">
             地图
-            <div  id="allmap" ref="allmap"></div>
+            <div id="allmap" ref="allmap"></div>
         </div>
     </div>
 </template>
-
 <script>
     export default {
+
         data() {
             return {
                 titleName:'',//名称
@@ -129,17 +129,20 @@
             },
             // 地图
             map () {
-                let map = new window.BMap.Map(this.$refs.allmap) // 创建Map实例
-                map.centerAndZoom(new window.BMap.Point(116.404, 39.915), 11) // 初始化地图,设置中心点坐标和地图级别
-                map.addControl(new window.BMap.MapTypeControl({ // 添加地图类型控件
-                    mapTypes: [
-                    window.BMAP_NORMAL_MAP,
-                    window.BMAP_HYBRID_MAP
-                    ]
-                }))
-                map.setCurrentCity('北京') // 设置地图显示的城市 此项是必须设置的
-                map.enableScrollWheelZoom(true)// 开启鼠标滚轮缩放
+            let map = new window.BMap.Map(this.$refs.allmap) // 创建Map实例
+            map.centerAndZoom(new window.BMap.Point(116.404, 39.915), 11) // 初始化地图,设置中心点坐标和地图级别
+            map.addControl(new window.BMap.MapTypeControl({ // 添加地图类型控件
+                mapTypes: [
+                window.BMAP_NORMAL_MAP,
+                window.BMAP_HYBRID_MAP
+                ]
+            }))
+            map.setCurrentCity('北京') // 设置地图显示的城市 此项是必须设置的
+            map.enableScrollWheelZoom(true)// 开启鼠标滚轮缩放
             },
+        },
+        mounted () {
+            this.map()
         },
         watch:{
             // 监听默认地址背景颜色改变事件
@@ -172,9 +175,6 @@
             padding(){
                 this.$emit('padding',this.padding,'地址')
             },
-        },
-        mounted () {
-            this.map()
         }
     }
 </script>
@@ -187,7 +187,7 @@
         font-size: 20px;   
         color: #666;
     }
-    .title,.sites,.background,.full-screen,.titleColor,.sitesColor,{
+    .title,.sites,.background,.full-screen,.titleColor,.sitesColor{
         margin-top: 5px;
         display: flex;
         justify-content: flex-start;
@@ -247,11 +247,12 @@
         // width: 300px;
         height: 350px;
         overflow: hidden;
+        // background-color: #2692ff;
     }
     #allmap {
         width: 100%;
         height: 500px;
-        // overflow: hidden;
+        overflow: hidden;
     }
 }
 </style>

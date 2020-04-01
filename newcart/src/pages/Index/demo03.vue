@@ -5,7 +5,6 @@
         <el-button @click="setData">传递到父组件</el-button> -->
     </div>
 </template>
-
 <script>
     export default {
         data(){
@@ -21,10 +20,10 @@
             //     this.$emit('getData',this.msgs)
             //     console.log(this,e)
             // }
-        },
+        }
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 
 </style>

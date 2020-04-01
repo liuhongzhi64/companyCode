@@ -41,7 +41,7 @@
                     :class="{'delStyle':i.name ==''}"                 
                     >
                     <div class="items">
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'">{{ i.name }}</div>
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'">{{ i.name }}</div>
                         <!-- 地址样式 -->
                         <div class="name" v-if="i.name ==='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'" :style="{'backgroundColor':elementSendStyle,'height':'80px','borderRadius':elementRadius+'px','marginLeft':elementMargin+'px','marginRight':elementMargin+'px','paddingLeft':elementPadding+'px','paddingRight':elementPadding+'px'}">
                             <span :style="{'color':elementTitleColorStyle}">{{ i.name }}:</span>
@@ -52,6 +52,8 @@
                             <span :style="{'color':elementSendPhoneTitleColorStyle}">{{ i.name }}:</span>
                             <span :style="{'color':elementSendPhoneColorStyle}" >{{ i.phone }}</span> 
                         </div>
+                        <!-- 图片 -->
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name==='图片'" :style="{'height':'auto'}"><img src="../../assets/imgs/picture.png" alt=""></div>
                         <!-- 新闻资讯 -->
                         <div class="name" v-if="i.name === '请添加新闻资讯' && i.name !=='地址'&&i.name!=='电话'" :style="{'backgroundColor':elementNewStyle}">{{ i.name }}</div>
                         <!-- 辅助线样式 -->
@@ -88,9 +90,7 @@
                 </div>
                 <!-- 背景色 -->
                 <div class="background">
-                    <div>
-                        背景色:
-                    </div>
+                    <div> 背景色: </div>
                     <div class="btn">
                         <el-color-picker v-model="color" ref="defultBackgroundColor"></el-color-picker>
                         <!-- <colorPicker v-model="color"  ref="defultBackgroundColor"></colorPicker>  -->
@@ -99,9 +99,7 @@
                 </div>
                 <!-- 全屏展示 -->
                 <div class="full-screen">
-                    <div>
-                        全屏展示:
-                    </div>
+                    <div> 全屏展示: </div>
                     <div class="set-full-screen" @change="change">
                         <el-switch
                         v-model="fullScreen"
@@ -114,9 +112,7 @@
                 </div>
                 <!-- 背景图片 -->
                 <div class="background-img">
-                    <div class="backgroundImgsText">
-                        背景图片:
-                    </div>
+                    <div class="backgroundImgsText"> 背景图片: </div>
                     <div class="backgroundImgs"  @click="centerDialogVisible = true">
                         <i class="el-icon-plus"></i>
                     </div>                   
