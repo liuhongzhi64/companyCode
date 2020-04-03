@@ -245,13 +245,13 @@
     }
     .map{
         // width: 300px;
-        height: 350px;
+        height: 300px;
         overflow: hidden;
         // background-color: #2692ff;
     }
     #allmap {
         width: 100%;
-        height: 500px;
+        height: 100%;
         overflow: hidden;
     }
 }

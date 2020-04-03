@@ -53,7 +53,9 @@
                             <span :style="{'color':elementSendPhoneColorStyle}" >{{ i.phone }}</span> 
                         </div>
                         <!-- 图片 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name==='图片'" :style="{'height':'auto'}"><img src="../../assets/imgs/picture.png" alt=""></div>
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name==='图片'" :style="{'backgroundColor':pictureStyles,'borderRadius':pictureSendPhoneRadius+'px','marginLeft':pictureSendPhoneMargin+'px','marginRight':pictureSendPhoneMargin+'px','paddingLeft':pictureSendPhonePadding+'px','paddingRight':pictureSendPhonePadding+'px'}"> 
+                            <div style=" width: 100%;text-align: center;"><img style="width: 100%; height: 100%; text-align: center; display: block; border-radius: 0px;" src="../../assets/imgs/picture.png" alt=""></div>
+                        </div>
                         <!-- 新闻资讯 -->
                         <div class="name" v-if="i.name === '请添加新闻资讯' && i.name !=='地址'&&i.name!=='电话'" :style="{'backgroundColor':elementNewStyle}">{{ i.name }}</div>
                         <!-- 辅助线样式 -->
@@ -76,7 +78,7 @@
         <div class="right">
             <div class="top">右边编辑区</div>
             <!-- 默认样式 -->
-            <div v-show="defultStyle" class="setStyle">
+            <div v-if="defultStyle" class="setStyle">
                 <div class="titleName">网页编辑</div>
                 <div class="redact">默认设置</div>
                 <!-- 标题 -->
@@ -121,39 +123,39 @@
             <!-- 样式列表 -->
             <div>
                 <!-- 优惠卷样式 -->
-                <discounts v-show="discountsStyle" />
+                <discounts v-if="discountsStyle" />
                 <!-- 样式 -->
-                <defultStyle v-show="elementDefultStyle"/>
+                <defultStyle v-if="elementDefultStyle"/>
                 <!-- 文字 -->
-                <textStyle v-show="textStyle" />
+                <textStyle v-if="textStyle" />
                 <!-- 地址 -->
-                <siteStyle v-show="siteStyle" @getData="getData" @setTitleColor="setTitleColor" @setsitesColor="setsitesColor" @radius="radius" @margin='margin' @padding='padding' />
+                <siteStyle v-if="siteStyle" @getData="getData" @setTitleColor="setTitleColor" @setsitesColor="setsitesColor" @radius="radius" @margin='margin' @padding='padding' />
                 <!-- 电话 -->
-                <phoneStyle v-show="phoneStyle" @getData="getData" @setTitleColor="setTitleColor" @phoneColor="phoneColor" @radius="radius" @margin='margin' @padding='padding' />
+                <phoneStyle v-if="phoneStyle" @getData="getData" @setTitleColor="setTitleColor" @phoneColor="phoneColor" @radius="radius" @margin='margin' @padding='padding' />
                 <!-- 辅助线 -->
-                <sublineStyle v-show="sublineStyle" />
+                <sublineStyle v-if="sublineStyle" />
                 <!-- t图片 -->
-                <pictureStyle v-show="pictureStyle" />
+                <pictureStyle v-if="pictureStyle" @getData="getData" @radius="radius" @margin='margin' @padding='padding' />
                 <!-- 新闻样式 -->
-                <newsInformation v-show="newsInformation" @getData="getData" />
+                <newsInformation v-if="newsInformation" @getData="getData" />
                 <!-- 富文本样式 -->
-                <richText v-show="richText" />
+                <richText v-if="richText" />
                 <!-- 视频样式 -->
-                <videoStyle v-show="videoStyle" />
+                <videoStyle v-if="videoStyle" />
                 <!-- 图文广告 -->
-                <imageTextAdvertising v-show="imageTextAdvertising" />
+                <imageTextAdvertising v-if="imageTextAdvertising" />
                 <!-- 营销活动 -->
-                <marketingCampaign v-show="marketingCampaign" />
+                <marketingCampaign v-if="marketingCampaign" />
                 <!-- 标题商品 -->
-                <labelCommodity v-show="labelCommodity" />
+                <labelCommodity v-if="labelCommodity" />
                 <!-- 标题编辑 -->
-                <titleStyle v-show="titleStyle" />
+                <titleStyle v-if="titleStyle" />
                 <!-- 图文导航 -->
-                <imageTextLabel v-show="imageTextLabel" />
+                <imageTextLabel v-if="imageTextLabel" />
                 <!-- 空白辅助 -->
-                <blankAssist v-show="blankAssist" />
+                <blankAssist v-if="blankAssist" />
                 <!-- 商品 -->
-                <commodityStyle v-show="commodityStyle" />
+                <commodityStyle v-if="commodityStyle" />
             </div>           
         </div>
         <!-- 点击背景图片的表单 -->
@@ -367,6 +369,10 @@ export default {
         elementSendPhoneMargin:0,//拖拽组件电话的默认外边距大小
         elementSendPhonePadding:0,//拖拽组件电话的默认内边距大小
         elementNewStyle:'#eee',//新闻背景默认颜色
+        pictureStyles:'#eee',//图片的默认背景颜色
+        pictureSendPhoneRadius:0,//图片的默认圆角大小
+        pictureSendPhoneMargin:0,//图片的默认内边距
+        pictureSendPhonePadding:0,//图片的默认外边距
         };
   },
     methods: {
@@ -779,8 +785,8 @@ export default {
             for(let i=0;i<this.list2.length;i++){
                 if(this.list2[i].name == item.name){
                     this.list2.splice(i,1)
-                    if(this.list2.length ==0){
-                        this.defultStyle = true
+                    if(this.list2.length == 0){
+                        this.defultStyle = true;
                         this.discountsStyle = false;
                         this.elementDefultStyle = false;
                         this.textStyle = false;
@@ -798,6 +804,25 @@ export default {
                         this.imageTextLabel=false;
                         this.blankAssist=false;
                         this.commodityStyle=false;
+                    }else{
+                        this.defultStyle = false;
+                        this.discountsStyle = false;
+                        this.elementDefultStyle = false;
+                        this.textStyle = false;
+                        this.siteStyle = false;
+                        this.phoneStyle = false;
+                        this.sublineStyle = false;
+                        this.pictureStyle = false;
+                        this.newsInformation=false;
+                        this.richText=false;
+                        this.videoStyle=false;
+                        this.imageTextAdvertising=false;
+                        this.marketingCampaign=false;
+                        this.labelCommodity=false;
+                        this.titleStyle=false;
+                        this.imageTextLabel=false;
+                        this.blankAssist=false;
+                        this.commodityStyle=false;                        
                     }
                     return true;
                 }
@@ -860,6 +885,9 @@ export default {
             }else if(item == '新闻资讯'){
                 console.log(data)
                 this.elementNewStyle = data
+            }else if(item == '图片'){
+                console.log(data)
+                this.pictureStyles = data
             }
             for(let i=0;i<this.list2.length;i++){
                 if(this.list2[i].name == item){
@@ -920,6 +948,8 @@ export default {
                 this.elementRadius = data
             }else if(item == '电话'){
                 this.elementSendPhoneRadius = data
+            }else if(item == '图片'){
+                this.pictureSendPhoneRadius = data
             }
             // this.elementRadius = data
             // this.elementSendPhoneRadius = data
@@ -935,6 +965,8 @@ export default {
                 this.elementMargin = data
             }else if(item == '电话'){
                 this.elementSendPhoneMargin = data
+            }else if(item == '图片'){
+                this.pictureSendPhoneMargin = data
             }
             // this.elementMargin= data
             // this.elementSendPhoneMargin= data
@@ -949,6 +981,8 @@ export default {
                 this.elementPadding = data
             }else if(item == '电话'){
                 this.elementSendPhonePadding = data
+            }else if(item == '图片'){
+                this.pictureSendPhonePadding = data
             }
             // this.elementPadding = data
             // this.elementSendPhonePadding = data
@@ -1003,10 +1037,11 @@ export default {
         }
         .center{
             flex: 1;
-            height: 100%;
+            height: 100%;        
             // background-color: #ccc;
             .showElement{
-                width: 60%;
+                // width: 45%;
+                width: 350px;
                 height: 70%;
                 margin: 0 auto;
                 border: 1px solid #fff;
@@ -1044,10 +1079,13 @@ export default {
                         }
                         .del{
                             width: 18px;
+                            height: 20px;
                             // border-radius: 18px;
                             background: url('../../assets/imgs/del.png')  no-repeat;
                             background-size: 100%;
                             display: none;
+                            top: 0;
+                            right: -10px;
                         }
                         .delSoild{
                             width: 90%;

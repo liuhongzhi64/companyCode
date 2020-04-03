@@ -1,29 +1,27 @@
 <template>
-    <div>
-        <!-- 子组件123
-        <input type="text" v-model= msgs >
-        <el-button @click="setData">传递到父组件</el-button> -->
-    </div>
+  <div class="main-wrap">
+    <el-button type="primary" @click="add('addOrder')">添加</el-button>
+    <add-order ref="addOrder" v-if="addOrderVisible" :visible.sync="addOrderVisible"></add-order>
+  </div>
 </template>
 <script>
-    export default {
-        data(){
-            return{
-                // msgs:"传给父组件的值"
-            }
-        },
-        // props:{
-        //     msg:String
-        // },
-        methods:{
-            // setData(e){
-            //     this.$emit('getData',this.msgs)
-            //     console.log(this,e)
-            // }
+  import Add from './demo04'
+  export default {
+    data(){
+      return {
+        addOrderVisible: false
+      }
+    },
+    methods: {
+      add(refForm){
+        if(this.$refs[refForm]){
+          this.$refs[refForm].initForm();
         }
+        this.addOrderVisible= true;
+      }
+    },
+    components: {
+      'add-order': Add
     }
+  }
 </script>
-
-<style lang="less" scoped>
-
-</style>
