@@ -1,27 +1,44 @@
 <template>
-  <div class="main-wrap">
-    <el-button type="primary" @click="add('addOrder')">添加</el-button>
-    <add-order ref="addOrder" v-if="addOrderVisible" :visible.sync="addOrderVisible"></add-order>
-  </div>
+    <div class="richText">
+        富文本编辑{{ msg }}
+        <tinymce-editor v-model="msg"
+        :disabled="disabled"
+        @onClick="onClick"
+        ref="editor"></tinymce-editor>
+        <button @click="clear">清空内容</button>
+        <button @click="disabled = true">禁用</button>
+    </div>
 </template>
+
 <script>
-  import Add from './demo04'
-  export default {
-    data(){
-      return {
-        addOrderVisible: false
-      }
-    },
-    methods: {
-      add(refForm){
-        if(this.$refs[refForm]){
-          this.$refs[refForm].initForm();
-        }
-        this.addOrderVisible= true;
-      }
-    },
-    components: {
-      'add-order': Add
+import TinymceEditor from '../../components/tinymce-editor'
+    export default {
+        components: {
+            TinymceEditor
+        },
+        data() {
+            return {
+                msg: 'Welcome to Use Tinymce Editor',
+                disabled: false
+            };
+        },
+        methods: {
+            //鼠标单击的事件
+            onClick(e, editor) {
+            console.log('Element clicked')
+            console.log(e)
+            console.log(editor)
+            },
+            //清空内容
+            clear() {
+            this.$refs.editor.clear()
+            }
+        },
     }
-  }
 </script>
+
+<style lang="less" scoped>
+.richText{
+    height: 100%;
+}
+</style>

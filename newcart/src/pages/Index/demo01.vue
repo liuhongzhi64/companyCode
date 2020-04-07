@@ -41,25 +41,40 @@
                     :class="{'delStyle':i.name ==''}"                 
                     >
                     <div class="items">
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'">{{ i.name }}</div>
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'">{{ i.name }}</div>
                         <!-- 地址样式 -->
-                        <div class="name" v-if="i.name ==='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'" :style="{'backgroundColor':elementSendStyle,'height':'80px','borderRadius':elementRadius+'px','marginLeft':elementMargin+'px','marginRight':elementMargin+'px','paddingLeft':elementPadding+'px','paddingRight':elementPadding+'px'}">
+                        <div class="name" v-if="i.name ==='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'" :style="{'backgroundColor':elementSendStyle,'height':'80px','borderRadius':elementRadius+'px','marginLeft':elementMargin+'px','marginRight':elementMargin+'px','paddingLeft':elementPadding+'px','paddingRight':elementPadding+'px'}">
                             <span :style="{'color':elementTitleColorStyle}">{{ i.name }}:</span>
                             <span :style="{'color':elementColorStyle}" >{{ i.site }}</span> 
                         </div>
                         <!-- 电话 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name ==='电话'&&i.name !== '请添加新闻资讯'" :style="{'backgroundColor':elementSendPhoneStyle,'height':'100px','borderRadius':elementSendPhoneRadius+'px','marginLeft':elementSendPhoneMargin+'px','marginRight':elementSendPhoneMargin+'px','paddingLeft':elementSendPhonePadding+'px','paddingRight':elementSendPhonePadding+'px'}">
+                        <div class="name" v-if="i.name !=='地址'&&i.name ==='电话'&&i.name !== '请添加新闻资讯'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'" :style="{'backgroundColor':elementSendPhoneStyle,'height':'100px','borderRadius':elementSendPhoneRadius+'px','marginLeft':elementSendPhoneMargin+'px','marginRight':elementSendPhoneMargin+'px','paddingLeft':elementSendPhonePadding+'px','paddingRight':elementSendPhonePadding+'px'}">
                             <span :style="{'color':elementSendPhoneTitleColorStyle}">{{ i.name }}:</span>
                             <span :style="{'color':elementSendPhoneColorStyle}" >{{ i.phone }}</span> 
                         </div>
                         <!-- 图片 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name==='图片'" :style="{'backgroundColor':pictureStyles,'borderRadius':pictureSendPhoneRadius+'px','marginLeft':pictureSendPhoneMargin+'px','marginRight':pictureSendPhoneMargin+'px','paddingLeft':pictureSendPhonePadding+'px','paddingRight':pictureSendPhonePadding+'px'}"> 
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name==='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'" :style="{'backgroundColor':pictureStyles,'borderRadius':pictureSendPhoneRadius+'px','marginLeft':pictureSendPhoneMargin+'px','marginRight':pictureSendPhoneMargin+'px','paddingLeft':pictureSendPhonePadding+'px','paddingRight':pictureSendPhonePadding+'px'}"> 
                             <div style=" width: 100%;text-align: center;"><img style="width: 100%; height: 100%; text-align: center; display: block; border-radius: 0px;" src="../../assets/imgs/picture.png" alt=""></div>
                         </div>
                         <!-- 新闻资讯 -->
-                        <div class="name" v-if="i.name === '请添加新闻资讯' && i.name !=='地址'&&i.name!=='电话'" :style="{'backgroundColor':elementNewStyle}">{{ i.name }}</div>
+                        <div class="name" v-if="i.name === '请添加新闻资讯' && i.name !=='地址'&&i.name!=='电话'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'" :style="{'backgroundColor':elementNewStyle}">{{ i.name }}</div>
+                        <!-- 富文本编辑 -->
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name === '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'" :style="{'min-height':'20px'}"></div>
+                        <!-- 视频编辑 -->
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '图文广告'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name === '视频'&&i.name !=='文本'" :style="{'height':'200px','backgroundColor':'currentcolor'}"><video ></video></div>
+                        <!-- 文本 -->
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name ==='文本'&&i.name !== '图文广告'" :style="{'backgroundColor':TextBackgroundColor,'borderRadius':TextRadius+'px','marginLeft':TextMargin+'px','marginRight':TextMargin+'px','paddingLeft':TextPadding+'px','paddingRight':TextPadding+'px','min-height':'20px'}"> 
+                            <div :style="{ 'width': '100%','text-align': TextsideRadio,'font-size':TextRadio+'px','color': TextFontColor ,'font-weight':TextStrong}">{{ TextTextarea }}</div>
+                        </div>
                         <!-- 辅助线样式 -->
-                        <div class="delSoild" v-if="i.name === ''"></div>
+                        <div class="name" v-if="i.name === ''" :style="{'backgroundColor':sublineBackgroundColor,'paddingLeft':sublinePadding+'px','paddingRight':sublinePadding+'px','padding-top': '10px','padding-bottom':'10px'}">
+                            <div  :style="{'border-top': `${sublineThickness}px ${sublineStyleRadio} ${sublineColor}`,'margin-bottom':'1px' }"></div>
+                        </div>
+                        <!-- 图文广告 -->
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name === '图文广告'">
+                            <div style=" width: 100%;text-align: center;"><img style="width: 100%; height: 100%; text-align: center; display: block; border-radius: 0px;" src="../../assets/imgs/imageText.png" alt=""></div>
+                        </div>
+                        <!-- <div  v-if="i.name === ''" :style="{'backgroundColor':sublineBackgroundColor,'paddingLeft':sublinePadding+'px','paddingRight':sublinePadding+'px', 'margin-top': '10px', 'margin-left': '5%',}"></div> -->
                     </div>
                     <!-- <i class="del" @click="delElement(i)" v-show="i.name ==='地址'&&i.name!=='电话'" :style="{'backgroundColor':elementSendStyle}"></i> 
                     <i class="del" @click="delElement(i)" v-show="i.name !=='地址'&&i.name ==='电话'" :style="{'backgroundColor':elementSendPhoneStyle}"></i>  -->
@@ -126,18 +141,18 @@
                 <discounts v-if="discountsStyle" />
                 <!-- 样式 -->
                 <defultStyle v-if="elementDefultStyle"/>
-                <!-- 文字 -->
-                <textStyle v-if="textStyle" />
+                <!-- 文本 -->
+                <textStyle v-if="textStyle" @getData="getData" @radio='radio' @textarea='textarea' @fontColor='fontColor' @strong='strong' @sideRadio='sideRadio' @radius="radius" @margin='margin' @padding='padding' />
                 <!-- 地址 -->
                 <siteStyle v-if="siteStyle" @getData="getData" @setTitleColor="setTitleColor" @setsitesColor="setsitesColor" @radius="radius" @margin='margin' @padding='padding' />
                 <!-- 电话 -->
                 <phoneStyle v-if="phoneStyle" @getData="getData" @setTitleColor="setTitleColor" @phoneColor="phoneColor" @radius="radius" @margin='margin' @padding='padding' />
                 <!-- 辅助线 -->
-                <sublineStyle v-if="sublineStyle" />
-                <!-- t图片 -->
+                <sublineStyle v-if="sublineStyle" @getData="getData" @padding='padding' @colors='colors' @styleRadio='styleRadio' @thickness='thickness' />
+                <!-- 图片 -->
                 <pictureStyle v-if="pictureStyle" @getData="getData" @radius="radius" @margin='margin' @padding='padding' />
                 <!-- 新闻样式 -->
-                <newsInformation v-if="newsInformation" @getData="getData" />
+                <newsInformation v-if="newsInformation" @getData="getData"  />
                 <!-- 富文本样式 -->
                 <richText v-if="richText" />
                 <!-- 视频样式 -->
@@ -217,14 +232,14 @@
                 <div class="centerImgList">
                     <div class="imgsListsShow">
                         <img v-for="i in imagesList" :key="i.id" :src="i.url" alt="">
-                        <img src="../../assets/imgs/login.png">
+                        <!-- <img src="../../assets/imgs/login.png">
                         <img src="../../assets/imgs/pagesImgs/30.jpg">
                         <img src="../../assets/imgs/pagesImgs/31.jpg">
                         <img src="../../assets/imgs/pagesImgs/32.jpg">
                         <img src="../../assets/imgs/pagesImgs/33.jpg">
                         <img src="../../assets/imgs/pagesImgs/34.jpg">
                         <img src="../../assets/imgs/pagesImgs/35.jpg">
-                        <img src="../../assets/imgs/pagesImgs/36.jpg">
+                        <img src="../../assets/imgs/pagesImgs/36.jpg"> -->
                     </div>
                 </div>
                 <!-- 底部分页 -->
@@ -373,6 +388,20 @@ export default {
         pictureSendPhoneRadius:0,//图片的默认圆角大小
         pictureSendPhoneMargin:0,//图片的默认内边距
         pictureSendPhonePadding:0,//图片的默认外边距
+        TextBackgroundColor:'#eee',//文本的默认背景颜色
+        TextRadius:0,//文本的默认圆角大小
+        TextMargin:0,//文本的默认外边距
+        TextPadding:0,//文本的默认内边
+        TextRadio:24,//文本的字体大小
+        TextsideRadio:'left',//文本的显示位置
+        TextFontColor:'#000',//文本的默认字体颜色
+        TextStrong:'',//文本字体是否加粗
+        TextTextarea:'',//文本的内容
+        sublineBackgroundColor:'#eee',//辅助线的默认背景颜色
+        sublineColor:'#000',//辅助线的默认颜色
+        sublineStyleRadio:'solid',//辅助线的默认样式（实虚线）
+        sublinePadding:10,//辅助线的默认边距
+        sublineThickness:1,//辅助线的粗细
         };
   },
     methods: {
@@ -873,7 +902,7 @@ export default {
             this.blankAssist=false;
             this.commodityStyle=false;
         },
-        // 获取地址子组件的值
+        // 获取子组件的值
         getData(data,item){
             // console.log(data,item)
             // this.elementSendStyle = data
@@ -888,7 +917,12 @@ export default {
             }else if(item == '图片'){
                 console.log(data)
                 this.pictureStyles = data
+            }else if(item == '文本'){
+                this.TextBackgroundColor = data
+            }else if(item == '辅助线'){
+                this.sublineBackgroundColor = data
             }
+
             for(let i=0;i<this.list2.length;i++){
                 if(this.list2[i].name == item){
                     // console.log(this.list2[i])
@@ -896,7 +930,57 @@ export default {
                 }
             }
         },
-        // 获取地址子组件传的标题颜色
+        // 子组件的字体大小
+        radio(data,item){
+            if(item == '文本'){
+                if(data == 1){
+                    console.log(111)
+                    this.TextRadio = 24
+                }else if(data == 2){
+                    this.TextRadio = 18
+                }else{
+                    this.TextRadio = 12
+                }
+                
+            }
+        },
+        // 子组件的显示位置
+        sideRadio(data,item){
+            if(item == '文本'){
+                if(data == 2){
+                    this.TextsideRadio = 'center'
+                }else if( data == 3){
+                    this.TextsideRadio = 'right'
+                }else{
+                    this.TextsideRadio = 'left'
+                }
+                
+            }
+        },
+        // 文本的内容
+        textarea(data,item){
+            if(item == '文本'){
+                this.TextTextarea = data
+            }
+        },
+        //子组件的字体颜色
+        fontColor(data,item){
+            if(item == '文本'){
+                // console.log(data)
+                this.TextFontColor = data
+            }
+        },
+        // 子组件的字体是否加粗
+        strong(data,item){
+            if(item == '文本'){
+                if(data == true){
+                    this.TextStrong = 'bold'
+                }else{
+                    this.TextStrong = '100'
+                }
+            }
+        },
+        // 获取子组件传的标题颜色
         setTitleColor(data,item){
             // console.log(data,item)
             if(item == '地址'){
@@ -913,7 +997,7 @@ export default {
                 }
             }          
         },
-        // 获取地址子组件的位置颜色
+        // 获取子组件的位置颜色
         setsitesColor(data,item){
             // this.elementColorStyle = data
             if(item == '地址'){
@@ -950,6 +1034,8 @@ export default {
                 this.elementSendPhoneRadius = data
             }else if(item == '图片'){
                 this.pictureSendPhoneRadius = data
+            }else if(item == '文本'){
+                this.TextRadius = data
             }
             // this.elementRadius = data
             // this.elementSendPhoneRadius = data
@@ -967,6 +1053,8 @@ export default {
                 this.elementSendPhoneMargin = data
             }else if(item == '图片'){
                 this.pictureSendPhoneMargin = data
+            }else if(item == '文本'){
+                this.TextMargin = data
             }
             // this.elementMargin= data
             // this.elementSendPhoneMargin= data
@@ -983,6 +1071,10 @@ export default {
                 this.elementSendPhonePadding = data
             }else if(item == '图片'){
                 this.pictureSendPhonePadding = data
+            }else if(item == '文本'){
+                this.TextPadding = data
+            }else if(item == '辅助线'){
+                this.sublinePadding = data
             }
             // this.elementPadding = data
             // this.elementSendPhonePadding = data
@@ -991,7 +1083,32 @@ export default {
                     return true;
                 }
             }
-        }
+        },
+        // 辅助线的颜色
+        colors(data,item){
+            if(item =='辅助线'){
+                // console.log(data)
+                this.sublineColor = data
+            }
+        },
+        // 辅助线的粗细
+        thickness(data,item){
+            if(item =='辅助线'){
+                this.sublineThickness = data
+            }
+        },
+        // 辅助线的样式（虚实线）
+        styleRadio(data,item){
+            if(item =='辅助线'){
+                console.log(data)
+                if(data == 1){
+                    this.sublineStyleRadio = 'solid'
+                }else{
+                    this.sublineStyleRadio = 'dashed'
+                    console.log(this.sublineStyleRadio)
+                }
+            }       
+        },
     },
     watch:{
         // 监听默认背景颜色改变事件
@@ -1069,13 +1186,15 @@ export default {
                     width: 100%;
                     .item{
                         cursor: pointer;
-                        height: auto;
+                        // height: auto;
                         // line-height: 60px;
                         border: 1px solid rgb(90, 136, 235);
+                        min-height: 22px;
                         display: flex;
                         justify-content: flex-end;
                         .items{
                             width: 100%;
+                            min-height: 25px;
                         }
                         .del{
                             width: 18px;
@@ -1087,23 +1206,17 @@ export default {
                             top: 0;
                             right: -10px;
                         }
-                        .delSoild{
-                            width: 90%;
-                            margin-top: 10px;
-                            margin-left: 5%;
-                            border-top: 1px solid #000;
-                            height: 2px;
-                        }
                     }
                     .item:hover{
                         border: 1px dashed rgb(90, 136, 235);
+                        height: auto;
                         .del{
                             display: inline;
                         }
                     }
-                    .delStyle{
-                        height: 20px;
-                    }
+                    // .delStyle{
+                    //     height: 20px;
+                    // }
                 }
             }
         }
@@ -1238,10 +1351,14 @@ export default {
                     .imgsListsShow{
                         img{
                             margin-top: 10px;
-                            margin-right: 30px;
+                            margin-right: 12px;
+                            padding: 25px;
                             width: 100px;
                             height: 100px;
                         }
+                    }
+                    img:hover{
+                        background-color: #ccc;
                     }
                 }
                 .footerPaging{
