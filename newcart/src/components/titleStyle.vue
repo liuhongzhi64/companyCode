@@ -5,7 +5,7 @@
     <div class="setTitleName">
       <div class="titleName">标题名：</div>
       <div class="block">
-        <el-input placeholder="请输入内容" v-model="titleNameInput" clearable></el-input>
+        <el-input placeholder="请输入内容" v-model="textarea" clearable></el-input>
       </div>
     </div>
     <!-- 显示位置 -->
@@ -21,7 +21,7 @@
     <div class="setSubhead">
       <div class="subhead">副标题：</div>
       <div class="block">
-        <el-input placeholder="请输入内容" v-model="setSubheadInput" clearable></el-input>
+        <el-input placeholder="请输入内容" v-model="Subheadtextarea" clearable></el-input>
       </div>
     </div>
     <!-- 背景色 -->
@@ -86,30 +86,26 @@ export default {
   components: { Link },
   data() {
     return {
-      backgroundColor: "#ccc", //背景默认颜色
+      backgroundColor: "", //背景默认颜色
       fontsColor: "#000", //字体颜色
       sideRadio: "1", //显示位置
       radius: 0, //圆角的初始值
       margin: 0, //外边距
       padding: 0, //内边距
-      dialogLIink: false ,//打开对话框
-      titleNameInput:'',//标题内容
-      setSubheadInput:'',//副标题内容
+      dialogLIink: false, //打开对话框
+      textarea: "", //标题内容
+      Subheadtextarea: "" //副标题内容
     };
   },
   methods: {
     // 点击背景颜色
     resetBackgroundColor() {
       // 重置默认背景颜色
-      this.backgroundColor = "#ccc";
-      // this.$refs.defultBackgroundColor.color.value = this.backgroundColor
-      // this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor = this.backgroundColor
+      this.backgroundColor = "";
     },
     //点击字体颜色重置
     fontColor() {
       this.fontsColor = "#000";
-      // this.$refs.fontsColor.color.value = this.fontsColor
-      // this.$refs.fontsColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor = this.fontsColor
     },
     // 编辑内容（链接）
     dialogNewLIink() {
@@ -119,31 +115,37 @@ export default {
   watch: {
     // 监听默认地址背景颜色改变事件
     backgroundColor() {
-      // console.log(this.backgroundColor)
-      // console.log(this.$refs.defultBackgroundColor.color.value)
-      this.$emit("getData", this.backgroundColor, "文本");
+      this.$emit("getData", this.backgroundColor, "标题");
+    },
+    // 监听标题内容
+    textarea() {
+      this.$emit("textarea", this.textarea, "标题");
+    },
+    // 监听副标题内容
+    Subheadtextarea() {
+      this.$emit("subheadtextarea", this.Subheadtextarea, "标题");
     },
     // 监听字体颜色
     fontsColor() {
-      this.$emit("fontColor", this.fontsColor, "文本");
+      this.$emit("fontColor", this.fontsColor, "标题");
     },
     // 监听显示位置
     sideRadio() {
       // console.log(this.sideRadio)
-      this.$emit("sideRadio", this.sideRadio, "文本");
+      this.$emit("sideRadio", this.sideRadio, "标题");
     },
     // 监听圆角改变
     radius() {
       // console.log(123456789)
-      this.$emit("radius", this.radius, "文本");
+      this.$emit("radius", this.radius, "标题");
     },
     // 监听外边距
     margin() {
-      this.$emit("margin", this.margin, "文本");
+      this.$emit("margin", this.margin, "标题");
     },
     // 监听内边距
     padding() {
-      this.$emit("padding", this.padding, "文本");
+      this.$emit("padding", this.padding, "标题");
     }
   }
 };
@@ -189,11 +191,11 @@ export default {
   .texts,
   .setRadius,
   .setMargin,
-  .setPadding{
+  .setPadding {
     .textConter,
     .radius,
     .margin,
-    .padding,{
+    .padding {
       background-color: #eee;
     }
     .block {
@@ -231,10 +233,11 @@ export default {
       color: #2692ff;
     }
   }
-  .setTitleName ,.setSubhead{
-      margin:10px 0;
-      display: flex;
-      line-height:40px;
+  .setTitleName,
+  .setSubhead {
+    margin: 10px 0;
+    display: flex;
+    line-height: 40px;
   }
 }
 </style>

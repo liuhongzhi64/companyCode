@@ -19,11 +19,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../pages/Index/index')
   },
   {
-    path:'/demo',
-    name:'Demo',
-    component:() => import('../pages/Index/demo')
-  },
-  {
     path:'/demo01',
     name:'Demo01',
     component:() => import('../pages/Index/demo01')
@@ -41,7 +36,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   base: process.env.BASE_URL,
   routes
 })

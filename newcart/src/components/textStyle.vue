@@ -120,7 +120,7 @@ import Link from '../components/link'
         components: {Link},
     data() {
             return {
-                backgroundColor: '#ccc',//背景默认颜色
+                backgroundColor: '',//背景默认颜色
                 radio: '1',//字体大小
                 fontsColor:'#000',//字体颜色
                 strong:false,//是否加粗
@@ -136,7 +136,7 @@ import Link from '../components/link'
             // 点击背景颜色
             resetBackgroundColor(){
                 // 重置默认背景颜色
-                this.backgroundColor = "#ccc"
+                this.backgroundColor = ""
                 // this.$refs.defultBackgroundColor.color.value = this.backgroundColor
                 // this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor = this.backgroundColor
             },

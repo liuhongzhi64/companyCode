@@ -7,13 +7,11 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // 引入拖拽样式表
 import 'vue-draggable-resizable/dist/VueDraggableResizable.css';
-//  颜色表
-import vcolorpicker from 'vcolorpicker'
-Vue.use(vcolorpicker)
+
 
 Vue.use(ElementUI);
 
-Vue.config.productionTip = false
+// Vue.config.productionTip = false
 
 new Vue({
   router,

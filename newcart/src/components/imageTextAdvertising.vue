@@ -5,13 +5,25 @@
     <div class="setTemplate">
       <div class="template">选择模板</div>
       <div class="bolck">
-        <div class="one" @click="changeTemplate(1)" :style="{'border': (changeTemplateImg1 ? '1px dashed rgb(90, 136, 235)' : '1px solid #fff')}">
+        <div
+          class="one"
+          @click="changeTemplate(1)"
+          :style="{'border': (changeTemplateImg1 ? '1px dashed rgb(90, 136, 235)' : '1px solid #fff')}"
+        >
           <img src="../assets/imgs/imageTextOne.png" alt />
         </div>
-        <div class="one"  @click="changeTemplate(2)" :style="{'border': (changeTemplateImg2 ? '1px dashed rgb(90, 136, 235)' : '1px solid #fff')}" >
+        <div
+          class="one"
+          @click="changeTemplate(2)"
+          :style="{'border': (changeTemplateImg2 ? '1px dashed rgb(90, 136, 235)' : '1px solid #fff')}"
+        >
           <img src="../assets/imgs/imageTextTwo.png" alt />
         </div>
-        <div class="one"  @click="changeTemplate(3)" :style="{'border': (changeTemplateImg3 ? '1px dashed rgb(90, 136, 235)' : '1px solid #fff')}" >
+        <div
+          class="one"
+          @click="changeTemplate(3)"
+          :style="{'border': (changeTemplateImg3 ? '1px dashed rgb(90, 136, 235)' : '1px solid #fff')}"
+        >
           <img src="../assets/imgs/imageTextThree.png" alt />
         </div>
       </div>
@@ -20,7 +32,7 @@
     <div class="background">
       <div>背景色:</div>
       <div class="btn">
-        <el-color-picker v-model="backgroundColor" ref="defultBackgroundColor"></el-color-picker>
+        <el-color-picker v-model="backgroundColor"></el-color-picker>
         <div class="reset" @click="resetBackgroundColor">重置</div>
       </div>
     </div>
@@ -63,12 +75,28 @@
     <div class="oneBackgroundColor">
       <div>单个背景色:</div>
       <div class="btn">
-        <el-color-picker v-model="oneBackgroundColor" ref="oneBackgroundColor"></el-color-picker>
+        <el-color-picker v-model="oneBackgroundColor"></el-color-picker>
         <div class="reset" @click="setoneBackgroundColor">重置</div>
       </div>
     </div>
-    <!-- 图文内容 -->
-    <div class="setImageTextCentent">
+    <!-- 标题颜色 -->
+    <div class="titleBackgroundColor" v-if="changeTemplateImg2||changeTemplateImg3">
+      <div>标题颜色:</div>
+      <div class="btn">
+        <el-color-picker v-model="titleBackgroundColor"></el-color-picker>
+        <div class="reset" @click="setTitleBackgroundColor">重置</div>
+      </div>
+    </div>
+    <!-- 价格颜色 -->
+    <div class="priceBackgroundColor" v-if="changeTemplateImg2||changeTemplateImg3">
+      <div>价格颜色:</div>
+      <div class="btn">
+        <el-color-picker v-model="priceBackgroundColor"></el-color-picker>
+        <div class="reset" @click="setPriceBackgroundColor">重置</div>
+      </div>
+    </div>
+    <!-- 图文内容1 -->
+    <div class="setImageTextCentent" v-if="changeTemplateImg1">
       <div class="imageTextCentent">图文内容</div>
       <div class="pictureList">
         <div class="pictureItem" v-for="(i,k) in pictureItemList" :key="k">
@@ -80,16 +108,15 @@
               <img width="100%" :src="dialogImageUrl" alt />
             </el-dialog>
           </div>
-          <div class="links">
-            链接：
+          <div class="links"> 
             <!-- <span @click="dialogLIink = true">编辑内容</span> -->
-            <el-button type="info" @click="dialogNewLIink(i)">编辑内容</el-button>
+            <div class="setCenter">链接： <el-button type="info" @click="dialogNewLIink(i)">编辑内容</el-button> </div>      
           </div>
           <div class="del" @click="delElement(i)"></div>
         </div>
         <!-- 上传图片 -->
         <div class="uploading" @click="addPicture(1)">
-          <div>+添加图片</div>
+          <div>+添加一个图文广告</div>
         </div>
         <!-- 链接的对话框 -->
         <el-dialog title="选择链接" :visible.sync="dialogLIink" v-if="dialogLIink" width="70%" center>
@@ -102,74 +129,111 @@
           </span>
         </el-dialog>
         <!-- 图片 -->
-        <!-- 点击背景图片的表单 -->
         <el-dialog title="图库" :visible.sync="centerDialogVisible" width="860px" center>
-          <!-- 点击新增分组 -->
-          <el-dialog width="30%" title="新增分组" :visible.sync="addGrouping" append-to-body>
-            <el-input placeholder="请输入内容" v-model="addGroupingName" clearable></el-input>
-            <span slot="footer" class="dialog-footer">
-              <el-button @click="addGrouping = false">取 消</el-button>
-              <el-button type="primary" @click="addGroupingFromList(1)">确 定</el-button>
-            </span>
-          </el-dialog>
-          <div class="imgsList">
-            <div class="imgsListTab">
-              <div class="groupingList">
-                <span>图片分组</span>
-                <!-- <el-button class="allGrouping">全部分组</el-button> -->
-                <el-button
-                  v-for="i in groupingList"
-                  :key="i.id"
-                  :class="{'allGrouping':i.name === '全部分组'}"
-                >{{ i.name }}</el-button>
-              </div>
-              <el-button class="addGrouping" @click="addGrouping = true">+新建分组</el-button>
-            </div>
-            <!-- 列表 -->
-            <div class="imgsLists">
-              <!-- 头部搜索款 -->
-              <div class="imsListsSearch">
-                <!-- 上传图片 -->
-                <!-- <el-button type="primary">上传图片</el-button> -->
-                <el-upload
-                  class="upload-demo"
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  :on-change="handleChange"
-                >
-                  <!-- :file-list="fileList" -->
-                  <el-button type="primary">上传图片</el-button>
-                </el-upload>
-                <div>
-                  <el-input placeholder="请输入内容" v-model="searchInput" clearable></el-input>
-                  <el-button type="primary">搜索</el-button>
-                </div>
-              </div>
-              <!-- 中间展示区 -->
-              <div class="centerImgList">
-                <div class="imgsListsShow">
-                  <img v-for="i in imagesList" :key="i.id" :src="i.url" alt />
-                  <img src="../assets/imgs/login.png" />
-                  <!-- <img src="../assets/imgs/pagesImgs/30.jpg" />
-                  <img src="../assets/imgs/pagesImgs/31.jpg" />
-                  <img src="../assets/imgs/pagesImgs/32.jpg" />
-                  <img src="../assets/imgs/pagesImgs/33.jpg" />
-                  <img src="../assets/imgs/pagesImgs/34.jpg" />
-                  <img src="../assets/imgs/pagesImgs/35.jpg" />
-                  <img src="../assets/imgs/pagesImgs/36.jpg" />-->
-                </div>
-              </div>
-              <!-- 底部分页 -->
-              <div class="footerPaging">
-                <div>共{{ pagers }}条</div>
-                <el-pagination background layout="prev, pager, next" :total="100"></el-pagination>
-              </div>
-            </div>
-          </div>
+          <mapDepot />
           <!-- 确定和取消按钮 -->
+          <div class="footer">
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="centerDialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+            </span>
+          </div>
+        </el-dialog>
+      </div>
+    </div>
+    <!-- 图文内容2 -->
+    <div class="setImageTextCentent" v-if="changeTemplateImg2">
+      <div class="imageTextCentent">图文内容2</div>
+      <div class="pictureList">
+        <div class="pictureItem" v-for="(i,k) in pictureItemList" :key="k">
+          <div class="uploadingImg">
+            <div class="backgroundImgs" @click="centerDialogVisible = true">
+              <i class="el-icon-plus"></i>
+            </div>
+            <el-dialog :visible.sync="dialogVisible">
+              <img width="100%" :src="dialogImageUrl" alt />
+            </el-dialog>
+          </div>
+          <div class="links">
+            <div class="title"> <span>标题：</span> <el-input placeholder="请输入内容" v-model="titleInput" clearable></el-input></div>
+            <div class="price"><span>价格：</span><el-input placeholder="请输入内容" v-model="priceInput" clearable></el-input></div>
+            <span @click="dialogLIink = true">编辑内容</span>
+            <!-- <el-button type="info" @click="dialogNewLIink(i)">编辑内容2</el-button> -->
+          </div>
+          <div class="del" @click="delElement(i)"></div>
+        </div>
+        <!-- 上传图片 -->
+        <div class="uploading" @click="addPicture(1)">
+          <div>+添加一个图文广告</div>
+        </div>
+        <!-- 链接的对话框 -->
+        <el-dialog title="选择链接" :visible.sync="dialogLIink" v-if="dialogLIink" width="70%" center>
+          <!-- 中间主体部分 -->
+          <Link ref="newOrderDetail" />
+          <!-- 页脚 -->
           <span slot="footer" class="dialog-footer">
-            <el-button @click="centerDialogVisible = false">取 消</el-button>
-            <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+            <el-button @click="dialogLIink = false">取 消2</el-button>
+            <el-button type="primary" @click="dialogLIink = false">确 定2</el-button>
           </span>
+        </el-dialog>
+        <!-- 图片 -->
+        <el-dialog title="图库" :visible.sync="centerDialogVisible" width="860px" center>
+          <mapDepot />
+          <!-- 确定和取消按钮 -->
+          <div class="footer">
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="centerDialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+            </span>
+          </div>
+        </el-dialog>
+      </div>
+    </div>
+    <!-- 图文内容3 -->
+    <div class="setImageTextCentent" v-if="changeTemplateImg3">
+      <div class="imageTextCentent">图文内容2</div>
+      <div class="pictureList">
+        <div class="pictureItem" v-for="(i,k) in pictureItemList" :key="k">
+          <div class="uploadingImg">
+            <div class="backgroundImgs" @click="centerDialogVisible = true">
+              <i class="el-icon-plus"></i>
+            </div>
+            <el-dialog :visible.sync="dialogVisible">
+              <img width="100%" :src="dialogImageUrl" alt />
+            </el-dialog>
+          </div>
+          <div class="links">
+            <div class="title"> <span>标题：</span> <el-input placeholder="请输入内容" v-model="titleInput" clearable></el-input></div>
+            <div class="price"><span>价格：</span><el-input placeholder="请输入内容" v-model="priceInput" clearable></el-input></div>
+            <span @click="dialogLIink = true">编辑内容3</span>
+            <!-- <el-button type="info" @click="dialogNewLIink(i)">编辑内容2</el-button> -->
+          </div>
+          <div class="del" @click="delElement(i)"></div>
+        </div>
+        <!-- 上传图片 -->
+        <div class="uploading" @click="addPicture(1)">
+          <div>+添加一个图文广告</div>
+        </div>
+        <!-- 链接的对话框 -->
+        <el-dialog title="选择链接" :visible.sync="dialogLIink" v-if="dialogLIink" width="70%" center>
+          <!-- 中间主体部分 -->
+          <Link ref="newOrderDetail" />
+          <!-- 页脚 -->
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogLIink = false">取 消2</el-button>
+            <el-button type="primary" @click="dialogLIink = false">确 定2</el-button>
+          </span>
+        </el-dialog>
+        <!-- 图片 -->
+        <el-dialog title="图库" :visible.sync="centerDialogVisible" width="860px" center>
+          <mapDepot />
+          <!-- 确定和取消按钮 -->
+          <div class="footer">
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="centerDialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+            </span>
+          </div>
         </el-dialog>
       </div>
     </div>
@@ -178,12 +242,15 @@
 
 <script>
 import Link from "../components/link";
+import mapDepot from "../components/mapDepot";
 export default {
-  components: { Link },
+  components: { Link, mapDepot },
   data() {
     return {
-      backgroundColor: "#eee", //背景色
-      oneBackgroundColor: "#ccc", //单个背景
+      backgroundColor: "", //背景色
+      oneBackgroundColor: "", //单个背景
+      titleBackgroundColor: "", //标题颜色
+      priceBackgroundColor: "", //价格颜色
       radius: 0, //图片圆角设置
       oneRadius: 0, //单个圆角
       backgroundRadius: 0, //背景圆角
@@ -195,43 +262,29 @@ export default {
       pictureItemList: ["1"],
       num: 1,
       dialogLIink: false,
-      searchInput: "", //搜索图片框
-      pagers: 10, //图片数量
-      imagesList: [
-        { url: "/img/login.d3c4bad8.png", id: 1 },
-        { url: "/img/30.f1e6f8d4.jpg", id: 2 },
-        { url: "/img/31.d983e4f3.jpg", id: 3 },
-        { url: "/img/32.0abd6721.jpg", id: 4 },
-        { url: "/img/33.d962cfe4.jpg", id: 5 },
-        { url: "/img/34.44c20bef.jpg", id: 6 },
-        { url: "/img/35.2afe101f.jpg", id: 7 },
-        { url: "/img/36.a94f52d8.jpg", id: 8 },
-        { url: "/img/34.44c20bef.jpg", id: 9 },
-        { url: "/img/31.d983e4f3.jpg", id: 10 },
-        { url: "/img/33.d962cfe4.jpg", id: 11 }
-      ],
-      groupingList: [
-        { id: 1, name: "全部分组" },
-        { id: 2, name: "未分组" }
-      ], //分组列表
-      addGrouping: false,
-      addGroupingName: "",
-      changeTemplateImg1:true,//图片的选择样式
-      changeTemplateImg2:false,//图片的选择样式
-      changeTemplateImg3:false,//图片的选择样式
+      changeTemplateImg1: true, //图片的选择样式
+      changeTemplateImg2: false, //图片的选择样式
+      changeTemplateImg3: false, //图片的选择样式
+      titleInput:'',//标题框内容
+      priceInput:''//价格框内容
     };
   },
   methods: {
     // 点击重置背景颜色
     resetBackgroundColor() {
-      this.backgroundColor = "#eee";
+      this.backgroundColor = "";
     },
+    // 单个
     setoneBackgroundColor() {
-      this.oneBackgroundColor = "#ccc";
+      this.oneBackgroundColor = "";
     },
-    // 点击上传图片
-    handleChange(file, fileList) {
-      this.fileList = fileList.slice(-3);
+    // 标题
+    setTitleBackgroundColor() {
+      this.titleBackgroundColor = "";
+    },
+    // 价格
+    setPriceBackgroundColor() {
+      this.priceBackgroundColor = "";
     },
     // 编辑内容（链接）
     dialogNewLIink(e) {
@@ -255,30 +308,28 @@ export default {
       this.pictureItemList.push(this.num);
     },
     // 选择模板
-    changeTemplate(i){
-        if(i ==1 ){
-            this.changeTemplateImg1 = true
-            this.changeTemplateImg2=false
-            this.changeTemplateImg3=false
-        }else if(i ==2 ){
-            this.changeTemplateImg1 = false
-            this.changeTemplateImg2=true
-            this.changeTemplateImg3=false
-        }else{
-            this.changeTemplateImg1 = false
-            this.changeTemplateImg2=false
-            this.changeTemplateImg3=true      
-        }
+    changeTemplate(i) {
+      if (i == 1) {
+        this.changeTemplateImg1 = true;
+        this.changeTemplateImg2 = false;
+        this.changeTemplateImg3 = false;
+        this.pictureItemList = ["1"]
+      } else if (i == 2) {
+        this.changeTemplateImg1 = false;
+        this.changeTemplateImg2 = true;
+        this.changeTemplateImg3 = false;
+        this.pictureItemList = ["1","2","3"]
+      } else {
+        this.changeTemplateImg1 = false;
+        this.changeTemplateImg2 = false;
+        this.changeTemplateImg3 = true;
+        this.pictureItemList = ["1","2"]
+      }
     }
   },
   watch: {
-    // 监听默认地址背景颜色改变事件
     backgroundColor() {
       this.$emit("getData", this.backgroundColor, "图文广告");
-    },
-    // 监听单个背景
-    oneBackgroundColor() {
-      this.$emit("oneBackgroundColor", this.oneBackgroundColor, "图文广告");
     },
     // 监听圆角改变
     radius() {
@@ -300,20 +351,32 @@ export default {
     // 监听内边距
     padding() {
       this.$emit("padding", this.padding, "图文广告");
-    }
+    },
+    // 监听模板样式
+    changeTemplateImg1(){
+      console.log(111)
+    },
+    changeTemplateImg2(){
+      console.log(112)
+    },
+    changeTemplateImg3(){
+      console.log(113)
+    },
   }
 };
 </script>
 
 <style lang="less" scoped>
 .imageTextAdvertising {
+  height: 880px;
+  overflow-y: auto;
   .imageTextCentent {
     background-color: #ccc;
     margin-bottom: 5px;
   }
   .background,
   .color,
-  .oneBackgroundColor {
+  .oneBackgroundColor ,.titleBackgroundColor,.priceBackgroundColor{
     margin: 5px 0;
     display: flex;
     justify-content: flex-start;
@@ -372,14 +435,14 @@ export default {
         padding: 5px;
       }
       .one:hover {
-          background-color: #eee;
+        background-color: #eee;
       }
     }
   }
   .pictureList {
     padding: 0 10px;
-    height: 260px;
-    overflow-y: auto;
+    height: 240px;
+    // overflow-y: auto;
     .pictureItem {
       position: relative;
       border: 1px solid #e9ebee;
@@ -391,7 +454,7 @@ export default {
         .backgroundImgs {
           cursor: pointer;
           margin: 0 atut;
-          margin-top: 20px;
+          margin-top: 10px;
           width: 100px;
           height: 100px;
           background-color: #eee;
@@ -408,7 +471,22 @@ export default {
         }
       }
       .links {
-        line-height: 148px;
+        display: flex;
+        justify-content: center;
+        // line-height: 148px;
+        flex-direction: column;
+        color: #31708f;
+        .title,.price{
+          display: flex;
+          margin: 5px 0;
+          span{
+            width: 30%;
+            line-height: 40px;
+          }
+        }
+        span{
+          cursor: pointer;
+        }
       }
     }
     .pictureItem:hover {
@@ -432,7 +510,6 @@ export default {
   }
   .uploading {
     cursor: pointer;
-    padding: 10px;
     div {
       height: 34px;
       line-height: 34px;
@@ -446,73 +523,9 @@ export default {
   .uploading div:hover {
     border: 1px solid rgb(90, 136, 235);
   }
-  .imgsList {
+  .footer {
     display: flex;
-    flex-direction: row;
-    .imgsListTab {
-      display: flex;
-      width: 140px;
-      height: 500px;
-      flex-direction: column;
-      text-align: center;
-      .groupingList {
-        height: 100%;
-        button {
-          margin-top: 20px;
-          width: 120px;
-        }
-        .allGrouping {
-          margin-left: 10px;
-        }
-      }
-
-      .addGrouping {
-        margin-right: 5px;
-        margin-left: 20px;
-        margin-top: 10px;
-      }
-    }
-    .imgsLists {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      .imsListsSearch {
-        display: flex;
-        justify-content: space-between;
-        input {
-          width: 120px;
-        }
-        div {
-          display: flex;
-          button {
-            margin-left: 10px;
-          }
-        }
-      }
-      .centerImgList {
-        flex: 1;
-        width: 650px;
-        .imgsListsShow {
-          img {
-            margin-top: 10px;
-            margin-right: 12px;
-            padding: 25px;
-            width: 100px;
-            height: 100px;
-          }
-        }
-        img:hover {
-          background-color: #ccc;
-        }
-      }
-      .footerPaging {
-        display: flex;
-        justify-content: flex-end;
-        div {
-          line-height: 30px;
-        }
-      }
-    }
+    justify-content: center;
   }
 }
 </style>

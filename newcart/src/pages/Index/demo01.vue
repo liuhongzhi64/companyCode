@@ -41,39 +41,58 @@
                     :class="{'delStyle':i.name ==''}"                 
                     >
                     <div class="items">
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'">{{ i.name }}</div>
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'">{{ i.name }}</div>
                         <!-- 地址样式 -->
-                        <div class="name" v-if="i.name ==='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'" :style="{'backgroundColor':elementSendStyle,'height':'80px','borderRadius':elementRadius+'px','marginLeft':elementMargin+'px','marginRight':elementMargin+'px','paddingLeft':elementPadding+'px','paddingRight':elementPadding+'px'}">
+                        <div class="name" v-if="i.name ==='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':elementSendStyle,'height':'80px','borderRadius':elementRadius+'px','marginLeft':elementMargin+'px','marginRight':elementMargin+'px','paddingLeft':elementPadding+'px','paddingRight':elementPadding+'px'}">
                             <span :style="{'color':elementTitleColorStyle}">{{ i.name }}:</span>
                             <span :style="{'color':elementColorStyle}" >{{ i.site }}</span> 
                         </div>
                         <!-- 电话 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name ==='电话'&&i.name !== '请添加新闻资讯'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'" :style="{'backgroundColor':elementSendPhoneStyle,'height':'100px','borderRadius':elementSendPhoneRadius+'px','marginLeft':elementSendPhoneMargin+'px','marginRight':elementSendPhoneMargin+'px','paddingLeft':elementSendPhonePadding+'px','paddingRight':elementSendPhonePadding+'px'}">
+                        <div class="name" v-if="i.name !=='地址'&&i.name ==='电话'&&i.name !== '请添加新闻资讯'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':elementSendPhoneStyle,'height':'100px','borderRadius':elementSendPhoneRadius+'px','marginLeft':elementSendPhoneMargin+'px','marginRight':elementSendPhoneMargin+'px','paddingLeft':elementSendPhonePadding+'px','paddingRight':elementSendPhonePadding+'px'}">
                             <span :style="{'color':elementSendPhoneTitleColorStyle}">{{ i.name }}:</span>
                             <span :style="{'color':elementSendPhoneColorStyle}" >{{ i.phone }}</span> 
                         </div>
                         <!-- 图片 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name==='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'" :style="{'backgroundColor':pictureStyles,'borderRadius':pictureSendPhoneRadius+'px','marginLeft':pictureSendPhoneMargin+'px','marginRight':pictureSendPhoneMargin+'px','paddingLeft':pictureSendPhonePadding+'px','paddingRight':pictureSendPhonePadding+'px'}"> 
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name==='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':pictureStyles,'borderRadius':pictureSendPhoneRadius+'px','marginLeft':pictureSendPhoneMargin+'px','marginRight':pictureSendPhoneMargin+'px','paddingLeft':pictureSendPhonePadding+'px','paddingRight':pictureSendPhonePadding+'px'}"> 
                             <div style=" width: 100%;text-align: center;"><img style="width: 100%; height: 100%; text-align: center; display: block; border-radius: 0px;" src="../../assets/imgs/picture.png" alt=""></div>
                         </div>
                         <!-- 新闻资讯 -->
-                        <div class="name" v-if="i.name === '请添加新闻资讯' && i.name !=='地址'&&i.name!=='电话'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'" :style="{'backgroundColor':elementNewStyle}">{{ i.name }}</div>
+                        <div class="name" v-if="i.name === '请添加新闻资讯' && i.name !=='地址'&&i.name!=='电话'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':elementNewStyle}">{{ i.name }}</div>
                         <!-- 富文本编辑 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name === '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'" :style="{'min-height':'20px'}"></div>
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name === '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'min-height':'20px'}"></div>
                         <!-- 视频编辑 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '图文广告'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name === '视频'&&i.name !=='文本'" :style="{'height':'200px','backgroundColor':'currentcolor'}"><video ></video></div>
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '图文广告'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name === '视频'&&i.name !=='文本'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'height':'200px','backgroundColor':'currentcolor'}"><video ></video></div>
                         <!-- 文本 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name ==='文本'&&i.name !== '图文广告'" :style="{'backgroundColor':TextBackgroundColor,'borderRadius':TextRadius+'px','marginLeft':TextMargin+'px','marginRight':TextMargin+'px','paddingLeft':TextPadding+'px','paddingRight':TextPadding+'px','min-height':'20px'}"> 
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name ==='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':TextBackgroundColor,'borderRadius':TextRadius+'px','marginLeft':TextMargin+'px','marginRight':TextMargin+'px','paddingLeft':TextPadding+'px','paddingRight':TextPadding+'px','min-height':'20px'}"> 
                             <div :style="{ 'width': '100%','text-align': TextsideRadio,'font-size':TextRadio+'px','color': TextFontColor ,'font-weight':TextStrong}">{{ TextTextarea }}</div>
                         </div>
                         <!-- 辅助线样式 -->
                         <div class="name" v-if="i.name === ''" :style="{'backgroundColor':sublineBackgroundColor,'paddingLeft':sublinePadding+'px','paddingRight':sublinePadding+'px','padding-top': '10px','padding-bottom':'10px'}">
                             <div  :style="{'border-top': `${sublineThickness}px ${sublineStyleRadio} ${sublineColor}`,'margin-bottom':'1px' }"></div>
                         </div>
+
                         <!-- 图文广告 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name === '图文广告'">
-                            <div style=" width: 100%;text-align: center;"><img style="width: 100%; height: 100%; text-align: center; display: block; border-radius: 0px;" src="../../assets/imgs/imageText.png" alt=""></div>
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name === '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':imageTextBackgroundColor,'borderRadius':imageTextBackgroungRadius+'px','marginLeft':imageTextMargin+'px','marginRight':imageTextMargin+'px','paddingLeft':imageTextPadding+'px','paddingRight':imageTextPadding+'px',}">
+                            <div :style=" {'width': '100%','height': '100%','borderRadius':imageTextOneRadius+'px',}"><img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
                         </div>
+
+
+                        <!-- 营销活动 -->
+                        <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden'}">
+                            <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                            <div :style="{'width': marketwideRadius+'%','height': '120px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px',}" src="../../assets/imgs/imageText.png" alt=""></div>
+                        </div>
+
+
+                        <!-- 标题 -->
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name==='标题'&&i.name !== '营销活动'&&i.name !== '空白辅助'" :style="{'backgroundColor':titleBackgroundColor,'border-radius':titleRadius+'px','marginLeft':titleMargin+'px','marginRight':titleMargin+'px','paddingLeft':titlePadding+'px','paddingRight':titlePadding+'px','min-height':'18px'}"> 
+                            <div :style="{ 'width': '100%','text-align': titlesideRadio,'font-size':'24px','color': titleFontColor}">{{ titleStyleText }}
+                                <div :style="{'font-size':'14px',}">{{subheadtextareaText}}</div>
+                            </div>
+                        </div>
+
+                        <!-- 空白辅助 -->
+                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name!=='标题'&&i.name !== '营销活动'&&i.name === '空白辅助'" :style="{'backgroundColor':blankAssistBackgroundColor,'height': currentValueHeigthRadius +'px'}"></div>
                         <!-- <div  v-if="i.name === ''" :style="{'backgroundColor':sublineBackgroundColor,'paddingLeft':sublinePadding+'px','paddingRight':sublinePadding+'px', 'margin-top': '10px', 'margin-left': '5%',}"></div> -->
                     </div>
                     <!-- <i class="del" @click="delElement(i)" v-show="i.name ==='地址'&&i.name!=='电话'" :style="{'backgroundColor':elementSendStyle}"></i> 
@@ -157,107 +176,34 @@
                 <richText v-if="richText" />
                 <!-- 视频样式 -->
                 <videoStyle v-if="videoStyle" />
+
                 <!-- 图文广告 -->
-                <imageTextAdvertising v-if="imageTextAdvertising" />
+                <imageTextAdvertising v-if="imageTextAdvertising" @radius='radius' @getData="getData" @oneRadius='oneRadius' @backgroundRadius='backgroundRadius' @margin='margin' @padding='padding' />
+
                 <!-- 营销活动 -->
-                <marketingCampaign v-if="marketingCampaign" />
+                <marketingCampaign v-if="marketingCampaign" @getData="getData" @margin='margin' @padding='padding' @radius="radius" @spaceBetweenRadius="spaceBetweenRadius" @wideRadius = 'wideRadius' @oneRadius='oneRadius' />
                 <!-- 标题商品 -->
-                <labelCommodity v-if="labelCommodity" />
+                <labelCommodity v-if="labelCommodity"  />
                 <!-- 标题编辑 -->
-                <titleStyle v-if="titleStyle" />
+                <titleStyle v-if="titleStyle" @textarea='textarea' @getData="getData" @sideRadio='sideRadio' @radius="radius" @subheadtextarea="subheadtextarea"  @fontColor='fontColor' @margin='margin' @padding='padding' />
                 <!-- 图文导航 -->
                 <imageTextLabel v-if="imageTextLabel" />
                 <!-- 空白辅助 -->
-                <blankAssist v-if="blankAssist" />
+                <blankAssist v-if="blankAssist" @getData="getData" @radius="radius" />
                 <!-- 商品 -->
                 <commodityStyle v-if="commodityStyle" />
             </div>           
         </div>
         <!-- 点击背景图片的表单 -->
-        <el-dialog
-            title="图库"
-            :visible.sync="centerDialogVisible"
-            width="860px"
-            center
-        >
-        <!-- 点击新增分组 -->
-        <el-dialog
-            width="30%"
-            title="新增分组"
-            :visible.sync="addGrouping"
-            append-to-body>
-            <el-input
-                placeholder="请输入内容"
-                v-model="addGroupingName"
-                clearable>
-            </el-input>
+        <el-dialog title="图库" :visible.sync="centerDialogVisible" width="860px" center>
+          <mapDepot />
+          <!-- 确定和取消按钮 -->
+          <div class="footer">
             <span slot="footer" class="dialog-footer">
-                <el-button @click="addGrouping = false">取 消</el-button>
-                <el-button type="primary" @click="addGroupingFromList(1)">确 定</el-button>
+              <el-button @click="centerDialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
             </span>
-        </el-dialog>
-        <div class="imgsList">
-            <div class="imgsListTab">
-                <div class="groupingList">
-                    <span>图片分组</span>
-                    <!-- <el-button class="allGrouping">全部分组</el-button> -->
-                    <el-button v-for="i in groupingList" :key="i.id" :class="{'allGrouping':i.name === '全部分组'}">{{ i.name }}</el-button>
-                </div>
-                <el-button class="addGrouping" @click="addGrouping = true">+新建分组</el-button>
-            </div>
-            <!-- 列表 -->
-            <div class="imgsLists">
-                <!-- 头部搜索款 -->
-                <div class="imsListsSearch">
-                    <!-- 上传图片 -->
-                    <!-- <el-button type="primary">上传图片</el-button> -->
-                    <el-upload
-                        class="upload-demo"
-                        action="https://jsonplaceholder.typicode.com/posts/"
-                        :on-change="handleChange"
-                        >
-                        <!-- :file-list="fileList" -->
-                        <el-button  type="primary">上传图片</el-button>
-                    </el-upload>
-                    <div>
-                        <el-input
-                        placeholder="请输入内容"
-                        v-model="searchInput"
-                        clearable>
-                        </el-input>
-                        <el-button type="primary">搜索</el-button>
-                    </div>
-                </div>
-                <!-- 中间展示区 -->
-                <div class="centerImgList">
-                    <div class="imgsListsShow">
-                        <img v-for="i in imagesList" :key="i.id" :src="i.url" alt="">
-                        <!-- <img src="../../assets/imgs/login.png">
-                        <img src="../../assets/imgs/pagesImgs/30.jpg">
-                        <img src="../../assets/imgs/pagesImgs/31.jpg">
-                        <img src="../../assets/imgs/pagesImgs/32.jpg">
-                        <img src="../../assets/imgs/pagesImgs/33.jpg">
-                        <img src="../../assets/imgs/pagesImgs/34.jpg">
-                        <img src="../../assets/imgs/pagesImgs/35.jpg">
-                        <img src="../../assets/imgs/pagesImgs/36.jpg"> -->
-                    </div>
-                </div>
-                <!-- 底部分页 -->
-                <div class="footerPaging">
-                    <div>共{{ pagers }}条</div>
-                    <el-pagination
-                    background
-                    layout="prev, pager, next"
-                    :total="100">
-                    </el-pagination>
-                </div>
-            </div> 
-        </div>           
-            <!-- 确定和取消按钮 -->
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="centerDialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
-            </span>
+          </div>
         </el-dialog>
     </div>
 </template>
@@ -282,6 +228,8 @@ import imageTextLabel from '../../components/imageTextLabel'
 import blankAssist from '../../components/blankAssist'
 import commodityStyle from '../../components/commodityStyle'
 
+import mapDepot from "../../components/mapDepot";
+
 export default {
   order: 3,
   components: {
@@ -303,6 +251,7 @@ export default {
     imageTextLabel,//图文导航样式
     blankAssist,//空白辅助样式
     commodityStyle,//商品样式
+    mapDepot
   },
   data() {
         return {
@@ -332,7 +281,7 @@ export default {
         imageUrl: '',//上传图片
         elementName:'',//组件名称
         elementDefultStyle:false,//默认样式
-        color: '#eee',//样色表的使用
+        color: '',//样色表的使用
         defultBackgroundColor:"#eee",//默认背景色
         centerDialogVisible: false,//默认设置的点击背景图片的开关
         searchInput:'',//搜索图片框
@@ -378,8 +327,8 @@ export default {
         elementMargin:0,//拖拽组件的默认外边距大小
         elementPadding:0,//拖拽组件的默认内边距大小
         elementSendPhoneStyle:'#eee',//拖拽组件的电话默认背景颜色
-        elementSendPhoneTitleColorStyle:'#2692ff',//拖拽组件电话的默认标题字体颜色
-        elementSendPhoneColorStyle:'#2692ff',//拖拽电话组件的默认字体颜色
+        elementSendPhoneTitleColorStyle:'#000',//拖拽组件电话的默认标题字体颜色
+        elementSendPhoneColorStyle:'#000',//拖拽电话组件的默认字体颜色
         elementSendPhoneRadius:0,//拖拽电话组件的默认圆角大小
         elementSendPhoneMargin:0,//拖拽组件电话的默认外边距大小
         elementSendPhonePadding:0,//拖拽组件电话的默认内边距大小
@@ -402,6 +351,35 @@ export default {
         sublineStyleRadio:'solid',//辅助线的默认样式（实虚线）
         sublinePadding:10,//辅助线的默认边距
         sublineThickness:1,//辅助线的粗细
+        
+        imageTextBackgroundColor:'',//图文广告默认背景se
+        imageTextBackgroungRadius:0,//图文广告默认背景圆角
+        imageTextRadius:0,//图文广告图片圆角
+        imageTextMargin:'',//图文广告外边距
+        imageTextPadding:'',//图文广告内边距
+        imageTextOneRadius:0,//单个图文圆角
+        
+
+        marketgroundColor:'',//营销活动背景色
+        marketMargin:0,//营销活动外边距
+        marketPadding:10,//营销活动内边距
+        marketgroundRadio:0,//营销活动背景圆角
+        marketspaceBetweenRadius:10,//营销活动图片间距
+        marketwideRadius:100,//营销活动图片宽度
+
+
+        titleStyleText:'',//标题内容
+        subheadtextareaText:'',//副标题内容
+        titleBackgroundColor:'',//标题背景颜色
+        titleRadius:0,//标题圆角
+        marketOneRadius:0,//单个图片的圆角
+        titleMargin:0,//标题外边距
+        titlePadding:0,//标题内边距
+        titlesideRadio:'left',//标题显示的位置
+
+        titleFontColor:'#000',//文本的默认字体颜色
+        blankAssistBackgroundColor:'',//空白辅助背景颜色
+        currentValueHeigthRadius:18//空白辅助的高度
         };
   },
     methods: {
@@ -863,6 +841,8 @@ export default {
             this.$refs.defultBackgroundColor.color.value = this.defultBackgroundColor
             this.defultBackgroundColor = "#eee"
             console.log(this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor)
+            console.log(this.color)
+            // this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor = this.defultBackgroundColor
             this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor = this.defultBackgroundColor
             // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor)
             // this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.defultBackgroundColor
@@ -870,11 +850,6 @@ export default {
         // 点击全屏显示的启动
         change(){
             console.log(this.fullScreen)
-        },
-        addGroupingFromList(e){
-            this.addGrouping = false
-            // console.log(this.groupingList.push({name:this.addGroupingName,id:this.groupingList.length+1+e}))
-            this.groupingList.push({name:this.addGroupingName,id:this.groupingList.length+1+e})
         },
         // 点击上传图片
         handleChange(file, fileList) {
@@ -904,9 +879,6 @@ export default {
         },
         // 获取子组件的值
         getData(data,item){
-            // console.log(data,item)
-            // this.elementSendStyle = data
-            // this.elementSendPhoneStyle = data
             if(item == '地址'){
                 this.elementSendStyle = data
             }else if(item == '电话'){
@@ -921,6 +893,18 @@ export default {
                 this.TextBackgroundColor = data
             }else if(item == '辅助线'){
                 this.sublineBackgroundColor = data
+            }else if(item == '空白辅助'){
+                console.log(data)
+                this.blankAssistBackgroundColor = data
+            }else if(item == '图文广告'){
+                console.log(data)
+                this.imageTextBackgroundColor = data
+            }else if(item == '标题'){
+                console.log(data)
+                this.titleBackgroundColor = data
+            }else if(item == '营销活动'){
+                console.log(data)
+                this.marketgroundColor = data
             }
 
             for(let i=0;i<this.list2.length;i++){
@@ -955,12 +939,29 @@ export default {
                     this.TextsideRadio = 'left'
                 }
                 
+            }else if(item == '标题'){
+                if(data == 2){
+                    this.titlesideRadio = 'center'
+                }else if( data == 3){
+                    this.titlesideRadio = 'right'
+                }else{
+                    this.titlesideRadio = 'left'
+                }
             }
         },
         // 文本的内容
         textarea(data,item){
             if(item == '文本'){
                 this.TextTextarea = data
+            }else if(item == '标题'){
+                this.titleStyleText = data
+            }
+        },
+        // 副标题的内容
+        subheadtextarea(data,item){
+            if(item == '标题'){
+                console.log(data)
+                this.subheadtextareaText = data
             }
         },
         //子组件的字体颜色
@@ -968,6 +969,9 @@ export default {
             if(item == '文本'){
                 // console.log(data)
                 this.TextFontColor = data
+            }else if(item == '标题'){
+                console.log(data)
+                this.titleFontColor = data
             }
         },
         // 子组件的字体是否加粗
@@ -1025,7 +1029,7 @@ export default {
                 }
             }
         },
-        // 获取地址子组件的圆角变化
+        // 获取子组件的圆角变化
         radius(data,item){
             // console.log(data,item)
             if(item == '地址'){
@@ -1036,6 +1040,16 @@ export default {
                 this.pictureSendPhoneRadius = data
             }else if(item == '文本'){
                 this.TextRadius = data
+            }else if(item == '标题'){
+                this.titleRadius = data
+            }else if(item == '营销活动'){
+                this.marketgroundRadio = data
+            }
+            else if(item == '图文广告'){
+                this.imageTextRadius = data
+            }
+            else if(item == '空白辅助'){
+                this.currentValueHeigthRadius = data
             }
             // this.elementRadius = data
             // this.elementSendPhoneRadius = data
@@ -1055,6 +1069,13 @@ export default {
                 this.pictureSendPhoneMargin = data
             }else if(item == '文本'){
                 this.TextMargin = data
+            }else if(item == '标题'){
+                this.titleMargin = data
+            }else if(item == '图文广告'){
+                console.log(data)
+                this.imageTextMargin = data
+            }else if(item == '营销活动'){
+                this.marketMargin = data
             }
             // this.elementMargin= data
             // this.elementSendPhoneMargin= data
@@ -1075,6 +1096,13 @@ export default {
                 this.TextPadding = data
             }else if(item == '辅助线'){
                 this.sublinePadding = data
+            }else if(item == '标题'){
+                this.titlePadding = data
+            }else if(item == '图文广告'){
+                console.log(data)
+                this.imageTextPadding = data
+            }else if(item == '营销活动'){
+                this.marketPadding = data
             }
             // this.elementPadding = data
             // this.elementSendPhonePadding = data
@@ -1089,6 +1117,37 @@ export default {
             if(item =='辅助线'){
                 // console.log(data)
                 this.sublineColor = data
+            }
+        },
+        // 图片间距
+        spaceBetweenRadius(data,item){
+            if(item =='营销活动'){
+                // console.log(data)
+                this.marketspaceBetweenRadius = data       
+            }
+        },
+        // 图片宽度
+        wideRadius(data,item){
+            if(item =='营销活动'){
+                // console.log(data)
+                this.marketwideRadius = data       
+            }
+        },
+        // 背景圆角
+        backgroundRadius(data,item){
+            if(item === '图文广告'){
+                console.log(data)
+                this.imageTextBackgroungRadius = data
+            }
+        },
+        // 单个图片的圆角
+        oneRadius(data,item){
+            if(item =='营销活动'){
+                console.log(data)
+                this.marketOneRadius = data       
+            }else if(item =='图文广告'){
+                console.log(data)
+                this.imageTextOneRadius = data
             }
         },
         // 辅助线的粗细
@@ -1186,25 +1245,26 @@ export default {
                     width: 100%;
                     .item{
                         cursor: pointer;
-                        // height: auto;
-                        // line-height: 60px;
                         border: 1px solid rgb(90, 136, 235);
-                        min-height: 22px;
+                        min-height: 18px;
                         display: flex;
                         justify-content: flex-end;
                         .items{
                             width: 100%;
-                            min-height: 25px;
+                            min-height: 18px;
                         }
                         .del{
                             width: 18px;
-                            height: 20px;
-                            // border-radius: 18px;
+                            // height: 20px;
                             background: url('../../assets/imgs/del.png')  no-repeat;
                             background-size: 100%;
                             display: none;
                             top: 0;
                             right: -10px;
+                        }
+                        .names{
+                            display: flex;
+                            justify-content: center;
                         }
                     }
                     .item:hover{
@@ -1214,9 +1274,6 @@ export default {
                             display: inline;
                         }
                     }
-                    // .delStyle{
-                    //     height: 20px;
-                    // }
                 }
             }
         }
@@ -1328,47 +1385,10 @@ export default {
                     margin-top: 10px;
                 }
             }
-            .imgsLists{
-                flex: 1;
-                display: flex;
-                flex-direction:column;
-                .imsListsSearch{
-                    display: flex;
-                    justify-content: space-between;
-                    input{
-                        width: 120px;
-                    }
-                    div{
-                        display: flex;
-                        button{
-                            margin-left: 10px;
-                        }
-                    }
-                }
-                .centerImgList{
-                    flex: 1;
-                    width: 650px;
-                    .imgsListsShow{
-                        img{
-                            margin-top: 10px;
-                            margin-right: 12px;
-                            padding: 25px;
-                            width: 100px;
-                            height: 100px;
-                        }
-                    }
-                    img:hover{
-                        background-color: #ccc;
-                    }
-                }
-                .footerPaging{
-                    display: flex;
-                    justify-content: flex-end;
-                    div{
-                        line-height: 30px;
-                    }
-                }
-            }
+        }
+        .footer {
+            display: flex;
+            justify-content: center;
         }
     }
 </style>

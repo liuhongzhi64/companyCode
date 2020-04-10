@@ -16,7 +16,6 @@
         </div>
         <!-- 中间内容 -->
         <div class="center">
-            <el-button @click="goToDemo">拖拽</el-button>
             <el-button @click="goToDemo01">拖拽01</el-button>
             <el-button @click="goToDemo02">地图</el-button>
             <el-button @click="goToDemo03">子组件</el-button>
@@ -34,9 +33,6 @@
   methods: {
     goToLogin() {
       this.$router.history.push("/");
-    },
-    goToDemo() {
-      this.$router.history.push("/demo");
     },
     goToDemo01() {
       this.$router.history.push("/demo01");

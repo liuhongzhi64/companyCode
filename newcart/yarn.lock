@@ -833,10 +833,12 @@
     error-stack-parser "^2.0.0"
     string-width "^2.0.0"
 
-"@tinymce/tinymce-vue@^3.2.0":
-  version "3.2.0"
-  resolved "https://registry.npm.taobao.org/@tinymce/tinymce-vue/download/@tinymce/tinymce-vue-3.2.0.tgz#abadab7fd6e143688e756df779fc3b81e586427a"
-  integrity sha1-q62rf9bhQ2iOdW33efw7geWGQno=
+"@tinymce/tinymce-vue@^1.1.0":
+  version "1.1.2"
+  resolved "https://registry.npm.taobao.org/@tinymce/tinymce-vue/download/@tinymce/tinymce-vue-1.1.2.tgz#78322742d268b67ad4da5544ad03cd9b7cb30326"
+  integrity sha1-eDInQtJotnrU2lVErQPNm3yzAyY=
+  dependencies:
+    vue "^2.5.17"
 
 "@types/color-name@^1.1.1":
   version "1.1.1"

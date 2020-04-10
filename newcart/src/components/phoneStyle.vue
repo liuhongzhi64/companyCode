@@ -14,7 +14,8 @@
         <div class="background">
             <div>背景色:</div>
             <div class="btn">
-                <colorPicker v-model="backgroundColor"  ref="defultBackgroundColor"></colorPicker> 
+                <el-color-picker v-model="backgroundColor" ref="defultBackgroundColor"></el-color-picker>
+                <!-- <colorPicker v-model="backgroundColor"  ref="defultBackgroundColor"></colorPicker>  -->
                 <div class="reset" @click="resetBackgroundColor">重置</div>
             </div>                   
         </div>
@@ -22,7 +23,8 @@
         <div class="titleColor">
             <div>标题颜色:</div>
             <div class="btn">
-                <colorPicker v-model="titleColors"  ref="titleColor"></colorPicker> 
+                <el-color-picker v-model="titleColors" ref="titleColor"></el-color-picker>
+                <!-- <colorPicker v-model="titleColors"  ref="titleColor"></colorPicker>  -->
                 <div class="reset" @click="titleColor">重置</div>
             </div>
         </div>
@@ -30,7 +32,8 @@
         <div class="phoneColor">
             <div>号码颜色:</div>
             <div class="btn">
-                <colorPicker v-model="phoneColor"  ref="phoneColor"></colorPicker> 
+                <el-color-picker v-model="phoneColor" ref="phoneColor"></el-color-picker>
+                <!-- <colorPicker v-model="phoneColor"  ref="phoneColor"></colorPicker>  -->
                 <div class="reset" @click="sendPhoneColor">重置</div>
             </div>
         </div>
@@ -75,9 +78,9 @@
         data() {
             return {
                 titleName:'',//联系电话名称
-                backgroundColor: '#ccc',//背景默认颜色
-                titleColors:'#eee',//标题颜色默认颜色
-                phoneColor:'#ddd',//号码默认颜色
+                backgroundColor: '',//背景默认颜色
+                titleColors:'',//标题颜色默认颜色
+                phoneColor:'',//号码默认颜色
                 radius:0,//圆角的初始值
                 margin:0,//外边距
                 padding:0,//内边距        
@@ -87,38 +90,38 @@
             // 点击背景颜色
             resetBackgroundColor(){
                 // 重置默认背景颜色
-                this.backgroundColor = "#ccc"
+                this.backgroundColor = ""
                 // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor)
-                // console.log(this.backgroundColor)
-                this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor = this.backgroundColor
-                this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.backgroundColor
+                // // console.log(this.backgroundColor)
+                // this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor = this.backgroundColor
+                // this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.backgroundColor
             },
             //标题颜色
             titleColor(){
-                this.titleColors = "#eee"
-                this.$refs.titleColor.$refs.colorPicker.children[0].style.backgroundColor = this.titleColors
-                this.$refs.titleColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.titleColors
+                this.titleColors = ""
+                // this.$refs.titleColor.$refs.colorPicker.children[0].style.backgroundColor = this.titleColors
+                // this.$refs.titleColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.titleColors
             },
             //电话默认颜色
             sendPhoneColor(){
                 // console.log(111)
-                this.phoneColor = "#ddd"
-                this.$refs.phoneColor.$refs.colorPicker.children[0].style.backgroundColor = this.phoneColor
-                this.$refs.phoneColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.phoneColor
+                this.phoneColor = ""
+                // this.$refs.phoneColor.$refs.colorPicker.children[0].style.backgroundColor = this.phoneColor
+                // this.$refs.phoneColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.phoneColor
             },
         },
         watch:{
             // 监听默认地址背景颜色改变事件
             backgroundColor(){
-                this.$emit('getData',this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor,'电话')
+                this.$emit('getData',this.backgroundColor,'电话')
             },
             // 监听标题颜色默认颜色改变事件
             titleColors(){
-                this.$emit('setTitleColor',this.$refs.titleColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor,'电话')
+                this.$emit('setTitleColor',this.titleColors,'电话')
             },
             // 监听电话默认颜色改变事件
             phoneColor(){ 
-                this.$emit('phoneColor',this.$refs.phoneColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor,'电话')
+                this.$emit('phoneColor',this.phoneColor,'电话')
             },
             // 监听圆角改变
             radius(){
@@ -144,7 +147,7 @@
         font-size: 20px;   
         color: #666;
     }
-    .title,.sites,.background,.titleColor,.phoneColor,{
+    .title,.sites,.background,.titleColor,.phoneColor{
         margin-top: 5px;
         display: flex;
         justify-content: flex-start;

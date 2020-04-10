@@ -24,7 +24,8 @@
         <div class="background">
             <div>背景色:</div>
             <div class="btn">
-                <colorPicker v-model="backgroundColor"  ref="defultBackgroundColor"></colorPicker> 
+                <!-- <colorPicker v-model="backgroundColor"  ref="defultBackgroundColor"></colorPicker>  -->
+                <el-color-picker v-model="backgroundColor" ref="defultBackgroundColor"></el-color-picker>
                 <div class="reset" @click="resetBackgroundColor">重置</div>
             </div>                   
         </div>
@@ -32,7 +33,8 @@
         <div class="titleColor">
             <div>标题颜色:</div>
             <div class="btn">
-                <colorPicker v-model="titleColors"  ref="titleColor"></colorPicker> 
+                <!-- <colorPicker v-model="titleColors"  ref="titleColor"></colorPicker>  -->
+                <el-color-picker v-model="titleColors" ref="titleColor"></el-color-picker>
                 <div class="reset" @click="titleColor">重置</div>
             </div>
         </div>
@@ -40,7 +42,8 @@
         <div class="sitesColor">
             <div>地址颜色:</div>
             <div class="btn">
-                <colorPicker v-model="sitesColor"  ref="sitesColor"></colorPicker> 
+                <!-- <colorPicker v-model="sitesColor"  ref="sitesColor"></colorPicker>  -->
+                <el-color-picker v-model="sitesColor"></el-color-picker>
                 <div class="reset" @click="siteColor">重置</div>
             </div> 
         </div>
@@ -91,9 +94,9 @@
             return {
                 titleName:'',//名称
                 sitesName:'',//地址
-                backgroundColor: '#ccc',//背景默认颜色
-                titleColors:'#eee',//标题颜色默认颜色
-                sitesColor:'#ddd',//地址默认颜色
+                backgroundColor: '',//背景默认颜色
+                titleColors:'#000',//标题颜色默认颜色
+                sitesColor:'#000',//地址默认颜色
                 radius:0,//圆角的初始值
                 margin:0,//外边距
                 padding:0,//内边距
@@ -106,26 +109,26 @@
             // 点击背景颜色
             resetBackgroundColor(){
                 // 重置默认背景颜色
-                this.backgroundColor = "#ccc"
+                this.backgroundColor = ""
                 // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor)
                 // console.log(this.backgroundColor)
-                this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor = this.backgroundColor
-                this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.backgroundColor
+                // this.$refs.defultBackgroundColor.$refs.colorPicker.children[0].style.backgroundColor = this.backgroundColor
+                // this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.backgroundColor
                 // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor)
             },
             //标题颜色
             titleColor(){
-                this.titleColors = "#eee"
+                this.titleColors = "#000"
                 // console.log(this.$refs.titleColor.$refs.colorPicker.children[0].style.backgroundColor,'111')
-                this.$refs.titleColor.$refs.colorPicker.children[0].style.backgroundColor = this.titleColors
-                this.$refs.titleColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.titleColors
+                // this.$refs.titleColor.$refs.colorPicker.children[0].style.backgroundColor = this.titleColors
+                // this.$refs.titleColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.titleColors
             },
             //地址默认颜色
             siteColor(){
-                this.sitesColor = "#ddd"
+                this.sitesColor = "#000"
                 // console.log(this.$refs.sitesColor.$refs.colorPicker.children[0].style.backgroundColor,'222')
-                this.$refs.sitesColor.$refs.colorPicker.children[0].style.backgroundColor = this.sitesColor
-                this.$refs.sitesColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.sitesColor
+                // this.$refs.sitesColor.$refs.colorPicker.children[0].style.backgroundColor = this.sitesColor
+                // this.$refs.sitesColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.sitesColor
             },
             // 地图
             map () {
@@ -148,18 +151,18 @@
             // 监听默认地址背景颜色改变事件
             backgroundColor(){
                 // console.log(12345)
-                this.$emit('getData',this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor,'地址')
+                this.$emit('getData',this.backgroundColor,'地址')
                 // this.defultBackgroundColor = this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor
             },
             // 监听标题颜色默认颜色改变事件
             titleColors(){
                 // console.log(678910,this.$emit('setTitleColor'))
-                this.$emit('setTitleColor',this.$refs.titleColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor,'地址')
+                this.$emit('setTitleColor',this.titleColors,'地址')
                 // this.defultBackgroundColor = this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor
             },
             // 监听地址默认颜色改变事件
             sitesColor(){ 
-                this.$emit('setsitesColor',this.$refs.sitesColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor,'地址')
+                this.$emit('setsitesColor',this.sitesColor,'地址')
                 // this.defultBackgroundColor = this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor
             },
             // 监听圆角改变
