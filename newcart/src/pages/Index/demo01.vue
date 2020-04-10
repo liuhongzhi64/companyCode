@@ -28,7 +28,7 @@
                     <div class="set" @click="setShowElementTop"></div>
                 </div>
                 <!-- 中间 -->
-                <div class="showElementCenter" :style="{'backgroundColor':defultBackgroundColor}">
+                <div class="showElementCenter" :style="{'background': `url(${defultBackgroundImg}) no-repeat ${defultBackgroundColor}`,'background-size':'100%'}">
                     <draggable
                     class="dragArea list-group"
                     :list="list2"
@@ -71,9 +71,47 @@
                             <div  :style="{'border-top': `${sublineThickness}px ${sublineStyleRadio} ${sublineColor}`,'margin-bottom':'1px' }"></div>
                         </div>
 
-                        <!-- 图文广告 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name === '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':imageTextBackgroundColor,'borderRadius':imageTextBackgroungRadius+'px','marginLeft':imageTextMargin+'px','marginRight':imageTextMargin+'px','paddingLeft':imageTextPadding+'px','paddingRight':imageTextPadding+'px',}">
-                            <div :style=" {'width': '100%','height': '100%','borderRadius':imageTextOneRadius+'px',}"><img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                        <!-- 图文广告模板1 -->
+                        <div class="name"  v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name === '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&imageTextchangeTemplate ===1" :style="{'backgroundColor':imageTextBackgroundColor,'borderRadius':imageTextBackgroungRadius+'px','marginLeft':imageTextMargin+'px','marginRight':imageTextMargin+'px','paddingLeft':imageTextPadding+'px','paddingRight':imageTextPadding+'px',}">
+                            <div :style=" {'backgroundColor':imageTextOnebackgroundColor,'width': '100%','height': '100%','borderRadius':imageTextOneRadius+'px',}"><img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                        </div>
+                        <!-- 图文广告模板2 -->
+                        <div class="name"  v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name === '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&imageTextchangeTemplate ===2" :style="{'backgroundColor':imageTextBackgroundColor,'borderRadius':imageTextBackgroungRadius+'px','marginLeft':imageTextMargin+'px','marginRight':imageTextMargin+'px','paddingLeft':imageTextPadding+'px','paddingRight':imageTextPadding+'px','display':'flex'}">
+                            <!-- <div v-for="(i,k) in imageTextList" :key="k" style="display:flex">
+                                <div :style=" {'backgroundColor':imageTextOnebackgroundColor,'width': '80%','height': '100%','borderRadius':imageTextOneRadius+'px','margin':'0 5px'}">
+                                    <img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt="">
+                                    <span  :style=" {'color':imageTextTitle1Color,}">{{i.imageTextTitle}}</span><br>
+                                    <span :style=" {'color':imageTextPrice1Color,}">{{i.imageTextPrice}}</span>
+                                </div>
+                            </div> -->
+                            <div :style=" {'backgroundColor':imageTextOnebackgroundColor,'width': '80%','height': '100%','borderRadius':imageTextOneRadius+'px','margin':'0 5px'}">
+                                <img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt="">
+                                <span  :style=" {'color':imageTextTitleColor,}">{{imageTextTitle1}}</span><br>
+                                <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice1}}</span>
+                            </div>
+                            <div :style=" {'backgroundColor':imageTextOnebackgroundColor,'width': '20%','height': '100%','overflow': 'hidden','borderRadius':imageTextOneRadius+'px',}">
+                                <img :style="{'borderRadius':imageTextRadius+'px','width': '244px','height': '170px'}" src="../../assets/imgs/imageText.png" alt="">
+                                <span :style=" {'color':imageTextTitleColor,}">{{imageTextTitle2}}</span><br>
+                                <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice2}}</span>
+                            </div>
+                        </div>
+                        <!-- 图文广告模板3 -->
+                        <div class="name"  v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name === '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&imageTextchangeTemplate ===3" :style="{'backgroundColor':imageTextBackgroundColor,'borderRadius':imageTextBackgroungRadius+'px','marginLeft':imageTextMargin+'px','marginRight':imageTextMargin+'px','paddingLeft':imageTextPadding+'px','paddingRight':imageTextPadding+'px','display':'flex'}">
+                            <div :style=" {'margin-left': '5px','backgroundColor':imageTextOnebackgroundColor,'width': '44%','height': '100%','borderRadius':imageTextOneRadius+'px',}">
+                                <img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '120px'}" src="../../assets/imgs/imageText.png" alt="">
+                                <span :style=" {'color':imageTextTitleColor,}">{{imageTextTitle1}}</span><br>
+                                <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice1}}</span>
+                            </div>
+                            <div :style=" {'margin-left': '5px','backgroundColor':imageTextOnebackgroundColor,'width': '44%','height': '100%','borderRadius':imageTextOneRadius+'px',}">
+                                <img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '120px'}" src="../../assets/imgs/imageText.png" alt="">
+                                <span :style=" {'color':imageTextTitleColor,}">{{imageTextTitle2}}</span><br>
+                                <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice2}}</span>
+                            </div>
+                            <div :style=" {'margin-left': '5px','backgroundColor':imageTextOnebackgroundColor,'width': '12%','height': '100%','overflow': 'hidden','borderRadius':imageTextOneRadius+'px',}">
+                                <img :style="{'borderRadius':imageTextRadius+'px','width': '132px','height': '120px'}" src="../../assets/imgs/imageText.png" alt="">
+                                <span :style=" {'color':imageTextTitleColor,}">{{imageTextTitle3}}</span><br>
+                                <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice3}}</span>
+                            </div>
                         </div>
 
 
@@ -178,7 +216,7 @@
                 <videoStyle v-if="videoStyle" />
 
                 <!-- 图文广告 -->
-                <imageTextAdvertising v-if="imageTextAdvertising" @radius='radius' @getData="getData" @oneRadius='oneRadius' @backgroundRadius='backgroundRadius' @margin='margin' @padding='padding' />
+                <imageTextAdvertising v-if="imageTextAdvertising" @onebackgroundColor='onebackgroundColor' @radius='radius' @getData="getData" @oneRadius='oneRadius' @backgroundRadius='backgroundRadius' @margin='margin' @padding='padding' @changeTemplate ='changeTemplate' @titleInput='titleInput' @setTitleColor='setTitleColor' @setPriceColor='setPriceColor' />
 
                 <!-- 营销活动 -->
                 <marketingCampaign v-if="marketingCampaign" @getData="getData" @margin='margin' @padding='padding' @radius="radius" @spaceBetweenRadius="spaceBetweenRadius" @wideRadius = 'wideRadius' @oneRadius='oneRadius' />
@@ -283,6 +321,8 @@ export default {
         elementDefultStyle:false,//默认样式
         color: '',//样色表的使用
         defultBackgroundColor:"#eee",//默认背景色
+        // defultBackgroundImg:'img/login.d3c4bad8.png',//默认背景颜色
+        defultBackgroundImg:'',//默认背景颜色
         centerDialogVisible: false,//默认设置的点击背景图片的开关
         searchInput:'',//搜索图片框
         pagers:10,//图片数量
@@ -352,13 +392,27 @@ export default {
         sublinePadding:10,//辅助线的默认边距
         sublineThickness:1,//辅助线的粗细
         
-        imageTextBackgroundColor:'',//图文广告默认背景se
+        imageTextBackgroundColor:'',//图文广告默认背景色
+        imageTextOnebackgroundColor:'',//图文广告默认单个背景色
         imageTextBackgroungRadius:0,//图文广告默认背景圆角
         imageTextRadius:0,//图文广告图片圆角
         imageTextMargin:'',//图文广告外边距
         imageTextPadding:'',//图文广告内边距
         imageTextOneRadius:0,//单个图文圆角
-        
+        imageTextchangeTemplate:1,//图文广告的模板
+        imageTextTitleColor:'#000',//图文广告标题颜色
+        imageTextTitle1:1,//图文广告标题1
+        imageTextTitle2:20,//图文广告标题2
+        imageTextTitle3:30,//图文广告标题3
+        imageTextPrice1:100,//图文广告价格1
+        imageTextPriceColor:'#000',//图文广告价格颜色
+        imageTextPrice2:100,//图文广告价格2
+        imageTextPrice3:100,//图文广告价格3
+        imageTextList:[
+            {'imageTextTitle':1,'imageTextPrice':10},
+            {'imageTextTitle':2,'imageTextPrice':20},
+            {'imageTextTitle':3,'imageTextPrice':30},
+        ],//图文广告图文内容
 
         marketgroundColor:'',//营销活动背景色
         marketMargin:0,//营销活动外边距
@@ -838,12 +892,12 @@ export default {
         // 点击重置默认背景颜色
         resetDefultBackgroundColor(){
             // 重置默认背景颜色
-            this.$refs.defultBackgroundColor.color.value = this.defultBackgroundColor
             this.defultBackgroundColor = "#eee"
-            console.log(this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor)
-            console.log(this.color)
+            this.color = this.defultBackgroundColor
+            // console.log(this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor)
+            // console.log(this.color)
             // this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor = this.defultBackgroundColor
-            this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor = this.defultBackgroundColor
+            // this.$refs.defultBackgroundColor.$el.firstElementChild.firstElementChild.firstChild.style.backgroundColor = this.defultBackgroundColor
             // console.log(this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor)
             // this.$refs.defultBackgroundColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.defultBackgroundColor
         },
@@ -877,7 +931,7 @@ export default {
             this.blankAssist=false;
             this.commodityStyle=false;
         },
-        // 获取子组件的值
+        // 获取子组件的默认背景色
         getData(data,item){
             if(item == '地址'){
                 this.elementSendStyle = data
@@ -914,11 +968,30 @@ export default {
                 }
             }
         },
+        // 获取单个背景颜色
+        onebackgroundColor(data,item){
+            if(item ==='图文广告'){
+                this.imageTextOnebackgroundColor = data
+            }
+        },
+        // 获取选择模板
+        changeTemplate(data,item){
+            if(item ==='图文广告'){
+                this.imageTextchangeTemplate = data
+            }
+        },
+        // 图文内容
+        titleInput(data,item){
+            if(item ==='图文广告'){
+                console.log(data)
+                // console.log(data)
+            }
+        },
         // 子组件的字体大小
         radio(data,item){
             if(item == '文本'){
                 if(data == 1){
-                    console.log(111)
+                    // console.log(111)
                     this.TextRadio = 24
                 }else if(data == 2){
                     this.TextRadio = 18
@@ -991,6 +1064,8 @@ export default {
                 this.elementTitleColorStyle = data
             }else if(item == '电话'){
                 this.elementSendPhoneTitleColorStyle = data
+            }else if(item == '图文广告'){
+                this.imageTextTitleColor = data
             }
             // this.elementTitleColorStyle = data
             // this.elementSendPhoneTitleColorStyle = data
@@ -1001,6 +1076,18 @@ export default {
                 }
             }          
         },
+        // 获取子组件的价格颜色
+        setPriceColor(data,item){
+            if(item == '图文广告'){
+                this.imageTextPriceColor = data
+            }
+            for(let i=0;i<this.list2.length;i++){
+                if(this.list2[i].name == item){
+                    // console.log(this.list2[i])
+                    return true;
+                }
+            }          
+        }, 
         // 获取子组件的位置颜色
         setsitesColor(data,item){
             // this.elementColorStyle = data
@@ -1072,7 +1159,7 @@ export default {
             }else if(item == '标题'){
                 this.titleMargin = data
             }else if(item == '图文广告'){
-                console.log(data)
+                // console.log(data)
                 this.imageTextMargin = data
             }else if(item == '营销活动'){
                 this.marketMargin = data
@@ -1136,17 +1223,17 @@ export default {
         // 背景圆角
         backgroundRadius(data,item){
             if(item === '图文广告'){
-                console.log(data)
+                // console.log(data)
                 this.imageTextBackgroungRadius = data
             }
         },
         // 单个图片的圆角
         oneRadius(data,item){
             if(item =='营销活动'){
-                console.log(data)
+                // console.log(data)
                 this.marketOneRadius = data       
             }else if(item =='图文广告'){
-                console.log(data)
+                // console.log(data)
                 this.imageTextOneRadius = data
             }
         },
@@ -1173,7 +1260,8 @@ export default {
         // 监听默认背景颜色改变事件
         color(){
             // console.log(this.$refs.defultBackgroundColor)
-            this.defultBackgroundColor = this.$refs.defultBackgroundColor.color.value
+            // this.defultBackgroundColor = this.$refs.defultBackgroundColor.color.value
+            this.defultBackgroundColor = this.color
         },
     },
   }
@@ -1242,7 +1330,7 @@ export default {
                     }
                 }
                 .showElementCenter{
-                    width: 100%;
+                    width: 100%;    
                     .item{
                         cursor: pointer;
                         border: 1px solid rgb(90, 136, 235);

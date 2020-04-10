@@ -8,6 +8,7 @@
         <div
           class="one"
           @click="changeTemplate(1)"
+          :v-bind="changeTemplateImg"
           :style="{'border': (changeTemplateImg1 ? '1px dashed rgb(90, 136, 235)' : '1px solid #fff')}"
         >
           <img src="../assets/imgs/imageTextOne.png" alt />
@@ -155,8 +156,8 @@
             </el-dialog>
           </div>
           <div class="links">
-            <div class="title"> <span>标题：</span> <el-input placeholder="请输入内容" v-model="titleInput" clearable></el-input></div>
-            <div class="price"><span>价格：</span><el-input placeholder="请输入内容" v-model="priceInput" clearable></el-input></div>
+            <div class="title"> <span>标题：</span> <el-input placeholder="请输入内容" v-model="i.titleInput" @input="titleInput(i.titleInput)" clearable></el-input></div>
+            <div class="price"><span>价格：</span><el-input placeholder="请输入内容" v-model="i.priceInput" @input="titleInput(i.priceInput)" clearable></el-input></div>
             <span @click="dialogLIink = true">编辑内容</span>
             <!-- <el-button type="info" @click="dialogNewLIink(i)">编辑内容2</el-button> -->
           </div>
@@ -203,8 +204,8 @@
             </el-dialog>
           </div>
           <div class="links">
-            <div class="title"> <span>标题：</span> <el-input placeholder="请输入内容" v-model="titleInput" clearable></el-input></div>
-            <div class="price"><span>价格：</span><el-input placeholder="请输入内容" v-model="priceInput" clearable></el-input></div>
+            <div class="title"> <span>标题：</span> <el-input placeholder="请输入内容" v-model="i.titleInput" clearable></el-input></div>
+            <div class="price"><span>价格：</span><el-input placeholder="请输入内容" v-model="i.priceInput" clearable></el-input></div>
             <span @click="dialogLIink = true">编辑内容3</span>
             <!-- <el-button type="info" @click="dialogNewLIink(i)">编辑内容2</el-button> -->
           </div>
@@ -249,8 +250,8 @@ export default {
     return {
       backgroundColor: "", //背景色
       oneBackgroundColor: "", //单个背景
-      titleBackgroundColor: "", //标题颜色
-      priceBackgroundColor: "", //价格颜色
+      titleBackgroundColor: "#000", //标题颜色
+      priceBackgroundColor: "#000", //价格颜色
       radius: 0, //图片圆角设置
       oneRadius: 0, //单个圆角
       backgroundRadius: 0, //背景圆角
@@ -259,14 +260,24 @@ export default {
       dialogImageUrl: "",
       dialogVisible: false,
       centerDialogVisible: false, //上传图片
-      pictureItemList: ["1"],
+      // pictureItemLists: [],
+      pictureItemList: [],
+      pictureItemLists: [
+        // {num:1,titleInput:'',priceInput:''}
+      ],
       num: 1,
       dialogLIink: false,
       changeTemplateImg1: true, //图片的选择样式
       changeTemplateImg2: false, //图片的选择样式
       changeTemplateImg3: false, //图片的选择样式
-      titleInput:'',//标题框内容
-      priceInput:''//价格框内容
+      titleInputs:'',//标题框1内容
+      titleInput1:'',//标题框1内容
+      priceInput1:'',//价格框1内容
+      titleInput2:'',//标题框2内容
+      priceInput2:'',//价格框2内容
+      titleInput3:'',//标题框2内容
+      priceInput3:'',//价格框2内容
+      changeTemplateImg:1,//模板
     };
   },
   methods: {
@@ -280,11 +291,11 @@ export default {
     },
     // 标题
     setTitleBackgroundColor() {
-      this.titleBackgroundColor = "";
+      this.titleBackgroundColor = "#000";
     },
     // 价格
     setPriceBackgroundColor() {
-      this.priceBackgroundColor = "";
+      this.priceBackgroundColor = "#000";
     },
     // 编辑内容（链接）
     dialogNewLIink(e) {
@@ -305,7 +316,7 @@ export default {
     addPicture(i) {
       this.num = this.num + i;
       // console.log(i,this.num)
-      this.pictureItemList.push(this.num);
+      this.pictureItemList.push({num:this.num,titleInput:'',priceInput:''});
     },
     // 选择模板
     changeTemplate(i) {
@@ -313,23 +324,39 @@ export default {
         this.changeTemplateImg1 = true;
         this.changeTemplateImg2 = false;
         this.changeTemplateImg3 = false;
-        this.pictureItemList = ["1"]
+        this.changeTemplateImg = 1
+        this.pictureItemList = [{num:1,titleInput:'',priceInput:''}]
       } else if (i == 2) {
         this.changeTemplateImg1 = false;
         this.changeTemplateImg2 = true;
         this.changeTemplateImg3 = false;
-        this.pictureItemList = ["1","2","3"]
+        this.changeTemplateImg = 2
+        this.pictureItemList = [{num:1,titleInput:'',priceInput:''},{num:1,titleInput:'',priceInput:''}]
       } else {
         this.changeTemplateImg1 = false;
         this.changeTemplateImg2 = false;
         this.changeTemplateImg3 = true;
-        this.pictureItemList = ["1","2"]
+        this.changeTemplateImg = 3
+        this.pictureItemList = [{num:1,titleInput:'',priceInput:''},{num:1,titleInput:'',priceInput:''},{num:1,titleInput:'',priceInput:''}]
       }
-    }
+    },
+    titleInput(i){
+      for(let a = 0 ; a<this.pictureItemList.length;a++){
+        console.log(this.pictureItemList[a],i)
+      }
+        // this.pictureItemLists = this.pictureItemList
+        console.log(this.pictureItemList)
+        // console.log(this.pictureItemLists)
+      // this.titleInput1 = i
+      // this.pictureItemList = [{num:1,titleInput:i,priceInput:''},{num:1,titleInput:0,priceInput:''}]
+    },
   },
   watch: {
     backgroundColor() {
       this.$emit("getData", this.backgroundColor, "图文广告");
+    },
+    oneBackgroundColor(){
+      this.$emit('onebackgroundColor',this.oneBackgroundColor,'图文广告')
     },
     // 监听圆角改变
     radius() {
@@ -353,14 +380,24 @@ export default {
       this.$emit("padding", this.padding, "图文广告");
     },
     // 监听模板样式
-    changeTemplateImg1(){
-      console.log(111)
+    changeTemplateImg(){
+      this.$emit("changeTemplate", this.changeTemplateImg, "图文广告");
+      // console.log(this.changeTemplateImg)
     },
-    changeTemplateImg2(){
-      console.log(112)
+    // 标题框内容
+    pictureItemLists(){
+      this.$emit("titleInput", this.pictureItemLists, "图文广告");
     },
-    changeTemplateImg3(){
-      console.log(113)
+    titleInput(){
+      console.log(this.titleInput)
+    },
+    // 标题颜色
+    titleBackgroundColor(){
+      this.$emit("setTitleColor", this.titleBackgroundColor, "图文广告");
+    },
+    // 价格颜色
+    priceBackgroundColor(){
+      this.$emit("setPriceColor", this.priceBackgroundColor, "图文广告");
     },
   }
 };
