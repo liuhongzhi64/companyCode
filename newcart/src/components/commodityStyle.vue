@@ -66,6 +66,22 @@
         <div class="reset" @click="resetBackgroundColor">重置</div>
       </div>
     </div>
+    <!-- 标题颜色 -->
+    <div class="nameBackgroundColor" >
+      <div>名字颜色:</div>
+      <div class="btn">
+        <el-color-picker v-model="NameBackgroundColor"></el-color-picker>
+        <div class="reset" @click="setNameBackgroundColor">重置</div>
+      </div>
+    </div>
+    <!-- 价格颜色 -->
+    <div class="priceBackgroundColor">
+      <div>价格颜色:</div>
+      <div class="btn">
+        <el-color-picker v-model="priceBackgroundColor"></el-color-picker>
+        <div class="reset" @click="setPriceBackgroundColor">重置</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -81,7 +97,9 @@ export default {
       padding: 0, //内边距
       spaceBetweenRadius: 10, //商品边距
       spaceBetweenMarginRadius: 10, //商品内边距
-      wideRadius: 150 //商品宽度
+      wideRadius: 150, //商品宽度
+      NameBackgroundColor:'#000',//名字颜色
+      priceBackgroundColor:'#000',//价格颜色
     };
   },
   methods: {
@@ -89,51 +107,63 @@ export default {
     resetBackgroundColor() {
       this.backgroundColor = "";
     },
-    // 单个
-    setoneBackgroundColor() {
-      this.oneBackgroundColor = "";
+    // 名字颜色
+    setNameBackgroundColor() {
+      this.NameBackgroundColor = "";
+    },
+    // 价格颜色
+    setPriceBackgroundColor() {
+      this.priceBackgroundColor = "";
     }
   },
   watch: {
     backgroundColor() {
-      this.$emit("getData", this.backgroundColor, "图文广告");
+      this.$emit("getData", this.backgroundColor, "商品");
     },
     oneBackgroundColor() {
-      this.$emit("onebackgroundColor", this.oneBackgroundColor, "图文广告");
+      this.$emit("onebackgroundColor", this.oneBackgroundColor, "商品");
     },
     // 监听圆角改变
     radius() {
       // console.log(123456789)
-      this.$emit("radius", this.radius, "图文广告");
+      this.$emit("radius", this.radius, "商品");
     },
     // 单个圆角
     oneRadius() {
-      this.$emit("oneRadius", this.oneRadius, "图文广告");
+      this.$emit("oneRadius", this.oneRadius, "商品");
     },
     // 背景圆角
     backgroundRadius() {
-      this.$emit("backgroundRadius", this.backgroundRadius, "图文广告");
+      this.$emit("backgroundRadius", this.backgroundRadius, "商品");
     },
     // 监听外边距
     margin() {
-      this.$emit("margin", this.margin, "图文广告");
+      this.$emit("margin", this.margin, "商品");
     },
     // 监听内边距
     padding() {
-      this.$emit("padding", this.padding, "图文广告");
+      this.$emit("padding", this.padding, "商品");
     },
     //商品边距
     spaceBetweenRadius() {
-      this.$emit("spaceBetweenRadius", this.spaceBetweenRadius, "营销活动");
+      this.$emit("spaceBetweenRadius", this.spaceBetweenRadius, "商品");
     },
     //商品边距
     spaceBetweenMarginRadius() {
-      this.$emit("spaceBetweenMarginRadius", this.spaceBetweenMarginRadius, "营销活动");
+      this.$emit("spaceBetweenMarginRadius", this.spaceBetweenMarginRadius, "商品");
     },
     //商品宽度
     wideRadius() {
-      this.$emit("wideRadius", this.wideRadius, "营销活动");
-    }
+      this.$emit("wideRadius", this.wideRadius, "商品");
+    },
+    // 标题颜色
+    NameBackgroundColor(){
+      this.$emit("NameBackgroundColor", this.NameBackgroundColor, "商品");
+    },
+    // 价格颜色
+    priceBackgroundColor(){
+      this.$emit("setPriceColor", this.priceBackgroundColor, "商品");
+    },
   }
 };
 </script>
@@ -146,7 +176,7 @@ export default {
     background-color: #eee;
     margin-top: 5px;
   }
-  .background {
+  .background,.nameBackgroundColor,.priceBackgroundColor {
     margin: 5px 0;
     display: flex;
     justify-content: flex-start;

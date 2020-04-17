@@ -8,6 +8,7 @@
         <div
           class="one"
           @click="changeTemplate(1)"
+          :v-bind="changeTemplateImg"
           :style="{'border': (changeTemplateImg1 ? '1px dashed rgb(90, 136, 235)' : '1px solid #fff')}"
         >
           <img src="../assets/imgs/marketingCampaignOne.png" alt />
@@ -197,6 +198,7 @@ export default {
       pictureItemList: ["1","2"],
       num: 1,
       dialogLIink: false,
+      changeTemplateImg:2,//模板
     };
   },
   methods: {
@@ -217,6 +219,7 @@ export default {
         this.changeTemplateImg8 = false;
         this.changeTemplateImg9 = false;
         this.pictureItemList = ['1']
+        this.changeTemplateImg = 1
       } else if (i == 2) {
         this.changeTemplateImg1 = false;
         this.changeTemplateImg2 = true;
@@ -228,6 +231,7 @@ export default {
         this.changeTemplateImg8 = false;
         this.changeTemplateImg9 = false;
         this.pictureItemList = ["1","2"]
+        this.changeTemplateImg = 2
       } else if (i == 3) {
         this.changeTemplateImg1 = false;
         this.changeTemplateImg2 = false;
@@ -239,6 +243,7 @@ export default {
         this.changeTemplateImg8 = false;
         this.changeTemplateImg9 = false;
         this.pictureItemList = ["1","2","3"]
+        this.changeTemplateImg = 3
       } else if (i == 4) {
         this.changeTemplateImg1 = false;
         this.changeTemplateImg2 = false;
@@ -250,6 +255,7 @@ export default {
         this.changeTemplateImg8 = false;
         this.changeTemplateImg9 = false;
         this.pictureItemList = ["1","2","3"]
+        this.changeTemplateImg = 4
       } else if (i == 5) {
         this.changeTemplateImg1 = false;
         this.changeTemplateImg2 = false;
@@ -261,6 +267,7 @@ export default {
         this.changeTemplateImg8 = false;
         this.changeTemplateImg9 = false;
         this.pictureItemList = ["1","2","3"]
+        this.changeTemplateImg = 5
       } else if (i == 6) {
         this.changeTemplateImg1 = false;
         this.changeTemplateImg2 = false;
@@ -272,6 +279,7 @@ export default {
         this.changeTemplateImg8 = false;
         this.changeTemplateImg9 = false;
         this.pictureItemList = ["1","2","3",'4']
+        this.changeTemplateImg = 6
       } else if (i == 7) {
         this.changeTemplateImg1 = false;
         this.changeTemplateImg2 = false;
@@ -283,6 +291,7 @@ export default {
         this.changeTemplateImg8 = false;
         this.changeTemplateImg9 = false;
         this.pictureItemList = ["1","2","3",'4']
+        this.changeTemplateImg = 7
       } else if (i == 8) {
         this.changeTemplateImg1 = false;
         this.changeTemplateImg2 = false;
@@ -294,6 +303,7 @@ export default {
         this.changeTemplateImg8 = true;
         this.changeTemplateImg9 = false;
         this.pictureItemList = ["1","2","3",'4']
+        this.changeTemplateImg = 8
       } else if (i == 9) {
         this.changeTemplateImg1 = false;
         this.changeTemplateImg2 = false;
@@ -305,6 +315,7 @@ export default {
         this.changeTemplateImg8 = false;
         this.changeTemplateImg9 = true;
         this.pictureItemList = ["1","2","3",'4']
+        this.changeTemplateImg = 9
       }
     },
     // 点击删除
@@ -352,7 +363,12 @@ export default {
     // 监听内边距
     padding() {
       this.$emit("padding", this.padding, "营销活动");
-    }
+    },
+      // 监听模板样式
+    changeTemplateImg(){
+      this.$emit("changeTemplate", this.changeTemplateImg, "营销活动");
+      // console.log(this.changeTemplateImg)
+    },
   }
 };
 </script>

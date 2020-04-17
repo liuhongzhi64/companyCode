@@ -1,60 +1,19 @@
 <template>
-  <el-dialog :visible.sync="visible" :show-close="false" width="600px" :modal="true" :close-on-click-modal="false" :close-on-press-escape="false">
-    <h2 slot="title">添加订单</h2>
-    <button type="button" aria-label="Close" class="el-dialog__headerbtn" @click.stop="cancelModal"><i class="el-dialog__close el-icon el-icon-close"></i></button>
-    <el-form class="form-wrapper" ref="orderForm" :model="orderForm" :rules="addRules" label-width="110px">
-      <el-form-item label="联系人：" prop="fromContact">
-        <el-input v-model="orderForm.fromContact" type="text" placeholder="请输入联系人名称"></el-input>
-      </el-form-item>
-      <el-form-item label="联系电话：" prop="fromPhone">
-        <el-input v-model="orderForm.fromPhone" type="text" placeholder="请输入联系电话"></el-input>
-      </el-form-item>
-    </el-form>
-    <div slot="footer" class="buttons-wrap">
-      <el-button type="primary">确定</el-button>
-    </div>
-  </el-dialog>
+  <div>{{logo}}111</div>
 </template>
 <script>
   export default {
-    props: {
-      visible: {
-        type: Boolean,
-        default: false
-      }
-    },
+    props:['logo'],
     data(){
       return {
-        orderForm: {},
-        addRules: {
-          fromContact: [{ required: true, message: "请输入联系人姓名", trigger: 'blur'}],
-          fromPhone: [{required: true, message: "请输入", trigger: 'blur'}]
-        }
       }
     },
     methods: {
-      initForm(){
-        this.orderForm = {
-          fromContact: '',
-          fromPhone: ''
-        };
-        if(this.$refs.orderForm){
-          this.$refs.orderForm.resetFields();
-        }
-      },
-      cancelModal(){
-        // 关闭弹窗，触发父组件修改visible值
-        this.$emit('update:visible', false);
-      }
     }
   }
 </script>
 <style lang="less" scoped>
-  .buttons-wrap {
-
-    .el-button {
-      margin-right: 20px;
-      min-width: 100px;
-    }
-  }
+div{
+  color: red;
+}
 </style>

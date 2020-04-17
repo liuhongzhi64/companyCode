@@ -6,7 +6,7 @@
             <div>联系电话：</div>
             <el-input
             placeholder="请输入内容"
-            v-model="titleName"
+            v-model="getPhone"
             clearable>
             </el-input>
         </div>
@@ -75,9 +75,11 @@
 
 <script>
     export default {
+        // props:['getPhone'],
         data() {
             return {
-                titleName:'',//联系电话名称
+                // titleName:'',//联系电话名称
+                getPhone:'13194782515',//联系电话名称
                 backgroundColor: '',//背景默认颜色
                 titleColors:'',//标题颜色默认颜色
                 phoneColor:'',//号码默认颜色
@@ -85,6 +87,9 @@
                 margin:0,//外边距
                 padding:0,//内边距        
             };
+        },
+        created:function(){
+                this.titleName  =   this.SendPhone
         },
         methods:{
             // 点击背景颜色
@@ -109,6 +114,7 @@
                 // this.$refs.phoneColor.$refs.colorPicker.children[0].style.backgroundColor = this.phoneColor
                 // this.$refs.phoneColor.$refs.colorPicker.children[2].firstChild.firstChild.style.backgroundColor = this.phoneColor
             },
+
         },
         watch:{
             // 监听默认地址背景颜色改变事件
@@ -135,6 +141,10 @@
             padding(){
                 this.$emit('padding',this.padding,'电话')
             },
+            getPhone(){
+                // console.log(this.getPhone)
+                this.$emit('SendPhones',this.getPhone,'电话')
+            }
         },
     }
 </script>

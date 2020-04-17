@@ -10,21 +10,21 @@
           @click="changeTemplate(1)"
           :style="{'border': (changeTemplateImg1 ? '1px dashed rgb(90, 136, 235)' : '1px solid #fff')}"
         >
-          <img src="../assets/imgs/imageTextOne.png" alt />
+          <img src="../assets/imgs/labelCommodityOne.png" alt />
         </div>
         <div
           class="one"
           @click="changeTemplate(2)"
           :style="{'border': (changeTemplateImg2 ? '1px dashed rgb(90, 136, 235)' : '1px solid #fff')}"
         >
-          <img src="../assets/imgs/imageTextTwo.png" alt />
+          <img src="../assets/imgs/labelCommodityTwo.png" alt />
         </div>
         <div
           class="one"
           @click="changeTemplate(3)"
           :style="{'border': (changeTemplateImg3 ? '1px dashed rgb(90, 136, 235)' : '1px solid #fff')}"
         >
-          <img src="../assets/imgs/imageTextThree.png" alt />
+          <img src="../assets/imgs/labelCommodityThree.png" alt />
         </div>
       </div>
     </div>
